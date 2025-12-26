@@ -489,6 +489,10 @@
       "billing": {
         "title": "Métricas de Facturación",
         "description": "Dashboard de suscripciones y pagos Stripe"
+      },
+      "plans": {
+        "title": "Gestión de Planes",
+        "description": "Configurar precios y características de planes"
       }
     },
     "users": {
@@ -623,6 +627,25 @@
       "savedSuccess": "Contexto guardado exitosamente",
       "saveError": "Error al guardar"
     },
+    "plans": {
+      "title": "Gestión de Planes",
+      "subtitle": "Configura precios y características de los planes de suscripción",
+      "saveChanges": "Guardar Cambios",
+      "saved": "¡Guardado!",
+      "edit": "Editar",
+      "collapse": "Cerrar",
+      "planName": "Nombre del Plan",
+      "description": "Descripción",
+      "priceUsd": "Precio (USD/mes)",
+      "maxProjects": "Máx. Proyectos",
+      "maxApps": "Máx. Postulaciones",
+      "aiTokens": "Tokens IA/mes",
+      "features": "Características",
+      "addFeature": "Agregar",
+      "moreFeatures": "características más",
+      "limits": "Límites",
+      "note": "Los cambios en los planes se aplicarán a nuevas suscripciones. Las suscripciones existentes mantendrán sus condiciones actuales hasta su renovación."
+    },
     "billing": {
       "title": "Métricas de Facturación",
       "subtitle": "Dashboard de suscripciones y pagos Stripe",
@@ -643,6 +666,21 @@
       "users": "usuarios",
       "perMonth": "/mes"
     }
+  },
+  "billing": {
+    "title": "Facturación",
+    "subtitle": "Gestiona tu suscripción y planes de pago",
+    "currentPlan": "Plan Actual",
+    "active": "Activo",
+    "freePlan": "Plan Gratis",
+    "renewsOn": "Se renueva el",
+    "manageSubscription": "Administrar Suscripción",
+    "availablePlans": "Planes Disponibles",
+    "currentPlanButton": "Plan Actual",
+    "regionalDiscount": "Descuento regional aplicado",
+    "needHelp": "¿Necesitas ayuda?",
+    "contactSupport": "Contáctanos para preguntas sobre facturación o funciones del plan.",
+    "contactUs": "Contáctanos"
   },
   "agentTrainer": {
     "title": "Entrenar Agente IA",

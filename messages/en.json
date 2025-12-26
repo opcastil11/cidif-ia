@@ -489,6 +489,10 @@
       "billing": {
         "title": "Billing Metrics",
         "description": "Stripe subscriptions and payments dashboard"
+      },
+      "plans": {
+        "title": "Plan Management",
+        "description": "Configure plan prices and features"
       }
     },
     "users": {
@@ -623,6 +627,25 @@
       "savedSuccess": "Context saved successfully",
       "saveError": "Error saving"
     },
+    "plans": {
+      "title": "Plan Management",
+      "subtitle": "Configure subscription plan prices and features",
+      "saveChanges": "Save Changes",
+      "saved": "Saved!",
+      "edit": "Edit",
+      "collapse": "Close",
+      "planName": "Plan Name",
+      "description": "Description",
+      "priceUsd": "Price (USD/month)",
+      "maxProjects": "Max Projects",
+      "maxApps": "Max Applications",
+      "aiTokens": "AI Tokens/month",
+      "features": "Features",
+      "addFeature": "Add",
+      "moreFeatures": "more features",
+      "limits": "Limits",
+      "note": "Plan changes will apply to new subscriptions. Existing subscriptions will maintain their current terms until renewal."
+    },
     "billing": {
       "title": "Billing Metrics",
       "subtitle": "Stripe subscriptions and payments dashboard",
@@ -643,6 +666,21 @@
       "users": "users",
       "perMonth": "/month"
     }
+  },
+  "billing": {
+    "title": "Billing",
+    "subtitle": "Manage your subscription and payment plans",
+    "currentPlan": "Current Plan",
+    "active": "Active",
+    "freePlan": "Free Plan",
+    "renewsOn": "Renews on",
+    "manageSubscription": "Manage Subscription",
+    "availablePlans": "Available Plans",
+    "currentPlanButton": "Current Plan",
+    "regionalDiscount": "Regional discount applied",
+    "needHelp": "Need help?",
+    "contactSupport": "Contact us for billing questions or plan features.",
+    "contactUs": "Contact Us"
   },
   "agentTrainer": {
     "title": "Train AI Agent",
