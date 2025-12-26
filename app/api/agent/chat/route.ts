@@ -2,9 +2,15 @@ import { NextRequest, NextResponse } from 'next/server'
 import OpenAI from 'openai'
 import { createClient } from '@/lib/supabase/server'
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-})
+// Initialize OpenAI lazily to avoid build errors when env var is not set
+function getOpenAI() {
+  if (!process.env.OPENAI_API_KEY) {
+    throw new Error('OPENAI_API_KEY is not configured')
+  }
+  return new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  })
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -17,6 +23,15 @@ export async function POST(request: NextRequest) {
     }
 
     const { message, projectId, fundId } = await request.json()
+
+    // Initialize OpenAI after auth check
+    let openai: OpenAI
+    try {
+      openai = getOpenAI()
+    } catch {
+      console.error('[Agent Chat] OpenAI not configured')
+      return NextResponse.json({ error: 'AI service not configured' }, { status: 503 })
+    }
 
     if (!message || !projectId) {
       console.log('[Agent Chat] Missing required fields:', { message: !!message, projectId: !!projectId })
