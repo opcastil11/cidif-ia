@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
-import { Bot, Save, Loader2, MessageSquare, Send, X } from 'lucide-react'
+import { Bot, Save, Loader2, MessageSquare, Send, X, Upload, FileText, Check } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 interface Message {
@@ -28,6 +28,10 @@ export function ProjectAgentTrainer({ projectId, initialContext = '', fundId }: 
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [sending, setSending] = useState(false)
+  const [uploading, setUploading] = useState(false)
+  const [uploadSuccess, setUploadSuccess] = useState<string | null>(null)
+  const [uploadError, setUploadError] = useState<string | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   const scrollToBottom = () => {
@@ -96,6 +100,61 @@ export function ProjectAgentTrainer({ projectId, initialContext = '', fundId }: 
     }
   }
 
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    // Validate file type
+    const allowedTypes = ['application/pdf', 'text/plain', 'text/markdown']
+    if (!allowedTypes.includes(file.type)) {
+      setUploadError(t('uploadErrorType'))
+      setTimeout(() => setUploadError(null), 5000)
+      return
+    }
+
+    // Validate file size (10MB max)
+    if (file.size > 10 * 1024 * 1024) {
+      setUploadError(t('uploadErrorSize'))
+      setTimeout(() => setUploadError(null), 5000)
+      return
+    }
+
+    setUploading(true)
+    setUploadError(null)
+    setUploadSuccess(null)
+
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+      formData.append('projectId', projectId)
+
+      const response = await fetch('/api/agent/upload', {
+        method: 'POST',
+        body: formData,
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setUploadSuccess(t('uploadSuccess', { fileName: file.name }))
+        setTimeout(() => setUploadSuccess(null), 5000)
+        // Clear file input
+        if (fileInputRef.current) {
+          fileInputRef.current.value = ''
+        }
+      } else {
+        setUploadError(data.error || t('uploadErrorGeneric'))
+        setTimeout(() => setUploadError(null), 5000)
+      }
+    } catch (error) {
+      console.error('Upload error:', error)
+      setUploadError(t('uploadErrorGeneric'))
+      setTimeout(() => setUploadError(null), 5000)
+    } finally {
+      setUploading(false)
+    }
+  }
+
   return (
     <div className="space-y-4">
       {/* Agent Training Card */}
@@ -122,7 +181,7 @@ export function ProjectAgentTrainer({ projectId, initialContext = '', fundId }: 
             />
             <p className="text-xs text-slate-500">{t('contextHelp')}</p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Button
               onClick={handleSaveContext}
               disabled={saving}
@@ -135,6 +194,32 @@ export function ProjectAgentTrainer({ projectId, initialContext = '', fundId }: 
               )}
               {saved ? t('saved') : t('saveContext')}
             </Button>
+
+            {/* File Upload */}
+            <div className="relative">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".pdf,.txt,.md"
+                onChange={handleFileUpload}
+                className="hidden"
+                id="file-upload"
+              />
+              <Button
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploading}
+                variant="outline"
+                className="border-slate-700 text-slate-300 hover:bg-slate-800"
+              >
+                {uploading ? (
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                ) : (
+                  <Upload className="h-4 w-4 mr-2" />
+                )}
+                {t('uploadFile')}
+              </Button>
+            </div>
+
             <Button
               onClick={() => setChatOpen(!chatOpen)}
               variant="outline"
@@ -143,6 +228,26 @@ export function ProjectAgentTrainer({ projectId, initialContext = '', fundId }: 
               <MessageSquare className="h-4 w-4 mr-2" />
               {t('testAgent')}
             </Button>
+          </div>
+
+          {/* Upload Status Messages */}
+          {uploadSuccess && (
+            <div className="flex items-center gap-2 p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
+              <Check className="h-4 w-4 text-green-400" />
+              <p className="text-sm text-green-400">{uploadSuccess}</p>
+            </div>
+          )}
+          {uploadError && (
+            <div className="flex items-center gap-2 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
+              <X className="h-4 w-4 text-red-400" />
+              <p className="text-sm text-red-400">{uploadError}</p>
+            </div>
+          )}
+
+          {/* Upload Help */}
+          <div className="flex items-start gap-2 text-xs text-slate-500">
+            <FileText className="h-4 w-4 shrink-0 mt-0.5" />
+            <p>{t('uploadHelp')}</p>
           </div>
         </CardContent>
       </Card>

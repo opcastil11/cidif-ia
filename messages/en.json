@@ -694,6 +694,12 @@
     "chatTitle": "Chat with Agent",
     "chatEmpty": "Start a conversation to test the agent with your project context.",
     "chatPlaceholder": "Ask a question about your project or fund application...",
-    "errorMessage": "Sorry, there was an error processing your request. Please try again."
+    "errorMessage": "Sorry, there was an error processing your request. Please try again.",
+    "uploadFile": "Upload File",
+    "uploadHelp": "Upload PDF or text files with your project information. Text will be automatically extracted and added to the agent context.",
+    "uploadSuccess": "File {fileName} processed and added to context",
+    "uploadErrorType": "Unsupported file type. Please upload PDF or text files.",
+    "uploadErrorSize": "File is too large. Maximum 10MB.",
+    "uploadErrorGeneric": "Error processing file. Please try again."
   }
 }
