@@ -1,8 +1,8 @@
 'use client'
 
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { Link, usePathname } from '@/i18n/routing'
 import { cn } from '@/lib/utils'
+import { useTranslations } from 'next-intl'
 import {
     LayoutDashboard,
     FolderKanban,
@@ -11,23 +11,35 @@ import {
     User,
     CreditCard,
     Settings,
+    Shield,
 } from 'lucide-react'
 
-const navigation = [
-    { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-    { name: 'Projects', href: '/dashboard/projects', icon: FolderKanban },
-    { name: 'Applications', href: '/dashboard/applications', icon: FileText },
-    { name: 'Funds Catalog', href: '/dashboard/funds', icon: Landmark },
-]
+// Admin emails that can access backoffice
+const ADMIN_EMAILS = ['oscar@forcast.cl', 'oscar@forcast.tech']
 
-const secondaryNav = [
-    { name: 'Profile', href: '/dashboard/profile', icon: User },
-    { name: 'Billing', href: '/dashboard/billing', icon: CreditCard },
-    { name: 'Settings', href: '/dashboard/settings', icon: Settings },
-]
+interface SidebarProps {
+    userEmail?: string
+}
 
-export function Sidebar() {
+export function Sidebar({ userEmail }: SidebarProps) {
     const pathname = usePathname()
+    const t = useTranslations('sidebar')
+    const tCommon = useTranslations('common')
+    const isAdmin = userEmail && ADMIN_EMAILS.includes(userEmail)
+
+    const navigation = [
+        { name: t('dashboard'), href: '/dashboard', icon: LayoutDashboard },
+        { name: t('projects'), href: '/dashboard/projects', icon: FolderKanban },
+        { name: t('applications'), href: '/dashboard/applications', icon: FileText },
+        { name: t('fundsCatalog'), href: '/dashboard/funds', icon: Landmark },
+    ]
+
+    const secondaryNav = [
+        { name: tCommon('profile'), href: '/dashboard/profile', icon: User },
+        { name: tCommon('billing'), href: '/dashboard/billing', icon: CreditCard },
+        { name: tCommon('settings'), href: '/dashboard/settings', icon: Settings },
+        ...(isAdmin ? [{ name: 'Backoffice', href: '/backoffice', icon: Shield }] : []),
+    ]
 
     return (
         <>
@@ -50,7 +62,7 @@ export function Sidebar() {
                             <li>
                                 <ul role="list" className="-mx-2 space-y-1">
                                     {navigation.map((item) => (
-                                        <li key={item.name}>
+                                        <li key={item.href}>
                                             <Link
                                                 href={item.href}
                                                 className={cn(
@@ -71,7 +83,7 @@ export function Sidebar() {
                             <li className="mt-auto">
                                 <ul role="list" className="-mx-2 space-y-1">
                                     {secondaryNav.map((item) => (
-                                        <li key={item.name}>
+                                        <li key={item.href}>
                                             <Link
                                                 href={item.href}
                                                 className={cn(

@@ -1,0 +1,647 @@
+{
+  "common": {
+    "signIn": "Iniciar Sesión",
+    "signOut": "Cerrar Sesión",
+    "getStarted": "Comenzar",
+    "startFree": "Empezar Gratis",
+    "learnMore": "Saber Más",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "billing": "Facturación",
+    "terms": "Términos",
+    "privacy": "Privacidad",
+    "allRightsReserved": "Todos los derechos reservados.",
+    "notSet": "No establecido",
+    "plan": "Plan"
+  },
+  "home": {
+    "header": {
+      "subtitle": "Centro de Investigación e Innovación"
+    },
+    "nav": {
+      "services": "Servicios",
+      "research": "Investigación",
+      "industries": "Industrias",
+      "contact": "Contacto"
+    },
+    "hero": {
+      "badge": "Centro de Investigación, Desarrollo e Innovación",
+      "title": "Expertos en Postulación y",
+      "titleHighlight": "Desarrollo de Proyectos I+D+i",
+      "description": "Asesoramos a empresas en la formulación y ejecución de proyectos para fondos competitivos como CORFO, ANID y FIA. Nuestro Software Lab potencia los proyectos con tecnologías digitales e IA.",
+      "cta": "Conoce los Servicios",
+      "ctaSecondary": "Ver Más"
+    },
+    "stats": {
+      "funding": "USD en Financiamiento",
+      "projects": "Proyectos Apoyados",
+      "successRate": "Tasa de Éxito",
+      "countries": "Países"
+    },
+    "services": {
+      "title": "Nuestros Servicios",
+      "subtitle": "Soluciones integrales para impulsar tu innovación y conseguir financiamiento.",
+      "formulation": {
+        "title": "Formulación de Proyectos I+D+i",
+        "description": "Más de 5 años de experiencia en postulación a fondos públicos y privados. Redacción de formularios, planes de trabajo y presupuestos alineados a requisitos CORFO, ANID y FIA."
+      },
+      "execution": {
+        "title": "Ejecución de Proyectos",
+        "description": "Desarrollo tecnológico con unidad de software dedicada. Acreditados como Entidad Colaboradora CORFO. Metodología ágil con equipo de 5+ desarrolladores y consultoría en propiedad intelectual."
+      },
+      "rdLaw": {
+        "title": "Asesoría Ley I+D",
+        "description": "Implementamos consultoría Ley 20.241 para incentivos tributarios en I+D. Ahorro de hasta 52,55% del costo del proyecto. Informes técnicos y planillas financieras formato CORFO."
+      },
+      "innovation": {
+        "title": "Gestión de la Innovación",
+        "description": "Implementación de sistemas y metodologías de innovación. Soluciones tecnológicas, gestión de portafolio de proyectos, protección de propiedad intelectual e identificación de fondos."
+      },
+      "capital": {
+        "title": "Acompañamiento Capital de Riesgo",
+        "description": "Guiamos startups hacia capital de riesgo nacional e internacional. Validación comercial/tecnológica, desarrollo de pitch, búsqueda de financiamiento y asesoría legal/IP."
+      },
+      "ai": {
+        "title": "Asistencia con IA",
+        "description": "Plataforma potenciada por IA para optimizar tus postulaciones y mejorar tu tasa de éxito con asistente Claude integrado."
+      }
+    },
+    "research": {
+      "title": "Líneas de Investigación",
+      "subtitle": "Áreas de especialización de nuestro equipo de investigación.",
+      "dataScience": {
+        "title": "Data Science",
+        "description": "Machine Learning para análisis y predicción. Modelos avanzados de inteligencia artificial."
+      },
+      "imageProcessing": {
+        "title": "Procesamiento de Imágenes",
+        "description": "Análisis de imágenes y procesos de biometría con tecnología de punta."
+      },
+      "smartIoT": {
+        "title": "Smart IoT",
+        "description": "Interconexión inteligente de dispositivos en la nube para soluciones innovadoras."
+      }
+    },
+    "successCases": {
+      "title": "Casos de Éxito",
+      "subtitle": "Proyectos que hemos desarrollado con financiamiento CORFO",
+      "viewAll": "Ver Todos los Proyectos",
+      "funding": "Financiamiento",
+      "projects": {
+        "aquaculture": {
+          "title": "Asistente Virtual Acuicultura",
+          "description": "Sistema de monitoreo submarino con IA para detección automática de daños en redes, desechos y peces muertos.",
+          "client": "Empresa Acuícola",
+          "amount": "$200,000 USD"
+        },
+        "solar": {
+          "title": "Detección de Fallas Fotovoltaicas",
+          "description": "Sistema de mantenimiento predictivo con ML para detectar microfracturas, hotspots y polvo en paneles solares.",
+          "client": "Empresa Energía Solar",
+          "amount": "$500,000 USD"
+        },
+        "electrical": {
+          "title": "Visión Infraestructura Eléctrica",
+          "description": "Plataforma GIS que analiza videos e imágenes para detectar y geolocalizar fallas en cables y cableado obsoleto.",
+          "client": "Empresa Infraestructura Eléctrica",
+          "amount": "$250,000 USD"
+        },
+        "warehouse": {
+          "title": "Procesamiento Imágenes Bodega",
+          "description": "Plataforma automatizada de inventario usando cámaras para monitorear stock en tiempo real en racks multinivel.",
+          "client": "Desarrollo Interno",
+          "amount": "$200,000 USD"
+        },
+        "floating": {
+          "title": "Isla Solar Flotante",
+          "description": "Primera planta fotovoltaica flotante de Latinoamérica sobre relaves mineros con diseño innovador de flotación.",
+          "client": "Empresa Energía Solar",
+          "amount": "$500,000 USD"
+        },
+        "cherry": {
+          "title": "Software Cultivo de Cerezas",
+          "description": "Software con IA que predice rendimiento y calibre mediante sensores IoT, procesamiento de imágenes y datos meteorológicos.",
+          "client": "Empresa Frutícola",
+          "amount": "$200,000 USD"
+        },
+        "birds": {
+          "title": "Detección Colisión de Aves",
+          "description": "Sistema que detecta aves en riesgo de colisión con módulos de alerta audiovisual para turbinas eólicas.",
+          "client": "Empresa Tecnología/TIC",
+          "amount": "$200,000 USD"
+        },
+        "logistics": {
+          "title": "Optimización Logística",
+          "description": "Plataforma cloud que optimiza múltiples parámetros logísticos en redes de distribución usando modelo FIFO.",
+          "client": "Empresa Sensorización",
+          "amount": "$300,000 USD"
+        }
+      }
+    },
+    "industries": {
+      "title": "Industrias que Atendemos",
+      "subtitle": "Experiencia en múltiples sectores con soluciones personalizadas.",
+      "food": "Alimentos",
+      "environment": "Medio Ambiente",
+      "smartCities": "Smart Cities",
+      "health": "Salud",
+      "logistics": "Logística",
+      "security": "Seguridad",
+      "energy": "Energía",
+      "agriculture": "Agricultura",
+      "construction": "Construcción",
+      "retail": "Retail",
+      "manufacturing": "Manufactura",
+      "mining": "Minería"
+    },
+    "allies": {
+      "title": "ALIANZAS ESTRATÉGICAS"
+    },
+    "pricing": {
+      "title": "Planes y Precios",
+      "subtitle": "Elige el plan que mejor se adapte a tus necesidades",
+      "monthly": "mes",
+      "popular": "Más Popular",
+      "currentPlan": "Plan Actual",
+      "getStarted": "Comenzar Gratis",
+      "subscribe": "Suscribirse",
+      "contactSales": "Contactar Ventas",
+      "free": {
+        "name": "Gratis",
+        "description": "Para empezar a explorar",
+        "features": [
+          "1 proyecto",
+          "1 postulación activa",
+          "Asistente IA (limitado)",
+          "Catálogo de fondos"
+        ]
+      },
+      "standard": {
+        "name": "Standard",
+        "description": "Para equipos en crecimiento",
+        "features": [
+          "Hasta 5 proyectos",
+          "Hasta 5 postulaciones activas",
+          "Asistente IA completo",
+          "Auto-llenado con IA",
+          "Investigación con IA",
+          "Soporte por email"
+        ]
+      },
+      "max": {
+        "name": "Max",
+        "description": "Para empresas y agencias",
+        "features": [
+          "Proyectos ilimitados",
+          "Postulaciones ilimitadas",
+          "Asistente IA ilimitado",
+          "Auto-llenado con IA",
+          "Investigación con IA",
+          "Soporte prioritario",
+          "Acceso anticipado"
+        ]
+      }
+    },
+    "cta": {
+      "title": "¿Listo para Innovar?",
+      "subtitle": "Únete a cientos de empresas que ya han conseguido financiamiento y desarrollado sus proyectos con CIDIF.",
+      "button": "Comenzar Ahora",
+      "contact": "Contáctanos"
+    },
+    "contact": {
+      "title": "Contáctanos",
+      "subtitle": "Estamos listos para ayudarte a conseguir financiamiento para tu proyecto de innovación.",
+      "address": {
+        "label": "Dirección"
+      },
+      "email": {
+        "label": "Email"
+      },
+      "phone": {
+        "label": "Teléfono"
+      },
+      "form": {
+        "title": "Envíanos un Mensaje",
+        "name": "Nombre completo",
+        "email": "Correo electrónico",
+        "company": "Empresa",
+        "message": "Cuéntanos sobre tu proyecto...",
+        "submit": "Enviar Mensaje"
+      }
+    },
+    "footer": {
+      "description": "Centro de Investigación, Desarrollo e Innovación Forcast. Expertos en postulación y desarrollo de proyectos I+D+i para fondos competitivos.",
+      "links": {
+        "title": "Enlaces"
+      },
+      "legal": {
+        "title": "Legal"
+      }
+    }
+  },
+  "landing": {
+    "title": "Postula a Fondos con",
+    "titleHighlight": "Asistencia Potenciada por IA",
+    "subtitle": "CIDIF.TECH ayuda a emprendedores y startups a navegar oportunidades de financiamiento público y privado en LATAM, USA y Europa.",
+    "badge": "Plataforma de Financiamiento #1 para Startups",
+    "featuresTitle": "Todo lo que Necesitas para Tener Éxito",
+    "featuresSubtitle": "Herramientas potentes para ayudarte a encontrar y ganar financiamiento para tu startup.",
+    "stats": {
+      "fundsRaised": "Fondos Obtenidos",
+      "startupsHelped": "Startups Ayudadas",
+      "successRate": "Tasa de Éxito",
+      "countries": "Países"
+    },
+    "trust": {
+      "startups": "500+ startups confían en nosotros",
+      "secure": "Plataforma segura",
+      "fast": "Respuesta rápida"
+    },
+    "cta": {
+      "title": "¿Listo para Conseguir Financiamiento?",
+      "subtitle": "Únete a cientos de startups que ya han conseguido financiamiento con CIDIF.TECH."
+    },
+    "features": {
+      "ai": {
+        "title": "Asistencia con IA",
+        "description": "Obtén ayuda inteligente para formular tus postulaciones con nuestro asistente potenciado por Claude."
+      },
+      "global": {
+        "title": "Catálogo Global de Fondos",
+        "description": "Accede a fondos de LATAM, USA y Europa en un solo lugar."
+      },
+      "streamlined": {
+        "title": "Postulaciones Simplificadas",
+        "description": "Rastrea tus postulaciones y gestiona todos tus proyectos desde un solo panel."
+      },
+      "success": {
+        "title": "Aumenta tu Tasa de Éxito",
+        "description": "Nuestras herramientas te ayudan a escribir mejores postulaciones y mejorar tus posibilidades."
+      }
+    }
+  },
+  "login": {
+    "title": "CIDIF.TECH",
+    "subtitle": "Plataforma para Postulaciones a Fondos",
+    "continueWithGoogle": "Continuar con Google",
+    "connecting": "Conectando...",
+    "secureAuth": "Autenticación segura",
+    "termsNotice": "Al continuar, aceptas nuestros Términos de Servicio y Política de Privacidad."
+  },
+  "dashboard": {
+    "title": "Panel de Control",
+    "welcome": "¡Bienvenido de vuelta! Aquí tienes un resumen de tus postulaciones a fondos.",
+    "stats": {
+      "activeProjects": "Proyectos Activos",
+      "applications": "Postulaciones",
+      "successRate": "Tasa de Éxito",
+      "totalAwarded": "Total Adjudicado"
+    },
+    "quickActions": {
+      "newApplication": {
+        "title": "Nueva Postulación",
+        "description": "Explora fondos disponibles e inicia una nueva postulación con asistencia de IA."
+      },
+      "createProject": {
+        "title": "Crear Proyecto",
+        "description": "Configura tu perfil de proyecto para postular a múltiples fondos."
+      }
+    },
+    "browseFunds": "Explorar Fondos",
+    "createProject": "Crear Proyecto"
+  },
+  "sidebar": {
+    "dashboard": "Panel",
+    "projects": "Proyectos",
+    "applications": "Postulaciones",
+    "fundsCatalog": "Catálogo de Fondos"
+  },
+  "projects": {
+    "title": "Proyectos",
+    "subtitle": "Gestiona tus proyectos y empresas",
+    "newProject": "Nuevo Proyecto",
+    "empty": {
+      "title": "Sin proyectos aún",
+      "description": "Crea tu primer proyecto para comenzar a postular a fondos.",
+      "action": "Crear Proyecto"
+    }
+  },
+  "projectDetail": {
+    "notFound": "Proyecto no encontrado",
+    "backToProjects": "Volver a Proyectos",
+    "createdOn": "Creado el",
+    "edit": "Editar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "saveError": "Error al guardar",
+    "deleteConfirm": "¿Estás seguro de que deseas eliminar este proyecto? Esta acción no se puede deshacer.",
+    "deleteError": "Error al eliminar",
+    "details": "Detalles del Proyecto",
+    "members": "miembros",
+    "viewPitchDeck": "Ver Pitch Deck",
+    "quickActions": "Acciones Rápidas",
+    "applyToFund": "Postular a un Fondo"
+  },
+  "newProject": {
+    "title": "Nuevo Proyecto",
+    "subtitle": "Configura tu proyecto para postular a fondos",
+    "basicInfo": "Información Básica",
+    "name": "Nombre del Proyecto",
+    "namePlaceholder": "Mi Startup Innovadora",
+    "description": "Descripción",
+    "descriptionPlaceholder": "Describe brevemente tu proyecto, qué problema resuelve y cuál es tu propuesta de valor...",
+    "industry": "Industria",
+    "selectIndustry": "Selecciona una industria",
+    "stage": "Etapa",
+    "selectStage": "Selecciona una etapa",
+    "teamSize": "Tamaño del Equipo",
+    "annualRevenue": "Ingresos Anuales (USD)",
+    "foundedDate": "Fecha de Fundación",
+    "pitchDeck": "Pitch Deck URL",
+    "pitchDeckHelp": "Enlace a tu presentación (Google Drive, Dropbox, etc.)",
+    "cancel": "Cancelar",
+    "save": "Crear Proyecto",
+    "saving": "Creando...",
+    "industries": {
+      "technology": "Tecnología",
+      "health": "Salud",
+      "fintech": "Fintech",
+      "agritech": "Agritech",
+      "energy": "Energía",
+      "education": "Educación",
+      "ecommerce": "E-commerce",
+      "logistics": "Logística",
+      "manufacturing": "Manufactura",
+      "food": "Alimentos",
+      "environment": "Medio Ambiente",
+      "other": "Otro"
+    },
+    "stages": {
+      "idea": "Idea / Concepto",
+      "mvp": "MVP / Prototipo",
+      "early_revenue": "Ingresos Tempranos",
+      "growth": "Crecimiento",
+      "scale": "Escalamiento"
+    }
+  },
+  "funds": {
+    "title": "Catálogo de Fondos",
+    "subtitle": "Explora fondos disponibles e inicia tu postulación",
+    "applyNow": "Postular Ahora",
+    "deadline": "Fecha límite",
+    "empty": {
+      "title": "No hay fondos disponibles",
+      "description": "Vuelve pronto para nuevas oportunidades de financiamiento."
+    }
+  },
+  "applications": {
+    "title": "Postulaciones",
+    "subtitle": "Rastrea y gestiona tus postulaciones a fondos",
+    "browseFunds": "Explorar Fondos",
+    "project": "Proyecto",
+    "requested": "Solicitado",
+    "progress": "Progreso",
+    "submittedOn": "Enviado el",
+    "status": {
+      "draft": "Borrador",
+      "submitted": "Enviada",
+      "in_review": "En Revisión",
+      "approved": "Aprobada",
+      "rejected": "Rechazada"
+    },
+    "empty": {
+      "title": "Sin postulaciones aún",
+      "description": "Comienza explorando el catálogo de fondos y crea tu primera postulación."
+    }
+  },
+  "profile": {
+    "title": "Perfil",
+    "subtitle": "Gestiona tu cuenta y configuración",
+    "company": "Empresa",
+    "country": "País",
+    "phone": "Teléfono",
+    "taxId": "RUT/ID Fiscal"
+  },
+  "subscription": {
+    "title": "Suscripción",
+    "currentPlan": "Plan actual",
+    "active": "Activo",
+    "renewsOn": "Se renueva el",
+    "upgradePrompt": "Desbloquea más funciones con un plan de pago",
+    "upgradeTo": "Actualizar a",
+    "manageSubscription": "Administrar suscripción"
+  },
+  "applyFund": {
+    "title": "Postular a Fondo",
+    "fundNotFound": "Fondo no encontrado",
+    "backToFunds": "Volver a Fondos",
+    "deadline": "Fecha límite",
+    "steps": {
+      "selectProject": "Seleccionar Proyecto",
+      "fillApplication": "Completar Postulación"
+    },
+    "selectProject": {
+      "title": "Selecciona un Proyecto",
+      "description": "Elige el proyecto con el que deseas postular a este fondo.",
+      "continue": "Continuar",
+      "noProjects": "No tienes proyectos aún. Crea uno para comenzar a postular.",
+      "createProject": "Crear Proyecto"
+    },
+    "fillApplication": {
+      "title": "Detalles de la Postulación",
+      "description": "Proporciona la información requerida para tu postulación.",
+      "amountRequested": "Monto Solicitado",
+      "amountRange": "Rango: {min} - {max} {currency}",
+      "projectDescription": "Descripción del Proyecto",
+      "descriptionPlaceholder": "Describe tu proyecto, el problema que resuelve, la innovación involucrada, y cómo planeas usar el financiamiento...",
+      "descriptionHelp": "Sé específico sobre cómo se usará el financiamiento y qué impacto tendrá.",
+      "back": "Volver",
+      "saveDraft": "Guardar Borrador",
+      "submit": "Enviar Postulación"
+    },
+    "sections": {
+      "selectOption": "Selecciona una opción",
+      "fileUrlPlaceholder": "URL del archivo (Google Drive, Dropbox, etc.)",
+      "fileHelp": "Sube tu archivo a un servicio de nube y pega el enlace aquí"
+    }
+  },
+  "backoffice": {
+    "title": "Backoffice",
+    "subtitle": "Panel de administración CIDIF.TECH",
+    "stats": {
+      "users": "Usuarios",
+      "projects": "Proyectos",
+      "applications": "Postulaciones"
+    },
+    "sections": {
+      "users": {
+        "title": "Gestión de Usuarios",
+        "description": "Ver suscripciones, planes y proyectos de usuarios"
+      },
+      "funds": {
+        "title": "Plantillas de Fondos",
+        "description": "Crear y gestionar templates de postulaciones"
+      },
+      "agent": {
+        "title": "Gestión de Agentes IA",
+        "description": "Subir contexto .md para agentes de IA"
+      },
+      "billing": {
+        "title": "Métricas de Facturación",
+        "description": "Dashboard de suscripciones y pagos Stripe"
+      }
+    },
+    "users": {
+      "title": "Usuarios",
+      "subtitle": "Gestión de usuarios y suscripciones",
+      "totalUsers": "usuarios",
+      "noUsers": "No hay usuarios registrados",
+      "projects": "proyectos",
+      "applications": "postulaciones",
+      "country": "País",
+      "phone": "Teléfono",
+      "taxId": "RUT",
+      "registered": "Registro"
+    },
+    "funds": {
+      "title": "Plantillas de Fondos",
+      "subtitle": "Crear y gestionar templates de postulaciones",
+      "newFund": "Nuevo Fondo",
+      "createFirst": "Crear Primer Fondo",
+      "noFunds": "No hay fondos configurados",
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "deadline": "Cierre"
+    },
+    "editFund": {
+      "title": "Editar Fondo",
+      "notFound": "Fondo no encontrado",
+      "backToFunds": "Volver a Fondos",
+      "saveError": "Error al guardar",
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "activate": "Activar",
+      "deactivate": "Desactivar",
+      "fundInfo": "Información del Fondo",
+      "fundName": "Nombre del Fondo",
+      "organization": "Organización",
+      "description": "Descripción",
+      "descriptionPlaceholder": "Descripción del fondo y sus requisitos...",
+      "country": "País",
+      "type": "Tipo",
+      "deadline": "Fecha Cierre",
+      "minAmount": "Monto Mínimo",
+      "maxAmount": "Monto Máximo",
+      "currency": "Moneda",
+      "fundUrl": "URL del Fondo",
+      "formSections": "Secciones del Formulario",
+      "addSection": "Agregar Sección",
+      "noSections": "No hay secciones. Agrega secciones para crear el formulario de postulación.",
+      "section": "Sección",
+      "sectionName": "Nombre de la Sección",
+      "sectionKey": "Clave (key)",
+      "fieldType": "Tipo de Campo",
+      "options": "Opciones (una por línea)",
+      "helpText": "Texto de Ayuda",
+      "cancel": "Cancelar",
+      "save": "Guardar Cambios",
+      "saving": "Guardando...",
+      "types": {
+        "grant": "Subsidio",
+        "loan": "Préstamo",
+        "equity": "Capital",
+        "mixed": "Mixto"
+      },
+      "fieldTypes": {
+        "text": "Texto Corto",
+        "textarea": "Texto Largo",
+        "select": "Selección Única",
+        "multiselect": "Selección Múltiple",
+        "link": "Enlace (Video/Doc)",
+        "file": "Archivo"
+      }
+    },
+    "newFund": {
+      "title": "Nuevo Fondo",
+      "subtitle": "Crear un nuevo template de postulación",
+      "fundInfo": "Información del Fondo",
+      "fundName": "Nombre del Fondo",
+      "organization": "Organización",
+      "country": "País",
+      "type": "Tipo",
+      "deadline": "Fecha Cierre",
+      "minAmount": "Monto Mínimo",
+      "maxAmount": "Monto Máximo",
+      "currency": "Moneda",
+      "fundUrl": "URL del Fondo",
+      "formSections": "Secciones del Formulario",
+      "addSection": "Agregar Sección",
+      "noSections": "No hay secciones. Agrega secciones para crear el formulario de postulación.",
+      "sectionName": "Nombre de la Sección",
+      "sectionKey": "Clave (key)",
+      "fieldType": "Tipo de Campo",
+      "options": "Opciones (una por línea)",
+      "helpText": "Texto de Ayuda",
+      "cancel": "Cancelar",
+      "save": "Guardar Fondo",
+      "saving": "Guardando...",
+      "types": {
+        "grant": "Subsidio",
+        "loan": "Préstamo",
+        "equity": "Capital",
+        "mixed": "Mixto"
+      },
+      "fieldTypes": {
+        "text": "Texto Corto",
+        "textarea": "Texto Largo",
+        "select": "Selección Única",
+        "multiselect": "Selección Múltiple",
+        "link": "Enlace (Video/Doc)",
+        "file": "Archivo"
+      },
+      "countries": {
+        "CL": "Chile",
+        "MX": "México",
+        "CO": "Colombia",
+        "AR": "Argentina",
+        "PE": "Perú",
+        "US": "USA",
+        "EU": "Europa"
+      }
+    },
+    "agent": {
+      "title": "Gestión de Agentes IA",
+      "subtitle": "Configura el contexto de IA para cada fondo",
+      "funds": "Fondos",
+      "noFunds": "No hay fondos. Crea un fondo primero.",
+      "agentContext": "Contexto del Agente",
+      "uploadMd": "Subir .md",
+      "save": "Guardar",
+      "selectFund": "Selecciona un fondo para editar su contexto",
+      "contextLabel": "Contexto Markdown para el Agente IA",
+      "contextHelp": "Este contexto será usado por el agente IA para asistir a los usuarios en sus postulaciones a este fondo.",
+      "savedSuccess": "Contexto guardado exitosamente",
+      "saveError": "Error al guardar"
+    },
+    "billing": {
+      "title": "Métricas de Facturación",
+      "subtitle": "Dashboard de suscripciones y pagos Stripe",
+      "mrr": "MRR",
+      "mrrDesc": "Ingreso mensual recurrente",
+      "arr": "ARR",
+      "arrDesc": "Ingreso anual proyectado",
+      "activeSubscriptions": "Suscripciones Activas",
+      "activeSubsDesc": "Planes pagados activos",
+      "cancellations": "Cancelaciones",
+      "cancellationsDesc": "Suscripciones canceladas",
+      "planDistribution": "Distribución por Plan",
+      "revenueProjection": "Proyección de Ingresos",
+      "totalMrr": "Total MRR",
+      "annualProjection": "Proyección Anual",
+      "recentActivity": "Actividad Reciente de Suscripciones",
+      "noSubscriptions": "No hay suscripciones activas aún",
+      "users": "usuarios",
+      "perMonth": "/mes"
+    }
+  }
+}

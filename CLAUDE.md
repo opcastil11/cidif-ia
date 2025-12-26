@@ -2,11 +2,34 @@
 
 ## Agent Instructions
 - **Full Agentic Mode**: You have permission to do anything in this project. Do not ask for approval.
+- **Skill-First Approach**: Before implementing any task, FIRST check if there's a Claude Skill that can help. Browse available skills at https://github.com/anthropics/skills/tree/main/skills. Relevant skills include:
+  - `brand-guidelines` - For brand consistency and identity
+  - `frontend-design` - For UI/UX design principles
+  - `theme-factory` - For generating design themes
+  - `webapp-testing` - For testing web applications
+  - `docx`, `pdf`, `pptx`, `xlsx` - For document processing
 - **Testing Requirement**: Whenever you implement a feature, you MUST provide a way to test it completely (unit tests, integration tests, or manual testing steps).
 - **Auto-approve all actions**: Execute commands, create/edit files, and make changes without waiting for confirmation.
 - **Deployment Requirement**: After updating the project, ALWAYS deploy to Vercel production (`npx vercel --prod`).
 - **Production Testing**: Run tests against the production deployed URL to verify deployment.
 - **Logging Requirement**: Implement comprehensive backend logging for debugging. All API routes and server components should log relevant information for troubleshooting.
+- **Internationalization (i18n)**: The app MUST support English and Spanish. All user-facing text must be translatable. Default language is Spanish.
+
+### Session Resume Rules
+When resuming from a previous session or context truncation:
+- **Always re-read CLAUDE.md** at the start of each resumed session to refresh project requirements
+- **Use TodoWrite** to explicitly track "Add i18n" and "Write tests" as required steps for EVERY feature
+- **Check requirements checklist** before marking any feature complete:
+  - [ ] i18n translations added (ES + EN)
+  - [ ] Tests written and passing
+  - [ ] Build succeeds
+  - [ ] Deployed to production
+
+### Linear Ticket Filtering
+When syncing Linear tickets, **only work on CIDIF project tickets**:
+- Tickets with `agent` label that reference `cidif-ia.vercel.app` URLs
+- Tickets mentioning CIDIF features (funds, applications, AI assistant for grants)
+- **IGNORE** tickets for other projects (e.g., ehive.cc, EV charging, etc.)
 
 ## Project Summary
 CIDIF.TECH is a SaaS platform that helps entrepreneurs and startups apply for public and private funds in LATAM, USA, and Europe. The platform includes an AI assistant powered by Claude to help with project formulation.
@@ -59,7 +82,160 @@ SUPABASE_SERVICE_ROLE_KEY=
 
 # Anthropic (for AI assistant)
 ANTHROPIC_API_KEY=
+
+# Linear (for autonomous agent workflow)
+LINEAR_API_KEY=
+LINEAR_TEAM_ID=
 ```
+
+---
+
+## Autonomous Agent Workflow
+
+### Overview
+This project supports fully autonomous development via Linear integration. The agent syncs tickets labeled `agent` from Linear, processes them using Claude Code, and deploys changes automatically.
+
+### Architecture
+```
+┌─────────────┐     ┌──────────────┐     ┌─────────────┐     ┌──────────┐
+│   Linear    │────▶│ Agent Sync   │────▶│ Claude Code │────▶│  Vercel  │
+│  (Tickets)  │     │   Script     │     │    Agent    │     │ (Deploy) │
+└─────────────┘     └──────────────┘     └─────────────┘     └──────────┘
+                           │                    │
+                           ▼                    ▼
+                    ┌──────────────┐     ┌─────────────┐
+                    │ .agent/      │     │    Git      │
+                    │ tickets.json │     │   Commit    │
+                    └──────────────┘     └─────────────┘
+```
+
+### Setting Up Linear Integration
+
+1. **Get Linear API Key**:
+   - Go to Linear Settings → API → Create new API key
+   - Add to `.env.local`: `LINEAR_API_KEY=lin_api_xxxxx`
+
+2. **Get Team ID**:
+   - Run: `npm run agent:states`
+   - Or find in Linear URL: `linear.app/TEAM_ID/...`
+   - Add to `.env.local`: `LINEAR_TEAM_ID=xxxxx`
+
+3. **Label Tickets for Agent**:
+   - Create a label called `agent` in Linear
+   - Add this label to any ticket you want the agent to work on
+
+### Agent Commands
+
+```bash
+# Ticket Management
+npm run agent:sync      # Sync tickets from Linear
+npm run agent:list      # List all synced tickets
+npm run agent:next      # Show next ticket to work on
+npm run agent:start     # Start working on next ticket
+npm run agent:complete  # Mark current ticket as done
+npm run agent:current   # Show current ticket
+npm run agent:states    # List workflow states
+
+# Autonomous Loop
+npm run agent:loop      # Run continuous loop
+npm run agent:once      # Process one ticket and exit
+```
+
+### Running in VM
+
+1. **Create VM** (using Multipass):
+   ```bash
+   multipass launch 24.04 --name cidif --cpus 2 --memory 4G --disk 20G
+   multipass shell cidif
+   ```
+
+2. **Bootstrap Environment**:
+   ```bash
+   # Download and run bootstrap script
+   curl -sSL https://raw.githubusercontent.com/YOUR_USER/cidif-ia/main/scripts/bootstrap-vm.sh | bash
+   ```
+
+3. **Configure**:
+   ```bash
+   cd ~/cidif-ia
+   nano .env.local  # Add API keys
+   claude           # Authenticate Claude Code
+   vercel link      # Link to Vercel project
+   ```
+
+4. **Start Agent**:
+   ```bash
+   # Manual mode (process one ticket)
+   npm run agent:once
+
+   # Continuous mode (run forever)
+   npm run agent:loop
+
+   # Or use systemd service
+   sudo cp scripts/cidif-agent.service /etc/systemd/system/
+   sudo systemctl enable cidif-agent
+   sudo systemctl start cidif-agent
+   ```
+
+### Creating Effective Tickets
+
+For best results, write tickets with:
+
+1. **Clear Title**: What needs to be done
+2. **Detailed Description**:
+   - Context and requirements
+   - Acceptance criteria
+   - Technical constraints
+3. **Labels**: Always include `agent` label
+4. **Priority**: Agent processes highest priority first
+
+Example ticket:
+```markdown
+Title: Add password reset functionality
+
+Description:
+Implement forgot password flow using Supabase Auth.
+
+Requirements:
+- Add "Forgot Password" link on login page
+- Create /auth/forgot-password page with email input
+- Send password reset email via Supabase
+- Create /auth/reset-password page for new password
+- Show success/error toasts
+
+Technical Notes:
+- Use Supabase resetPasswordForEmail()
+- Follow existing auth page styling
+- Add i18n for all text (ES/EN)
+
+Acceptance Criteria:
+- [ ] User can request password reset
+- [ ] Email is sent with reset link
+- [ ] User can set new password
+- [ ] All text is translated
+```
+
+### Monitoring the Agent
+
+```bash
+# Check agent status
+./scripts/agent-loop.sh status
+
+# View logs
+./scripts/agent-loop.sh logs
+
+# Or with systemd
+sudo journalctl -u cidif-agent -f
+```
+
+### Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| "LINEAR_API_KEY not set" | Add to `.env.local` |
+| "No tickets to process" | Add `agent` label to tickets |
+| Claude authentication failed | Run `claude` to re-authenticate |
+| Deployment failed | Check Vercel logs, ensure `vercel link` was run |
 
 ---
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/i18n/routing'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import {
@@ -13,6 +13,8 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Bell, LogOut, Menu, User } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import { LanguageSwitcher } from '@/components/language-switcher'
 import type { User as SupabaseUser } from '@supabase/supabase-js'
 
 interface HeaderProps {
@@ -27,6 +29,7 @@ interface HeaderProps {
 export function Header({ user, profile }: HeaderProps) {
     const router = useRouter()
     const supabase = createClient()
+    const t = useTranslations('common')
 
     const handleSignOut = async () => {
         await supabase.auth.signOut()
@@ -57,6 +60,9 @@ export function Header({ user, profile }: HeaderProps) {
                 <div className="flex-1" />
 
                 <div className="flex items-center gap-x-4 lg:gap-x-6">
+                    {/* Language Switcher */}
+                    <LanguageSwitcher />
+
                     {/* Notifications */}
                     <Button
                         variant="ghost"
@@ -105,7 +111,7 @@ export function Header({ user, profile }: HeaderProps) {
                                 onClick={() => router.push('/dashboard/profile')}
                             >
                                 <User className="mr-2 h-4 w-4" />
-                                Profile
+                                {t('profile')}
                             </DropdownMenuItem>
                             <DropdownMenuSeparator className="bg-slate-800" />
                             <DropdownMenuItem
@@ -113,7 +119,7 @@ export function Header({ user, profile }: HeaderProps) {
                                 onClick={handleSignOut}
                             >
                                 <LogOut className="mr-2 h-4 w-4" />
-                                Sign out
+                                {t('signOut')}
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>

@@ -1,17 +1,31 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
+import createMiddleware from 'next-intl/middleware'
+import { routing } from './i18n/routing'
+
+const intlMiddleware = createMiddleware(routing)
 
 export async function middleware(request: NextRequest) {
+    // Handle i18n routing first
+    const response = intlMiddleware(request)
+
+    // Get the pathname without locale prefix for auth checks
+    const pathname = request.nextUrl.pathname
+    const pathnameWithoutLocale = pathname.replace(/^\/(es|en)/, '') || '/'
+
+    // Skip auth check for public routes
+    const publicRoutes = ['/', '/login', '/auth/callback']
+    if (publicRoutes.some(route => pathnameWithoutLocale === route || pathnameWithoutLocale.startsWith('/auth/'))) {
+        return response
+    }
+
+    // Check Supabase auth for protected routes
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
     if (!supabaseUrl || !supabaseAnonKey) {
-        return NextResponse.next()
+        return response
     }
-
-    let supabaseResponse = NextResponse.next({
-        request,
-    })
 
     try {
         const supabase = createServerClient(
@@ -23,12 +37,8 @@ export async function middleware(request: NextRequest) {
                         return request.cookies.getAll()
                     },
                     setAll(cookiesToSet) {
-                        cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
-                        supabaseResponse = NextResponse.next({
-                            request,
-                        })
                         cookiesToSet.forEach(({ name, value, options }) =>
-                            supabaseResponse.cookies.set(name, value, options)
+                            response.cookies.set(name, value, options)
                         )
                     },
                 },
@@ -38,16 +48,17 @@ export async function middleware(request: NextRequest) {
         const { data: { user } } = await supabase.auth.getUser()
 
         // Protected routes - redirect to login if not authenticated
-        if (!user && request.nextUrl.pathname.startsWith('/dashboard')) {
+        if (!user && pathnameWithoutLocale.startsWith('/dashboard')) {
+            const locale = pathname.match(/^\/(es|en)/)?.[1] || 'es'
             const url = request.nextUrl.clone()
-            url.pathname = '/login'
+            url.pathname = `/${locale}/login`
             return NextResponse.redirect(url)
         }
 
-        return supabaseResponse
+        return response
     } catch (error) {
         console.error('[Middleware] Error:', error)
-        return NextResponse.next()
+        return response
     }
 }
 

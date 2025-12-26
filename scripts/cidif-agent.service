@@ -1,0 +1,35 @@
+[Unit]
+Description=CIDIF.TECH Autonomous Agent
+Documentation=https://github.com/YOUR_USER/cidif-ia
+After=network.target
+
+[Service]
+Type=simple
+User=YOUR_USER
+Group=YOUR_USER
+WorkingDirectory=/home/YOUR_USER/cidif-ia
+
+# Environment
+Environment=PATH=/usr/bin:/usr/local/bin:/home/YOUR_USER/.npm-global/bin
+EnvironmentFile=/home/YOUR_USER/cidif-ia/.env.local
+
+# Agent loop with 5-minute sync interval
+ExecStart=/home/YOUR_USER/cidif-ia/scripts/agent-loop.sh loop 300
+
+# Restart policy
+Restart=always
+RestartSec=30
+StartLimitBurst=5
+StartLimitIntervalSec=60
+
+# Logging
+StandardOutput=append:/home/YOUR_USER/cidif-ia/.agent/systemd.log
+StandardError=append:/home/YOUR_USER/cidif-ia/.agent/systemd-error.log
+
+# Security
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/home/YOUR_USER/cidif-ia
+
+[Install]
+WantedBy=multi-user.target

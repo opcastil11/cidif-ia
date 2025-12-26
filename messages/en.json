@@ -1,0 +1,647 @@
+{
+  "common": {
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "getStarted": "Get Started",
+    "startFree": "Start Free",
+    "learnMore": "Learn More",
+    "profile": "Profile",
+    "settings": "Settings",
+    "billing": "Billing",
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "allRightsReserved": "All rights reserved.",
+    "notSet": "Not set",
+    "plan": "Plan"
+  },
+  "home": {
+    "header": {
+      "subtitle": "Research and Innovation Center"
+    },
+    "nav": {
+      "services": "Services",
+      "research": "Research",
+      "industries": "Industries",
+      "contact": "Contact"
+    },
+    "hero": {
+      "badge": "Research, Development and Innovation Center",
+      "title": "Experts in Application and",
+      "titleHighlight": "R&D&I Project Development",
+      "description": "We advise companies on formulating and executing projects for competitive funds such as CORFO, ANID, and FIA. Our Software Lab enhances projects with digital technologies and AI.",
+      "cta": "Discover Our Services",
+      "ctaSecondary": "Learn More"
+    },
+    "stats": {
+      "funding": "USD in Funding",
+      "projects": "Supported Projects",
+      "successRate": "Success Rate",
+      "countries": "Countries"
+    },
+    "services": {
+      "title": "Our Services",
+      "subtitle": "Comprehensive solutions to drive your innovation and secure funding.",
+      "formulation": {
+        "title": "R&D&I Project Formulation",
+        "description": "Over 5 years of experience in public and private fund applications. Form writing, work plans and budgets aligned with CORFO, ANID and FIA requirements."
+      },
+      "execution": {
+        "title": "Project Execution",
+        "description": "Technological development with dedicated software unit. CORFO-accredited Collaborative Entity. Agile methodology with 5+ developers and IP consulting."
+      },
+      "rdLaw": {
+        "title": "R&D Law Advisory",
+        "description": "We implement Law 20.241 consulting for R&D tax incentives. Savings up to 52.55% of project cost. Technical reports and CORFO-format financial spreadsheets."
+      },
+      "innovation": {
+        "title": "Innovation Management",
+        "description": "Implementation of innovation systems and methodologies. Technology solutions, project portfolio management, IP protection and funding opportunity identification."
+      },
+      "capital": {
+        "title": "Venture Capital Support",
+        "description": "We guide startups toward national and international venture capital. Commercial/technical validation, pitch development, funding search and legal/IP advisory."
+      },
+      "ai": {
+        "title": "AI Assistance",
+        "description": "AI-powered platform to optimize your applications and improve your success rate with integrated Claude assistant."
+      }
+    },
+    "research": {
+      "title": "Research Lines",
+      "subtitle": "Areas of expertise of our research team.",
+      "dataScience": {
+        "title": "Data Science",
+        "description": "Machine Learning for analysis and prediction. Advanced artificial intelligence models."
+      },
+      "imageProcessing": {
+        "title": "Image Processing",
+        "description": "Image analysis and biometric processes with cutting-edge technology."
+      },
+      "smartIoT": {
+        "title": "Smart IoT",
+        "description": "Intelligent cloud interconnection of devices for innovative solutions."
+      }
+    },
+    "successCases": {
+      "title": "Success Cases",
+      "subtitle": "Projects we have developed with CORFO funding",
+      "viewAll": "View All Projects",
+      "funding": "Funding",
+      "projects": {
+        "aquaculture": {
+          "title": "Aquaculture Virtual Assistant",
+          "description": "Submarine monitoring system with AI for automatic detection of net damage, debris and dead fish.",
+          "client": "Aquaculture Company",
+          "amount": "$200,000 USD"
+        },
+        "solar": {
+          "title": "Photovoltaic Fault Detection",
+          "description": "Predictive maintenance system with ML to detect microfractures, hotspots and dust on solar panels.",
+          "client": "Solar Energy Company",
+          "amount": "$500,000 USD"
+        },
+        "electrical": {
+          "title": "Electrical Infrastructure Vision",
+          "description": "GIS platform analyzing videos and images to detect and geolocate cable failures and obsolete wiring.",
+          "client": "Electrical Infrastructure Company",
+          "amount": "$250,000 USD"
+        },
+        "warehouse": {
+          "title": "Warehouse Image Processing",
+          "description": "Automated inventory platform using cameras to monitor real-time stock across multi-level racks.",
+          "client": "Internal Development",
+          "amount": "$200,000 USD"
+        },
+        "floating": {
+          "title": "Floating Solar Island",
+          "description": "First Latin American floating photovoltaic plant on mining tailings with innovative flotation design.",
+          "client": "Solar Energy Company",
+          "amount": "$500,000 USD"
+        },
+        "cherry": {
+          "title": "Cherry Crop Software",
+          "description": "AI software predicting yield and caliber via IoT sensors, image processing and meteorological data.",
+          "client": "Fruit Production Company",
+          "amount": "$200,000 USD"
+        },
+        "birds": {
+          "title": "Bird Collision Detection",
+          "description": "System detecting collision-risk birds with audio/visual alert modules for wind turbines.",
+          "client": "Technology/ICT Company",
+          "amount": "$200,000 USD"
+        },
+        "logistics": {
+          "title": "Logistics Optimization",
+          "description": "Cloud platform optimizing multiple logistics parameters across distribution networks using FIFO model.",
+          "client": "Sensorization Company",
+          "amount": "$300,000 USD"
+        }
+      }
+    },
+    "industries": {
+      "title": "Industries We Serve",
+      "subtitle": "Experience across multiple sectors with customized solutions.",
+      "food": "Food",
+      "environment": "Environment",
+      "smartCities": "Smart Cities",
+      "health": "Health",
+      "logistics": "Logistics",
+      "security": "Security",
+      "energy": "Energy",
+      "agriculture": "Agriculture",
+      "construction": "Construction",
+      "retail": "Retail",
+      "manufacturing": "Manufacturing",
+      "mining": "Mining"
+    },
+    "allies": {
+      "title": "STRATEGIC ALLIANCES"
+    },
+    "pricing": {
+      "title": "Plans & Pricing",
+      "subtitle": "Choose the plan that best fits your needs",
+      "monthly": "month",
+      "popular": "Most Popular",
+      "currentPlan": "Current Plan",
+      "getStarted": "Get Started Free",
+      "subscribe": "Subscribe",
+      "contactSales": "Contact Sales",
+      "free": {
+        "name": "Free",
+        "description": "To start exploring",
+        "features": [
+          "1 project",
+          "1 active application",
+          "AI Assistant (limited)",
+          "Funds catalog"
+        ]
+      },
+      "standard": {
+        "name": "Standard",
+        "description": "For growing teams",
+        "features": [
+          "Up to 5 projects",
+          "Up to 5 active applications",
+          "Full AI Assistant",
+          "AI Auto-fill",
+          "AI Research",
+          "Email support"
+        ]
+      },
+      "max": {
+        "name": "Max",
+        "description": "For enterprises and agencies",
+        "features": [
+          "Unlimited projects",
+          "Unlimited applications",
+          "Unlimited AI Assistant",
+          "AI Auto-fill",
+          "AI Research",
+          "Priority support",
+          "Early access"
+        ]
+      }
+    },
+    "cta": {
+      "title": "Ready to Innovate?",
+      "subtitle": "Join hundreds of companies that have already secured funding and developed their projects with CIDIF.",
+      "button": "Get Started Now",
+      "contact": "Contact Us"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "subtitle": "We're ready to help you secure funding for your innovation project.",
+      "address": {
+        "label": "Address"
+      },
+      "email": {
+        "label": "Email"
+      },
+      "phone": {
+        "label": "Phone"
+      },
+      "form": {
+        "title": "Send Us a Message",
+        "name": "Full name",
+        "email": "Email address",
+        "company": "Company",
+        "message": "Tell us about your project...",
+        "submit": "Send Message"
+      }
+    },
+    "footer": {
+      "description": "Research, Development and Innovation Center Forcast. Experts in R&D&I project application and development for competitive funds.",
+      "links": {
+        "title": "Links"
+      },
+      "legal": {
+        "title": "Legal"
+      }
+    }
+  },
+  "landing": {
+    "title": "Apply for Funds with",
+    "titleHighlight": "AI-Powered Assistance",
+    "subtitle": "CIDIF.TECH helps entrepreneurs and startups navigate public and private funding opportunities across LATAM, USA, and Europe.",
+    "badge": "#1 Funding Platform for Startups",
+    "featuresTitle": "Everything You Need to Succeed",
+    "featuresSubtitle": "Powerful tools to help you find and win funding for your startup.",
+    "stats": {
+      "fundsRaised": "Funds Raised",
+      "startupsHelped": "Startups Helped",
+      "successRate": "Success Rate",
+      "countries": "Countries"
+    },
+    "trust": {
+      "startups": "500+ startups trust us",
+      "secure": "Secure platform",
+      "fast": "Fast response"
+    },
+    "cta": {
+      "title": "Ready to Get Funded?",
+      "subtitle": "Join hundreds of startups that have already secured funding with CIDIF.TECH."
+    },
+    "features": {
+      "ai": {
+        "title": "AI-Powered Assistance",
+        "description": "Get intelligent help formulating your applications with our Claude-powered assistant."
+      },
+      "global": {
+        "title": "Global Fund Catalog",
+        "description": "Access funds from LATAM, USA, and Europe all in one place."
+      },
+      "streamlined": {
+        "title": "Streamlined Applications",
+        "description": "Track your applications and manage all your projects from a single dashboard."
+      },
+      "success": {
+        "title": "Increase Success Rate",
+        "description": "Our tools help you write better applications and improve your chances."
+      }
+    }
+  },
+  "login": {
+    "title": "CIDIF.TECH",
+    "subtitle": "Platform for Fund Applications",
+    "continueWithGoogle": "Continue with Google",
+    "connecting": "Connecting...",
+    "secureAuth": "Secure authentication",
+    "termsNotice": "By continuing, you agree to our Terms of Service and Privacy Policy."
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back! Here's an overview of your fund applications.",
+    "stats": {
+      "activeProjects": "Active Projects",
+      "applications": "Applications",
+      "successRate": "Success Rate",
+      "totalAwarded": "Total Awarded"
+    },
+    "quickActions": {
+      "newApplication": {
+        "title": "Start New Application",
+        "description": "Browse available funds and start a new application with AI assistance."
+      },
+      "createProject": {
+        "title": "Create Project",
+        "description": "Set up your project profile to apply for multiple funds."
+      }
+    },
+    "browseFunds": "Browse Funds",
+    "createProject": "Create Project"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "projects": "Projects",
+    "applications": "Applications",
+    "fundsCatalog": "Funds Catalog"
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Manage your projects and companies",
+    "newProject": "New Project",
+    "empty": {
+      "title": "No projects yet",
+      "description": "Create your first project to start applying for funds.",
+      "action": "Create Project"
+    }
+  },
+  "projectDetail": {
+    "notFound": "Project not found",
+    "backToProjects": "Back to Projects",
+    "createdOn": "Created on",
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saveError": "Error saving",
+    "deleteConfirm": "Are you sure you want to delete this project? This action cannot be undone.",
+    "deleteError": "Error deleting",
+    "details": "Project Details",
+    "members": "members",
+    "viewPitchDeck": "View Pitch Deck",
+    "quickActions": "Quick Actions",
+    "applyToFund": "Apply to a Fund"
+  },
+  "newProject": {
+    "title": "New Project",
+    "subtitle": "Set up your project to apply for funds",
+    "basicInfo": "Basic Information",
+    "name": "Project Name",
+    "namePlaceholder": "My Innovative Startup",
+    "description": "Description",
+    "descriptionPlaceholder": "Briefly describe your project, what problem it solves and your value proposition...",
+    "industry": "Industry",
+    "selectIndustry": "Select an industry",
+    "stage": "Stage",
+    "selectStage": "Select a stage",
+    "teamSize": "Team Size",
+    "annualRevenue": "Annual Revenue (USD)",
+    "foundedDate": "Founded Date",
+    "pitchDeck": "Pitch Deck URL",
+    "pitchDeckHelp": "Link to your presentation (Google Drive, Dropbox, etc.)",
+    "cancel": "Cancel",
+    "save": "Create Project",
+    "saving": "Creating...",
+    "industries": {
+      "technology": "Technology",
+      "health": "Health",
+      "fintech": "Fintech",
+      "agritech": "Agritech",
+      "energy": "Energy",
+      "education": "Education",
+      "ecommerce": "E-commerce",
+      "logistics": "Logistics",
+      "manufacturing": "Manufacturing",
+      "food": "Food",
+      "environment": "Environment",
+      "other": "Other"
+    },
+    "stages": {
+      "idea": "Idea / Concept",
+      "mvp": "MVP / Prototype",
+      "early_revenue": "Early Revenue",
+      "growth": "Growth",
+      "scale": "Scale"
+    }
+  },
+  "funds": {
+    "title": "Funds Catalog",
+    "subtitle": "Browse available funds and start your application",
+    "applyNow": "Apply Now",
+    "deadline": "Deadline",
+    "empty": {
+      "title": "No funds available",
+      "description": "Check back soon for new funding opportunities."
+    }
+  },
+  "applications": {
+    "title": "Applications",
+    "subtitle": "Track and manage your fund applications",
+    "browseFunds": "Browse Funds",
+    "project": "Project",
+    "requested": "Requested",
+    "progress": "Progress",
+    "submittedOn": "Submitted on",
+    "status": {
+      "draft": "Draft",
+      "submitted": "Submitted",
+      "in_review": "In Review",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "empty": {
+      "title": "No applications yet",
+      "description": "Start by browsing the funds catalog and create your first application."
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "subtitle": "Manage your account and settings",
+    "company": "Company",
+    "country": "Country",
+    "phone": "Phone",
+    "taxId": "RUT/Tax ID"
+  },
+  "subscription": {
+    "title": "Subscription",
+    "currentPlan": "Current plan",
+    "active": "Active",
+    "renewsOn": "Renews on",
+    "upgradePrompt": "Unlock more features with a paid plan",
+    "upgradeTo": "Upgrade to",
+    "manageSubscription": "Manage subscription"
+  },
+  "applyFund": {
+    "title": "Apply for Fund",
+    "fundNotFound": "Fund not found",
+    "backToFunds": "Back to Funds",
+    "deadline": "Deadline",
+    "steps": {
+      "selectProject": "Select Project",
+      "fillApplication": "Fill Application"
+    },
+    "selectProject": {
+      "title": "Select a Project",
+      "description": "Choose the project you want to apply with for this fund.",
+      "continue": "Continue",
+      "noProjects": "You don't have any projects yet. Create one to start applying.",
+      "createProject": "Create Project"
+    },
+    "fillApplication": {
+      "title": "Application Details",
+      "description": "Provide the required information for your application.",
+      "amountRequested": "Amount Requested",
+      "amountRange": "Range: {min} - {max} {currency}",
+      "projectDescription": "Project Description",
+      "descriptionPlaceholder": "Describe your project, the problem it solves, the innovation involved, and how you plan to use the funding...",
+      "descriptionHelp": "Be specific about how the funding will be used and what impact it will have.",
+      "back": "Back",
+      "saveDraft": "Save Draft",
+      "submit": "Submit Application"
+    },
+    "sections": {
+      "selectOption": "Select an option",
+      "fileUrlPlaceholder": "File URL (Google Drive, Dropbox, etc.)",
+      "fileHelp": "Upload your file to a cloud service and paste the link here"
+    }
+  },
+  "backoffice": {
+    "title": "Backoffice",
+    "subtitle": "CIDIF.TECH Administration Panel",
+    "stats": {
+      "users": "Users",
+      "projects": "Projects",
+      "applications": "Applications"
+    },
+    "sections": {
+      "users": {
+        "title": "User Management",
+        "description": "View subscriptions, plans and user projects"
+      },
+      "funds": {
+        "title": "Fund Templates",
+        "description": "Create and manage application templates"
+      },
+      "agent": {
+        "title": "AI Agent Management",
+        "description": "Upload .md context for AI agents"
+      },
+      "billing": {
+        "title": "Billing Metrics",
+        "description": "Stripe subscriptions and payments dashboard"
+      }
+    },
+    "users": {
+      "title": "Users",
+      "subtitle": "User and subscription management",
+      "totalUsers": "users",
+      "noUsers": "No registered users",
+      "projects": "projects",
+      "applications": "applications",
+      "country": "Country",
+      "phone": "Phone",
+      "taxId": "Tax ID",
+      "registered": "Registered"
+    },
+    "funds": {
+      "title": "Fund Templates",
+      "subtitle": "Create and manage application templates",
+      "newFund": "New Fund",
+      "createFirst": "Create First Fund",
+      "noFunds": "No funds configured",
+      "active": "Active",
+      "inactive": "Inactive",
+      "deadline": "Deadline"
+    },
+    "editFund": {
+      "title": "Edit Fund",
+      "notFound": "Fund not found",
+      "backToFunds": "Back to Funds",
+      "saveError": "Error saving",
+      "active": "Active",
+      "inactive": "Inactive",
+      "activate": "Activate",
+      "deactivate": "Deactivate",
+      "fundInfo": "Fund Information",
+      "fundName": "Fund Name",
+      "organization": "Organization",
+      "description": "Description",
+      "descriptionPlaceholder": "Fund description and requirements...",
+      "country": "Country",
+      "type": "Type",
+      "deadline": "Deadline",
+      "minAmount": "Minimum Amount",
+      "maxAmount": "Maximum Amount",
+      "currency": "Currency",
+      "fundUrl": "Fund URL",
+      "formSections": "Form Sections",
+      "addSection": "Add Section",
+      "noSections": "No sections. Add sections to create the application form.",
+      "section": "Section",
+      "sectionName": "Section Name",
+      "sectionKey": "Key",
+      "fieldType": "Field Type",
+      "options": "Options (one per line)",
+      "helpText": "Help Text",
+      "cancel": "Cancel",
+      "save": "Save Changes",
+      "saving": "Saving...",
+      "types": {
+        "grant": "Grant",
+        "loan": "Loan",
+        "equity": "Equity",
+        "mixed": "Mixed"
+      },
+      "fieldTypes": {
+        "text": "Short Text",
+        "textarea": "Long Text",
+        "select": "Single Select",
+        "multiselect": "Multi Select",
+        "link": "Link (Video/Doc)",
+        "file": "File"
+      }
+    },
+    "newFund": {
+      "title": "New Fund",
+      "subtitle": "Create a new application template",
+      "fundInfo": "Fund Information",
+      "fundName": "Fund Name",
+      "organization": "Organization",
+      "country": "Country",
+      "type": "Type",
+      "deadline": "Deadline",
+      "minAmount": "Minimum Amount",
+      "maxAmount": "Maximum Amount",
+      "currency": "Currency",
+      "fundUrl": "Fund URL",
+      "formSections": "Form Sections",
+      "addSection": "Add Section",
+      "noSections": "No sections. Add sections to create the application form.",
+      "sectionName": "Section Name",
+      "sectionKey": "Key",
+      "fieldType": "Field Type",
+      "options": "Options (one per line)",
+      "helpText": "Help Text",
+      "cancel": "Cancel",
+      "save": "Save Fund",
+      "saving": "Saving...",
+      "types": {
+        "grant": "Grant",
+        "loan": "Loan",
+        "equity": "Equity",
+        "mixed": "Mixed"
+      },
+      "fieldTypes": {
+        "text": "Short Text",
+        "textarea": "Long Text",
+        "select": "Single Select",
+        "multiselect": "Multi Select",
+        "link": "Link (Video/Doc)",
+        "file": "File"
+      },
+      "countries": {
+        "CL": "Chile",
+        "MX": "Mexico",
+        "CO": "Colombia",
+        "AR": "Argentina",
+        "PE": "Peru",
+        "US": "USA",
+        "EU": "Europe"
+      }
+    },
+    "agent": {
+      "title": "AI Agent Management",
+      "subtitle": "Configure AI context for each fund",
+      "funds": "Funds",
+      "noFunds": "No funds. Create a fund first.",
+      "agentContext": "Agent Context",
+      "uploadMd": "Upload .md",
+      "save": "Save",
+      "selectFund": "Select a fund to edit its context",
+      "contextLabel": "Markdown Context for AI Agent",
+      "contextHelp": "This context will be used by the AI agent to assist users with their applications to this fund.",
+      "savedSuccess": "Context saved successfully",
+      "saveError": "Error saving"
+    },
+    "billing": {
+      "title": "Billing Metrics",
+      "subtitle": "Stripe subscriptions and payments dashboard",
+      "mrr": "MRR",
+      "mrrDesc": "Monthly recurring revenue",
+      "arr": "ARR",
+      "arrDesc": "Annual recurring revenue",
+      "activeSubscriptions": "Active Subscriptions",
+      "activeSubsDesc": "Active paid plans",
+      "cancellations": "Cancellations",
+      "cancellationsDesc": "Cancelled subscriptions",
+      "planDistribution": "Plan Distribution",
+      "revenueProjection": "Revenue Projection",
+      "totalMrr": "Total MRR",
+      "annualProjection": "Annual Projection",
+      "recentActivity": "Recent Subscription Activity",
+      "noSubscriptions": "No active subscriptions yet",
+      "users": "users",
+      "perMonth": "/month"
+    }
+  }
+}
