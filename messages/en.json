@@ -643,5 +643,19 @@
       "users": "users",
       "perMonth": "/month"
     }
+  },
+  "agentTrainer": {
+    "title": "Train AI Agent",
+    "description": "Provide additional context about your project to help the AI assistant give you better guidance when applying for funds.",
+    "contextLabel": "Project Context",
+    "contextPlaceholder": "Describe your project in detail: problem being solved, target market, competitive advantages, technology used, team experience, business model, traction metrics, etc.",
+    "contextHelp": "The more context you provide, the better the AI can assist you with your fund applications.",
+    "saveContext": "Save Context",
+    "saved": "Saved!",
+    "testAgent": "Test Agent",
+    "chatTitle": "Chat with Agent",
+    "chatEmpty": "Start a conversation to test the agent with your project context.",
+    "chatPlaceholder": "Ask a question about your project or fund application...",
+    "errorMessage": "Sorry, there was an error processing your request. Please try again."
   }
 }

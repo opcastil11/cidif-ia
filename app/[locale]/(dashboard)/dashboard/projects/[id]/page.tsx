@@ -12,6 +12,7 @@ import { createClient } from '@/lib/supabase/client'
 import { Link } from '@/i18n/routing'
 import { ArrowLeft, Save, Loader2, Trash2, Users, DollarSign, Calendar, ExternalLink } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { ProjectAgentTrainer } from '@/components/ai/project-agent-trainer'
 
 const INDUSTRIES = [
     'technology', 'health', 'fintech', 'agritech', 'energy',
@@ -30,6 +31,7 @@ interface Project {
     annual_revenue: number | null
     founded_date: string | null
     pitch_deck_url: string | null
+    metadata: { agent_context?: string } | null
     created_at: string
     updated_at: string
 }
@@ -440,6 +442,14 @@ export default function ProjectDetailPage() {
                         </Button>
                     </CardContent>
                 </Card>
+            )}
+
+            {/* AI Agent Trainer */}
+            {!isEditing && (
+                <ProjectAgentTrainer
+                    projectId={projectId}
+                    initialContext={project.metadata?.agent_context || ''}
+                />
             )}
         </div>
     )

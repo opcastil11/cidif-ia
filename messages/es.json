@@ -643,5 +643,19 @@
       "users": "usuarios",
       "perMonth": "/mes"
     }
+  },
+  "agentTrainer": {
+    "title": "Entrenar Agente IA",
+    "description": "Proporciona contexto adicional sobre tu proyecto para que el asistente de IA te pueda dar mejor orientación al postular a fondos.",
+    "contextLabel": "Contexto del Proyecto",
+    "contextPlaceholder": "Describe tu proyecto en detalle: problema que resuelve, mercado objetivo, ventajas competitivas, tecnología utilizada, experiencia del equipo, modelo de negocio, métricas de tracción, etc.",
+    "contextHelp": "Mientras más contexto proporciones, mejor podrá el agente IA asistirte con tus postulaciones.",
+    "saveContext": "Guardar Contexto",
+    "saved": "¡Guardado!",
+    "testAgent": "Probar Agente",
+    "chatTitle": "Chat con el Agente",
+    "chatEmpty": "Inicia una conversación para probar el agente con el contexto de tu proyecto.",
+    "chatPlaceholder": "Haz una pregunta sobre tu proyecto o postulación...",
+    "errorMessage": "Lo sentimos, hubo un error al procesar tu solicitud. Por favor intenta de nuevo."
   }
 }
