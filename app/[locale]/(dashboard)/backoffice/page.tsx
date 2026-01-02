@@ -1,12 +1,16 @@
 import { createClient } from '@/lib/supabase/server'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Link } from '@/i18n/routing'
 import { Users, FolderKanban, Bot, CreditCard, ArrowRight, Crown, Calendar } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
+import { BackofficeStats } from '@/components/dashboard/backoffice-stats'
 
 export default async function BackofficePage() {
     const supabase = await createClient()
     const t = await getTranslations('backoffice')
+
+    // Get current user for presence tracking
+    const { data: { user } } = await supabase.auth.getUser()
 
     // Get stats
     const [usersResult, projectsResult, applicationsResult] = await Promise.all([
@@ -14,30 +18,6 @@ export default async function BackofficePage() {
         supabase.from('projects').select('id', { count: 'exact' }),
         supabase.from('applications').select('id', { count: 'exact' }),
     ])
-
-    const stats = [
-        {
-            title: t('stats.users'),
-            value: usersResult.count || 0,
-            icon: Users,
-            href: '/backoffice/users',
-            gradient: 'from-teal-500 to-cyan-500',
-        },
-        {
-            title: t('stats.projects'),
-            value: projectsResult.count || 0,
-            icon: FolderKanban,
-            href: '/backoffice/funds',
-            gradient: 'from-indigo-500 to-purple-500',
-        },
-        {
-            title: t('stats.applications'),
-            value: applicationsResult.count || 0,
-            icon: Bot,
-            href: '/backoffice/agent',
-            gradient: 'from-orange-500 to-rose-500',
-        },
-    ]
 
     const sections = [
         {
@@ -86,26 +66,14 @@ export default async function BackofficePage() {
 
     return (
         <div className="space-y-8">
-            {/* Stats */}
-            <div className="grid gap-4 md:grid-cols-3">
-                {stats.map((stat) => (
-                    <Card key={stat.title} className="bg-card border-border">
-                        <CardHeader className="flex flex-row items-center justify-between pb-2">
-                            <CardTitle className="text-sm font-medium text-muted-foreground">
-                                {stat.title}
-                            </CardTitle>
-                            <div className={`h-10 w-10 rounded-xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center`}>
-                                <stat.icon className="h-5 w-5 text-white" />
-                            </div>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-3xl font-heading font-bold text-foreground">
-                                {stat.value}
-                            </div>
-                        </CardContent>
-                    </Card>
-                ))}
-            </div>
+            {/* Stats with Connected Users */}
+            <BackofficeStats
+                usersCount={usersResult.count || 0}
+                projectsCount={projectsResult.count || 0}
+                applicationsCount={applicationsResult.count || 0}
+                currentUserId={user?.id || ''}
+                currentUserEmail={user?.email || null}
+            />
 
             {/* Sections */}
             <div className="grid gap-6 md:grid-cols-2">

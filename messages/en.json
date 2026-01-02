@@ -690,7 +690,11 @@
     "stats": {
       "users": "Users",
       "projects": "Projects",
-      "applications": "Applications"
+      "applications": "Applications",
+      "connectedUsers": "Connected Now",
+      "connectedNow": "users online in real-time",
+      "noUsersOnline": "No users currently online",
+      "anonymousUser": "Anonymous User"
     },
     "sections": {
       "users": {
