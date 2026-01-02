@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -35,6 +35,18 @@ const STAGES = [
     'scale',
 ]
 
+const COUNTRIES = [
+    { code: 'CL', name: 'Chile' },
+    { code: 'MX', name: 'Mexico' },
+    { code: 'CO', name: 'Colombia' },
+    { code: 'AR', name: 'Argentina' },
+    { code: 'PE', name: 'Peru' },
+    { code: 'BR', name: 'Brazil' },
+    { code: 'US', name: 'USA' },
+    { code: 'ES', name: 'Spain' },
+    { code: 'OTHER', name: 'Other' },
+]
+
 export default function NewProjectPage() {
     const router = useRouter()
     const t = useTranslations('newProject')
@@ -49,6 +61,10 @@ export default function NewProjectPage() {
         annual_revenue: '',
         founded_date: '',
         pitch_deck_url: '',
+        country: '',
+        website_url: '',
+        problem_statement: '',
+        value_proposition: '',
     })
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -64,7 +80,7 @@ export default function NewProjectPage() {
                 throw new Error('Not authenticated')
             }
 
-            const { error: insertError } = await supabase
+            const { data: newProject, error: insertError } = await supabase
                 .from('projects')
                 .insert({
                     user_id: user.id,
@@ -76,11 +92,18 @@ export default function NewProjectPage() {
                     annual_revenue: formData.annual_revenue ? parseFloat(formData.annual_revenue) : null,
                     founded_date: formData.founded_date || null,
                     pitch_deck_url: formData.pitch_deck_url || null,
+                    country: formData.country || null,
+                    website_url: formData.website_url || null,
+                    problem_statement: formData.problem_statement || null,
+                    value_proposition: formData.value_proposition || null,
                 })
+                .select('id')
+                .single()
 
             if (insertError) throw insertError
 
-            router.push('/dashboard/projects')
+            // Redirect to the project detail page where they can add more information
+            router.push(`/dashboard/projects/${newProject.id}`)
         } catch (err) {
             console.error('Error creating project:', err)
             setError(err instanceof Error ? err.message : 'Error creating project')
@@ -107,6 +130,9 @@ export default function NewProjectPage() {
                 <Card className="bg-slate-900 border-slate-800">
                     <CardHeader>
                         <CardTitle className="text-white">{t('basicInfo')}</CardTitle>
+                        <CardDescription className="text-slate-400">
+                            {t('subtitle')}
+                        </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
                         {error && (
@@ -134,12 +160,12 @@ export default function NewProjectPage() {
                                 value={formData.description}
                                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                                 placeholder={t('descriptionPlaceholder')}
-                                rows={4}
+                                rows={3}
                                 className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
                             />
                         </div>
 
-                        <div className="grid gap-4 md:grid-cols-2">
+                        <div className="grid gap-4 md:grid-cols-3">
                             <div className="space-y-2">
                                 <Label htmlFor="industry" className="text-slate-200">{t('industry')}</Label>
                                 <select
@@ -165,6 +191,20 @@ export default function NewProjectPage() {
                                     <option value="">{t('selectStage')}</option>
                                     {STAGES.map((stg) => (
                                         <option key={stg} value={stg}>{t(`stages.${stg}`)}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="country" className="text-slate-200">{t('country')}</Label>
+                                <select
+                                    id="country"
+                                    value={formData.country}
+                                    onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                                    className="w-full px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 text-white"
+                                >
+                                    <option value="">{t('selectCountry')}</option>
+                                    {COUNTRIES.map((c) => (
+                                        <option key={c.code} value={c.code}>{c.name}</option>
                                     ))}
                                 </select>
                             </div>
@@ -207,17 +247,54 @@ export default function NewProjectPage() {
                             </div>
                         </div>
 
+                        <div className="grid gap-4 md:grid-cols-2">
+                            <div className="space-y-2">
+                                <Label htmlFor="pitch_deck_url" className="text-slate-200">{t('pitchDeck')}</Label>
+                                <Input
+                                    id="pitch_deck_url"
+                                    type="url"
+                                    value={formData.pitch_deck_url}
+                                    onChange={(e) => setFormData({ ...formData, pitch_deck_url: e.target.value })}
+                                    placeholder="https://drive.google.com/..."
+                                    className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
+                                />
+                                <p className="text-xs text-slate-500">{t('pitchDeckHelp')}</p>
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="website_url" className="text-slate-200">{t('websiteUrl')}</Label>
+                                <Input
+                                    id="website_url"
+                                    type="url"
+                                    value={formData.website_url}
+                                    onChange={(e) => setFormData({ ...formData, website_url: e.target.value })}
+                                    placeholder="https://..."
+                                    className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
+                                />
+                            </div>
+                        </div>
+
                         <div className="space-y-2">
-                            <Label htmlFor="pitch_deck_url" className="text-slate-200">{t('pitchDeck')}</Label>
-                            <Input
-                                id="pitch_deck_url"
-                                type="url"
-                                value={formData.pitch_deck_url}
-                                onChange={(e) => setFormData({ ...formData, pitch_deck_url: e.target.value })}
-                                placeholder="https://drive.google.com/..."
+                            <Label htmlFor="problem_statement" className="text-slate-200">{t('problemStatement')}</Label>
+                            <Textarea
+                                id="problem_statement"
+                                value={formData.problem_statement}
+                                onChange={(e) => setFormData({ ...formData, problem_statement: e.target.value })}
+                                placeholder={t('problemStatementPlaceholder')}
+                                rows={2}
                                 className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
                             />
-                            <p className="text-xs text-slate-500">{t('pitchDeckHelp')}</p>
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label htmlFor="value_proposition" className="text-slate-200">{t('valueProposition')}</Label>
+                            <Textarea
+                                id="value_proposition"
+                                value={formData.value_proposition}
+                                onChange={(e) => setFormData({ ...formData, value_proposition: e.target.value })}
+                                placeholder={t('valuePropositionPlaceholder')}
+                                rows={2}
+                                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
+                            />
                         </div>
 
                         <div className="flex justify-end gap-4 pt-4">

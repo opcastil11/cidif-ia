@@ -31,9 +31,155 @@ CREATE TABLE IF NOT EXISTS projects (
   pitch_deck_url TEXT,
   logo_url TEXT,
   metadata JSONB DEFAULT '{}',
+  -- Company/Organization Info
+  legal_name TEXT,
+  tax_id TEXT,
+  legal_entity_type TEXT,
+  country TEXT,
+  city TEXT,
+  address TEXT,
+  -- Contact Info
+  contact_name TEXT,
+  contact_email TEXT,
+  contact_phone TEXT,
+  contact_position TEXT,
+  -- Online Presence
+  website_url TEXT,
+  linkedin_url TEXT,
+  social_media JSONB DEFAULT '{}',
+  -- Business Info
+  problem_statement TEXT,
+  target_market TEXT,
+  value_proposition TEXT,
+  business_model TEXT,
+  competitive_advantages TEXT,
+  -- Financial Info
+  monthly_burn_rate DECIMAL,
+  funding_received DECIMAL,
+  funding_seeking DECIMAL,
+  -- Product/Technology Info
+  technology_description TEXT,
+  ip_status TEXT,
+  product_status TEXT,
+  -- Metrics
+  monthly_users INTEGER,
+  monthly_revenue DECIMAL,
+  growth_rate_monthly DECIMAL,
+  customer_count INTEGER,
+  -- Team Info
+  cofounders TEXT,
+  key_team_members TEXT,
+  advisors TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+-- Migration: Add new columns to existing projects table
+-- Run these if the table already exists
+DO $$
+BEGIN
+  -- Company/Organization Info
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'legal_name') THEN
+    ALTER TABLE projects ADD COLUMN legal_name TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'tax_id') THEN
+    ALTER TABLE projects ADD COLUMN tax_id TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'legal_entity_type') THEN
+    ALTER TABLE projects ADD COLUMN legal_entity_type TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'country') THEN
+    ALTER TABLE projects ADD COLUMN country TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'city') THEN
+    ALTER TABLE projects ADD COLUMN city TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'address') THEN
+    ALTER TABLE projects ADD COLUMN address TEXT;
+  END IF;
+  -- Contact Info
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'contact_name') THEN
+    ALTER TABLE projects ADD COLUMN contact_name TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'contact_email') THEN
+    ALTER TABLE projects ADD COLUMN contact_email TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'contact_phone') THEN
+    ALTER TABLE projects ADD COLUMN contact_phone TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'contact_position') THEN
+    ALTER TABLE projects ADD COLUMN contact_position TEXT;
+  END IF;
+  -- Online Presence
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'website_url') THEN
+    ALTER TABLE projects ADD COLUMN website_url TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'linkedin_url') THEN
+    ALTER TABLE projects ADD COLUMN linkedin_url TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'social_media') THEN
+    ALTER TABLE projects ADD COLUMN social_media JSONB DEFAULT '{}';
+  END IF;
+  -- Business Info
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'problem_statement') THEN
+    ALTER TABLE projects ADD COLUMN problem_statement TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'target_market') THEN
+    ALTER TABLE projects ADD COLUMN target_market TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'value_proposition') THEN
+    ALTER TABLE projects ADD COLUMN value_proposition TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'business_model') THEN
+    ALTER TABLE projects ADD COLUMN business_model TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'competitive_advantages') THEN
+    ALTER TABLE projects ADD COLUMN competitive_advantages TEXT;
+  END IF;
+  -- Financial Info
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'monthly_burn_rate') THEN
+    ALTER TABLE projects ADD COLUMN monthly_burn_rate DECIMAL;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'funding_received') THEN
+    ALTER TABLE projects ADD COLUMN funding_received DECIMAL;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'funding_seeking') THEN
+    ALTER TABLE projects ADD COLUMN funding_seeking DECIMAL;
+  END IF;
+  -- Product/Technology Info
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'technology_description') THEN
+    ALTER TABLE projects ADD COLUMN technology_description TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'ip_status') THEN
+    ALTER TABLE projects ADD COLUMN ip_status TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'product_status') THEN
+    ALTER TABLE projects ADD COLUMN product_status TEXT;
+  END IF;
+  -- Metrics
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'monthly_users') THEN
+    ALTER TABLE projects ADD COLUMN monthly_users INTEGER;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'monthly_revenue') THEN
+    ALTER TABLE projects ADD COLUMN monthly_revenue DECIMAL;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'growth_rate_monthly') THEN
+    ALTER TABLE projects ADD COLUMN growth_rate_monthly DECIMAL;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'customer_count') THEN
+    ALTER TABLE projects ADD COLUMN customer_count INTEGER;
+  END IF;
+  -- Team Info
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'cofounders') THEN
+    ALTER TABLE projects ADD COLUMN cofounders TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'key_team_members') THEN
+    ALTER TABLE projects ADD COLUMN key_team_members TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'advisors') THEN
+    ALTER TABLE projects ADD COLUMN advisors TEXT;
+  END IF;
+END $$;
 
 -- Funds catalog
 CREATE TABLE IF NOT EXISTS funds (
