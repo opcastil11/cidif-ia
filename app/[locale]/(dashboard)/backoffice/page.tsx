@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Link } from '@/i18n/routing'
-import { Users, FolderKanban, Bot, CreditCard, ArrowRight, Crown } from 'lucide-react'
+import { Users, FolderKanban, Bot, CreditCard, ArrowRight, Crown, Calendar } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 
 export default async function BackofficePage() {
@@ -74,6 +74,13 @@ export default async function BackofficePage() {
             icon: Crown,
             href: '/backoffice/plans',
             gradient: 'from-amber-500 to-yellow-500',
+        },
+        {
+            title: t('sections.meetings.title'),
+            description: t('sections.meetings.description'),
+            icon: Calendar,
+            href: '/backoffice/meetings',
+            gradient: 'from-violet-500 to-purple-500',
         },
     ]
 

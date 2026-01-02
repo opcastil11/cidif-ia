@@ -202,6 +202,35 @@
         ]
       }
     },
+    "meetings": {
+      "title": "Book a Meeting with Our Specialists",
+      "subtitle": "Get personalized guidance from our team of grant specialists and project advisors.",
+      "free": "Free",
+      "recommended": "Recommended",
+      "minutes": "min",
+      "bookNow": "Book Now",
+      "intro": {
+        "title": "Intro Meeting",
+        "description": "Learn about our services and how we can help you secure funding for your innovation project.",
+        "features": [
+          "Platform overview",
+          "Funding assessment",
+          "Q&A session",
+          "No commitment"
+        ]
+      },
+      "review": {
+        "title": "Project Review",
+        "priceFrom": "From $40",
+        "description": "Get a comprehensive review of your project with a detailed report and actionable recommendations.",
+        "features": [
+          "Complete project analysis",
+          "Funding opportunities assessment",
+          "Detailed written report",
+          "Action plan with priorities"
+        ]
+      }
+    },
     "cta": {
       "title": "Ready to Innovate?",
       "subtitle": "Join hundreds of companies that have already secured funding and developed their projects with CIDIF.",
@@ -295,8 +324,32 @@
       "activeProjects": "Active Projects",
       "applications": "Applications",
       "successRate": "Success Rate",
-      "totalAwarded": "Total Awarded"
+      "totalAwarded": "Total Awarded",
+      "pending": "pending"
     },
+    "breakdown": {
+      "title": "Applications Status",
+      "subtitle": "Overview of all your applications by status",
+      "drafts": "Drafts",
+      "pending": "In Progress",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "progressLabel": "Approval rate"
+    },
+    "recentActivity": {
+      "title": "Recent Activity",
+      "subtitle": "Your latest applications and their current status",
+      "unknownFund": "Unknown fund",
+      "unknownProject": "Unknown project"
+    },
+    "status": {
+      "draft": "Draft",
+      "submitted": "Submitted",
+      "in_review": "In Review",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "viewAll": "View all",
     "quickActions": {
       "newApplication": {
         "title": "Start New Application",
@@ -305,6 +358,11 @@
       "createProject": {
         "title": "Create Project",
         "description": "Set up your project profile to apply for multiple funds."
+      },
+      "bookMeeting": {
+        "title": "Book a Meeting",
+        "description": "Schedule a meeting with our specialists for personalized guidance.",
+        "button": "Book Meeting"
       }
     },
     "browseFunds": "Browse Funds",
@@ -314,7 +372,8 @@
     "dashboard": "Dashboard",
     "projects": "Projects",
     "applications": "Applications",
-    "fundsCatalog": "Funds Catalog"
+    "fundsCatalog": "Funds Catalog",
+    "meetings": "Meetings"
   },
   "projects": {
     "title": "Projects",
@@ -653,6 +712,10 @@
       "plans": {
         "title": "Plan Management",
         "description": "Configure plan prices and features"
+      },
+      "meetings": {
+        "title": "Meeting Management",
+        "description": "Manage bookings and pricing"
       }
     },
     "users": {
@@ -825,6 +888,75 @@
       "noSubscriptions": "No active subscriptions yet",
       "users": "users",
       "perMonth": "/month"
+    },
+    "meetings": {
+      "title": "Meeting Management",
+      "subtitle": "Manage customer bookings and configure pricing by country",
+      "stats": {
+        "total": "Total Bookings",
+        "pending": "Pending",
+        "completed": "Completed",
+        "revenue": "Total Revenue"
+      },
+      "tabs": {
+        "bookings": "Bookings",
+        "pricing": "Pricing"
+      },
+      "bookings": {
+        "title": "All Bookings",
+        "subtitle": "Manage customer meeting requests and update their status",
+        "table": {
+          "date": "Date",
+          "customer": "Customer",
+          "type": "Type",
+          "project": "Project",
+          "price": "Price",
+          "status": "Status",
+          "actions": "Actions"
+        },
+        "manage": "Manage",
+        "manageDialog": {
+          "title": "Manage Booking",
+          "status": "Status",
+          "adminNotes": "Admin Notes",
+          "adminNotesPlaceholder": "Internal notes about this booking...",
+          "reportUrl": "Report URL",
+          "customerNotes": "Customer Notes",
+          "save": "Save Changes"
+        },
+        "empty": "No bookings yet"
+      },
+      "pricing": {
+        "title": "Country Pricing",
+        "subtitle": "Configure meeting prices for each country",
+        "basePrice": "Base price",
+        "editDialog": {
+          "title": "Edit Price",
+          "price": "Price (USD)",
+          "save": "Save Price"
+        }
+      },
+      "types": {
+        "intro": "Intro (30 min)",
+        "review": "Review (2 hrs)"
+      },
+      "status": {
+        "pending": "Pending",
+        "confirmed": "Confirmed",
+        "completed": "Completed",
+        "cancelled": "Cancelled"
+      },
+      "free": "Free",
+      "paid": "Paid",
+      "minutes": "min",
+      "success": {
+        "bookingUpdated": "Booking updated successfully",
+        "pricingUpdated": "Price updated successfully"
+      },
+      "errors": {
+        "fetchFailed": "Failed to load data",
+        "updateFailed": "Failed to update"
+      }
     }
   },
   "billing": {
@@ -841,6 +973,71 @@
     "needHelp": "Need help?",
     "contactSupport": "Contact us for billing questions or plan features.",
     "contactUs": "Contact Us"
+  },
+  "meetings": {
+    "title": "Book a Meeting",
+    "subtitle": "Schedule a meeting with our specialists",
+    "pageTitle": "Book a Meeting",
+    "pageSubtitle": "Choose a meeting type and schedule a session with our specialists.",
+    "free": "Free",
+    "recommended": "Recommended",
+    "minutes": "min",
+    "schedule": "Schedule Meeting",
+    "bookNow": "Book Now",
+    "booking": "Booking...",
+    "confirmBooking": "Confirm Booking",
+    "project": "Project",
+    "myBookings": "My Bookings",
+    "myBookingsSubtitle": "Your scheduled and past meetings",
+    "viewReport": "View Report",
+    "types": {
+      "intro": {
+        "name": "Intro Meeting",
+        "shortName": "30 min intro",
+        "description": "Learn about our services and how we can help you secure funding for your innovation project.",
+        "features": [
+          "Platform overview",
+          "Funding assessment",
+          "Q&A session",
+          "No commitment"
+        ]
+      },
+      "review": {
+        "name": "Project Review",
+        "shortName": "2 hr review",
+        "description": "Get a comprehensive review of your project with a detailed report and actionable recommendations.",
+        "features": [
+          "Complete project analysis",
+          "Funding opportunities assessment",
+          "Detailed written report",
+          "Action plan with priorities"
+        ]
+      }
+    },
+    "bookingDialog": {
+      "title": "Schedule Meeting",
+      "date": "Date",
+      "time": "Time",
+      "selectTime": "Select a time",
+      "project": "Project (optional)",
+      "selectProject": "Select a project",
+      "notes": "Notes",
+      "notesPlaceholder": "Any additional information or questions...",
+      "total": "Total"
+    },
+    "status": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "success": {
+      "booked": "Meeting booked successfully! We will confirm shortly."
+    },
+    "errors": {
+      "missingFields": "Please select a date and time",
+      "bookingFailed": "Failed to book meeting. Please try again."
+    }
   },
   "agentTrainer": {
     "title": "Train AI Agent",

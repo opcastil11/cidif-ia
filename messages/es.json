@@ -202,6 +202,35 @@
         ]
       }
     },
+    "meetings": {
+      "title": "Agenda una Reunión con Nuestros Especialistas",
+      "subtitle": "Recibe orientación personalizada de nuestro equipo de especialistas en fondos y asesores de proyectos.",
+      "free": "Gratis",
+      "recommended": "Recomendado",
+      "minutes": "min",
+      "bookNow": "Agendar Ahora",
+      "intro": {
+        "title": "Reunión Introductoria",
+        "description": "Conoce nuestros servicios y cómo podemos ayudarte a conseguir financiamiento para tu proyecto de innovación.",
+        "features": [
+          "Visión general de la plataforma",
+          "Evaluación de oportunidades",
+          "Sesión de preguntas",
+          "Sin compromiso"
+        ]
+      },
+      "review": {
+        "title": "Revisión de Proyecto",
+        "priceFrom": "Desde $40",
+        "description": "Obtén una revisión completa de tu proyecto con un informe detallado y recomendaciones accionables.",
+        "features": [
+          "Análisis completo del proyecto",
+          "Evaluación de oportunidades de fondos",
+          "Informe escrito detallado",
+          "Plan de acción con prioridades"
+        ]
+      }
+    },
     "cta": {
       "title": "¿Listo para Innovar?",
       "subtitle": "Únete a cientos de empresas que ya han conseguido financiamiento y desarrollado sus proyectos con CIDIF.",
@@ -295,8 +324,32 @@
       "activeProjects": "Proyectos Activos",
       "applications": "Postulaciones",
       "successRate": "Tasa de Éxito",
-      "totalAwarded": "Total Adjudicado"
+      "totalAwarded": "Total Adjudicado",
+      "pending": "pendientes"
     },
+    "breakdown": {
+      "title": "Estado de Postulaciones",
+      "subtitle": "Resumen del estado de todas tus postulaciones",
+      "drafts": "Borradores",
+      "pending": "En proceso",
+      "approved": "Aprobadas",
+      "rejected": "Rechazadas",
+      "progressLabel": "Tasa de aprobación"
+    },
+    "recentActivity": {
+      "title": "Actividad Reciente",
+      "subtitle": "Tus últimas postulaciones y su estado actual",
+      "unknownFund": "Fondo desconocido",
+      "unknownProject": "Proyecto desconocido"
+    },
+    "status": {
+      "draft": "Borrador",
+      "submitted": "Enviada",
+      "in_review": "En Revisión",
+      "approved": "Aprobada",
+      "rejected": "Rechazada"
+    },
+    "viewAll": "Ver todas",
     "quickActions": {
       "newApplication": {
         "title": "Nueva Postulación",
@@ -305,6 +358,11 @@
       "createProject": {
         "title": "Crear Proyecto",
         "description": "Configura tu perfil de proyecto para postular a múltiples fondos."
+      },
+      "bookMeeting": {
+        "title": "Agendar Reunión",
+        "description": "Agenda una reunión con nuestros especialistas para orientación personalizada.",
+        "button": "Agendar"
       }
     },
     "browseFunds": "Explorar Fondos",
@@ -314,7 +372,8 @@
     "dashboard": "Panel",
     "projects": "Proyectos",
     "applications": "Postulaciones",
-    "fundsCatalog": "Catálogo de Fondos"
+    "fundsCatalog": "Catálogo de Fondos",
+    "meetings": "Reuniones"
   },
   "projects": {
     "title": "Proyectos",
@@ -653,6 +712,10 @@
       "plans": {
         "title": "Gestión de Planes",
         "description": "Configurar precios y características de planes"
+      },
+      "meetings": {
+        "title": "Gestión de Reuniones",
+        "description": "Administrar reservas y precios"
       }
     },
     "users": {
@@ -825,6 +888,75 @@
       "noSubscriptions": "No hay suscripciones activas aún",
       "users": "usuarios",
       "perMonth": "/mes"
+    },
+    "meetings": {
+      "title": "Gestión de Reuniones",
+      "subtitle": "Administra las reservas de clientes y configura precios por país",
+      "stats": {
+        "total": "Total de Reservas",
+        "pending": "Pendientes",
+        "completed": "Completadas",
+        "revenue": "Ingresos Totales"
+      },
+      "tabs": {
+        "bookings": "Reservas",
+        "pricing": "Precios"
+      },
+      "bookings": {
+        "title": "Todas las Reservas",
+        "subtitle": "Administra las solicitudes de reuniones y actualiza su estado",
+        "table": {
+          "date": "Fecha",
+          "customer": "Cliente",
+          "type": "Tipo",
+          "project": "Proyecto",
+          "price": "Precio",
+          "status": "Estado",
+          "actions": "Acciones"
+        },
+        "manage": "Gestionar",
+        "manageDialog": {
+          "title": "Gestionar Reserva",
+          "status": "Estado",
+          "adminNotes": "Notas del Admin",
+          "adminNotesPlaceholder": "Notas internas sobre esta reserva...",
+          "reportUrl": "URL del Informe",
+          "customerNotes": "Notas del Cliente",
+          "save": "Guardar Cambios"
+        },
+        "empty": "Sin reservas aún"
+      },
+      "pricing": {
+        "title": "Precios por País",
+        "subtitle": "Configura los precios de reuniones para cada país",
+        "basePrice": "Precio base",
+        "editDialog": {
+          "title": "Editar Precio",
+          "price": "Precio (USD)",
+          "save": "Guardar Precio"
+        }
+      },
+      "types": {
+        "intro": "Intro (30 min)",
+        "review": "Revisión (2 hrs)"
+      },
+      "status": {
+        "pending": "Pendiente",
+        "confirmed": "Confirmada",
+        "completed": "Completada",
+        "cancelled": "Cancelada"
+      },
+      "free": "Gratis",
+      "paid": "Pagado",
+      "minutes": "min",
+      "success": {
+        "bookingUpdated": "Reserva actualizada exitosamente",
+        "pricingUpdated": "Precio actualizado exitosamente"
+      },
+      "errors": {
+        "fetchFailed": "Error al cargar datos",
+        "updateFailed": "Error al actualizar"
+      }
     }
   },
   "billing": {
@@ -841,6 +973,71 @@
     "needHelp": "¿Necesitas ayuda?",
     "contactSupport": "Contáctanos para preguntas sobre facturación o funciones del plan.",
     "contactUs": "Contáctanos"
+  },
+  "meetings": {
+    "title": "Agendar Reunión",
+    "subtitle": "Agenda una reunión con nuestros especialistas",
+    "pageTitle": "Agendar Reunión",
+    "pageSubtitle": "Elige un tipo de reunión y agenda una sesión con nuestros especialistas.",
+    "free": "Gratis",
+    "recommended": "Recomendado",
+    "minutes": "min",
+    "schedule": "Agendar Reunión",
+    "bookNow": "Agendar Ahora",
+    "booking": "Agendando...",
+    "confirmBooking": "Confirmar Reserva",
+    "project": "Proyecto",
+    "myBookings": "Mis Reservas",
+    "myBookingsSubtitle": "Tus reuniones agendadas y pasadas",
+    "viewReport": "Ver Informe",
+    "types": {
+      "intro": {
+        "name": "Reunión Introductoria",
+        "shortName": "30 min intro",
+        "description": "Conoce nuestros servicios y cómo podemos ayudarte a conseguir financiamiento para tu proyecto de innovación.",
+        "features": [
+          "Visión general de la plataforma",
+          "Evaluación de oportunidades",
+          "Sesión de preguntas",
+          "Sin compromiso"
+        ]
+      },
+      "review": {
+        "name": "Revisión de Proyecto",
+        "shortName": "2 hrs revisión",
+        "description": "Obtén una revisión completa de tu proyecto con un informe detallado y recomendaciones accionables.",
+        "features": [
+          "Análisis completo del proyecto",
+          "Evaluación de oportunidades de fondos",
+          "Informe escrito detallado",
+          "Plan de acción con prioridades"
+        ]
+      }
+    },
+    "bookingDialog": {
+      "title": "Agendar Reunión",
+      "date": "Fecha",
+      "time": "Hora",
+      "selectTime": "Selecciona una hora",
+      "project": "Proyecto (opcional)",
+      "selectProject": "Selecciona un proyecto",
+      "notes": "Notas",
+      "notesPlaceholder": "Información adicional o preguntas...",
+      "total": "Total"
+    },
+    "status": {
+      "pending": "Pendiente",
+      "confirmed": "Confirmada",
+      "completed": "Completada",
+      "cancelled": "Cancelada"
+    },
+    "success": {
+      "booked": "¡Reunión agendada exitosamente! Confirmaremos pronto."
+    },
+    "errors": {
+      "missingFields": "Por favor selecciona una fecha y hora",
+      "bookingFailed": "Error al agendar la reunión. Intenta de nuevo."
+    }
   },
   "agentTrainer": {
     "title": "Entrenar Agente IA",

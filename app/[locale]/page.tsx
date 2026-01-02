@@ -522,8 +522,88 @@ export default function Home() {
                     </div>
                 </section>
 
+                {/* Meetings Section */}
+                <section id="meetings" className="py-24">
+                    <div className="mx-auto max-w-7xl px-6">
+                        <div className="text-center mb-16">
+                            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground">{t('home.meetings.title')}</h2>
+                            <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">{t('home.meetings.subtitle')}</p>
+                        </div>
+
+                        <div className="grid gap-8 md:grid-cols-2 max-w-4xl mx-auto">
+                            {/* Intro Meeting Card */}
+                            <Card className="bg-card border-border overflow-hidden relative hover-lift group">
+                                <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 via-transparent to-cyan-500/5" />
+                                <CardContent className="p-8 relative">
+                                    <div className="flex items-center justify-between mb-6">
+                                        <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-500 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                                            <Phone className="h-7 w-7 text-white" />
+                                        </div>
+                                        <span className="px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 text-sm font-medium">
+                                            {t('home.meetings.free')}
+                                        </span>
+                                    </div>
+                                    <h3 className="font-heading text-2xl font-semibold text-foreground mb-2">{t('home.meetings.intro.title')}</h3>
+                                    <p className="text-muted-foreground mb-4">30 {t('home.meetings.minutes')}</p>
+                                    <p className="text-muted-foreground leading-relaxed mb-6">{t('home.meetings.intro.description')}</p>
+                                    <ul className="space-y-2 mb-6">
+                                        {(t.raw('home.meetings.intro.features') as string[]).map((feature: string, i: number) => (
+                                            <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
+                                                <Check className="h-4 w-4 text-emerald-500 flex-shrink-0" />
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <Button asChild className="w-full bg-teal-600 hover:bg-teal-600/90">
+                                        <Link href="/login">
+                                            {t('home.meetings.bookNow')}
+                                            <ArrowRight className="ml-2 h-4 w-4" />
+                                        </Link>
+                                    </Button>
+                                </CardContent>
+                            </Card>
+
+                            {/* Review Meeting Card */}
+                            <Card className="bg-card border-primary/50 overflow-hidden relative hover-lift group shadow-xl shadow-primary/10">
+                                <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 via-transparent to-purple-500/5" />
+                                <div className="absolute -top-4 right-6 px-4 py-1 bg-primary text-primary-foreground text-sm font-medium rounded-full">
+                                    {t('home.meetings.recommended')}
+                                </div>
+                                <CardContent className="p-8 pt-10 relative">
+                                    <div className="flex items-center justify-between mb-6">
+                                        <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-500 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                                            <Heart className="h-7 w-7 text-white" />
+                                        </div>
+                                        <div className="text-right">
+                                            <div className="text-2xl font-heading font-bold text-foreground">{t('home.meetings.review.priceFrom')}</div>
+                                            <span className="text-xs text-muted-foreground">USD</span>
+                                        </div>
+                                    </div>
+                                    <h3 className="font-heading text-2xl font-semibold text-foreground mb-2">{t('home.meetings.review.title')}</h3>
+                                    <p className="text-muted-foreground mb-4">120 {t('home.meetings.minutes')}</p>
+                                    <p className="text-muted-foreground leading-relaxed mb-6">{t('home.meetings.review.description')}</p>
+                                    <ul className="space-y-2 mb-6">
+                                        {(t.raw('home.meetings.review.features') as string[]).map((feature: string, i: number) => (
+                                            <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
+                                                <Check className="h-4 w-4 text-primary flex-shrink-0" />
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <Button asChild className="w-full bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20">
+                                        <Link href="/login">
+                                            {t('home.meetings.bookNow')}
+                                            <ArrowRight className="ml-2 h-4 w-4" />
+                                        </Link>
+                                    </Button>
+                                </CardContent>
+                            </Card>
+                        </div>
+                    </div>
+                </section>
+
                 {/* CTA Section */}
-                <section className="py-24">
+                <section className="py-24 bg-muted/30">
                     <div className="mx-auto max-w-7xl px-6">
                         <div className="relative rounded-3xl bg-gradient-to-br from-primary/10 via-accent/5 to-primary/10 border border-primary/20 p-12 lg:p-16 text-center overflow-hidden">
                             <div className="absolute inset-0 bg-grid-white/5" />
