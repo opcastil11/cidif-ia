@@ -70,6 +70,35 @@ CREATE TABLE IF NOT EXISTS projects (
   cofounders TEXT,
   key_team_members TEXT,
   advisors TEXT,
+  team_background TEXT,
+  previous_grants TEXT,
+  -- Impact & Objectives (Grant-specific)
+  project_objectives TEXT,
+  expected_impact TEXT,
+  sdg_alignment TEXT,
+  environmental_impact TEXT,
+  social_impact TEXT,
+  -- Implementation (Grant-specific)
+  timeline_milestones TEXT,
+  risk_assessment TEXT,
+  key_activities TEXT,
+  -- Market (Grant-specific)
+  market_size_tam TEXT,
+  market_size_sam TEXT,
+  market_size_som TEXT,
+  competitors_list TEXT,
+  go_to_market_strategy TEXT,
+  -- Financial (Grant-specific)
+  use_of_funds TEXT,
+  revenue_projections TEXT,
+  runway_months INTEGER,
+  -- Technical (Grant-specific)
+  trl_level TEXT,
+  rd_activities TEXT,
+  patents_publications TEXT,
+  -- References (Grant-specific)
+  previous_customers TEXT,
+  letters_of_support TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
@@ -178,6 +207,81 @@ BEGIN
   END IF;
   IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'advisors') THEN
     ALTER TABLE projects ADD COLUMN advisors TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'team_background') THEN
+    ALTER TABLE projects ADD COLUMN team_background TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'previous_grants') THEN
+    ALTER TABLE projects ADD COLUMN previous_grants TEXT;
+  END IF;
+  -- Impact & Objectives (Grant-specific)
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'project_objectives') THEN
+    ALTER TABLE projects ADD COLUMN project_objectives TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'expected_impact') THEN
+    ALTER TABLE projects ADD COLUMN expected_impact TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'sdg_alignment') THEN
+    ALTER TABLE projects ADD COLUMN sdg_alignment TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'environmental_impact') THEN
+    ALTER TABLE projects ADD COLUMN environmental_impact TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'social_impact') THEN
+    ALTER TABLE projects ADD COLUMN social_impact TEXT;
+  END IF;
+  -- Implementation (Grant-specific)
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'timeline_milestones') THEN
+    ALTER TABLE projects ADD COLUMN timeline_milestones TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'risk_assessment') THEN
+    ALTER TABLE projects ADD COLUMN risk_assessment TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'key_activities') THEN
+    ALTER TABLE projects ADD COLUMN key_activities TEXT;
+  END IF;
+  -- Market (Grant-specific)
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'market_size_tam') THEN
+    ALTER TABLE projects ADD COLUMN market_size_tam TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'market_size_sam') THEN
+    ALTER TABLE projects ADD COLUMN market_size_sam TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'market_size_som') THEN
+    ALTER TABLE projects ADD COLUMN market_size_som TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'competitors_list') THEN
+    ALTER TABLE projects ADD COLUMN competitors_list TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'go_to_market_strategy') THEN
+    ALTER TABLE projects ADD COLUMN go_to_market_strategy TEXT;
+  END IF;
+  -- Financial (Grant-specific)
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'use_of_funds') THEN
+    ALTER TABLE projects ADD COLUMN use_of_funds TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'revenue_projections') THEN
+    ALTER TABLE projects ADD COLUMN revenue_projections TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'runway_months') THEN
+    ALTER TABLE projects ADD COLUMN runway_months INTEGER;
+  END IF;
+  -- Technical (Grant-specific)
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'trl_level') THEN
+    ALTER TABLE projects ADD COLUMN trl_level TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'rd_activities') THEN
+    ALTER TABLE projects ADD COLUMN rd_activities TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'patents_publications') THEN
+    ALTER TABLE projects ADD COLUMN patents_publications TEXT;
+  END IF;
+  -- References (Grant-specific)
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'previous_customers') THEN
+    ALTER TABLE projects ADD COLUMN previous_customers TEXT;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'projects' AND column_name = 'letters_of_support') THEN
+    ALTER TABLE projects ADD COLUMN letters_of_support TEXT;
   END IF;
 END $$;
 

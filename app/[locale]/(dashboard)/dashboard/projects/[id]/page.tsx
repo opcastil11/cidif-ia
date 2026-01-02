@@ -12,7 +12,8 @@ import { createClient } from '@/lib/supabase/client'
 import { Link } from '@/i18n/routing'
 import {
     ArrowLeft, Save, Loader2, Trash2, Users, DollarSign, Calendar, ExternalLink,
-    Building2, Mail, Phone, Globe, Linkedin, Target, TrendingUp, Cpu, ChevronDown, ChevronUp
+    Building2, Mail, Phone, Globe, Linkedin, Target, TrendingUp, Cpu, ChevronDown, ChevronUp,
+    Lightbulb, BarChart3, FileText, Award, Rocket
 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { ProjectAgentTrainer } from '@/components/ai/project-agent-trainer'
@@ -29,6 +30,13 @@ const LEGAL_ENTITY_TYPES = ['spa', 'sa', 'ltda', 'eirl', 'corporation', 'llc', '
 const IP_STATUS_OPTIONS = ['none', 'pending', 'granted', 'trade_secret', 'multiple']
 
 const PRODUCT_STATUS_OPTIONS = ['concept', 'development', 'beta', 'launched', 'scaling']
+
+const TRL_LEVELS = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+const SDG_OPTIONS = [
+    'sdg1', 'sdg2', 'sdg3', 'sdg4', 'sdg5', 'sdg6', 'sdg7', 'sdg8', 'sdg9',
+    'sdg10', 'sdg11', 'sdg12', 'sdg13', 'sdg14', 'sdg15', 'sdg16', 'sdg17'
+]
 
 const COUNTRIES = [
     { code: 'CL', name: 'Chile' },
@@ -91,6 +99,35 @@ interface Project {
     cofounders: string | null
     key_team_members: string | null
     advisors: string | null
+    team_background: string | null
+    previous_grants: string | null
+    // Impact & Objectives (Grant-specific)
+    project_objectives: string | null
+    expected_impact: string | null
+    sdg_alignment: string | null
+    environmental_impact: string | null
+    social_impact: string | null
+    // Implementation (Grant-specific)
+    timeline_milestones: string | null
+    risk_assessment: string | null
+    key_activities: string | null
+    // Market (Grant-specific)
+    market_size_tam: string | null
+    market_size_sam: string | null
+    market_size_som: string | null
+    competitors_list: string | null
+    go_to_market_strategy: string | null
+    // Financial (Grant-specific)
+    use_of_funds: string | null
+    revenue_projections: string | null
+    runway_months: number | null
+    // Technical (Grant-specific)
+    trl_level: string | null
+    rd_activities: string | null
+    patents_publications: string | null
+    // References (Grant-specific)
+    previous_customers: string | null
+    letters_of_support: string | null
     created_at: string
     updated_at: string
 }
@@ -134,6 +171,35 @@ interface FormData {
     cofounders: string
     key_team_members: string
     advisors: string
+    team_background: string
+    previous_grants: string
+    // Impact & Objectives
+    project_objectives: string
+    expected_impact: string
+    sdg_alignment: string
+    environmental_impact: string
+    social_impact: string
+    // Implementation
+    timeline_milestones: string
+    risk_assessment: string
+    key_activities: string
+    // Market
+    market_size_tam: string
+    market_size_sam: string
+    market_size_som: string
+    competitors_list: string
+    go_to_market_strategy: string
+    // Financial
+    use_of_funds: string
+    revenue_projections: string
+    runway_months: string
+    // Technical
+    trl_level: string
+    rd_activities: string
+    patents_publications: string
+    // References
+    previous_customers: string
+    letters_of_support: string
 }
 
 function CollapsibleSection({
@@ -227,6 +293,35 @@ export default function ProjectDetailPage() {
         cofounders: '',
         key_team_members: '',
         advisors: '',
+        team_background: '',
+        previous_grants: '',
+        // Impact & Objectives
+        project_objectives: '',
+        expected_impact: '',
+        sdg_alignment: '',
+        environmental_impact: '',
+        social_impact: '',
+        // Implementation
+        timeline_milestones: '',
+        risk_assessment: '',
+        key_activities: '',
+        // Market
+        market_size_tam: '',
+        market_size_sam: '',
+        market_size_som: '',
+        competitors_list: '',
+        go_to_market_strategy: '',
+        // Financial
+        use_of_funds: '',
+        revenue_projections: '',
+        runway_months: '',
+        // Technical
+        trl_level: '',
+        rd_activities: '',
+        patents_publications: '',
+        // References
+        previous_customers: '',
+        letters_of_support: '',
     })
 
     useEffect(() => {
@@ -295,6 +390,35 @@ export default function ProjectDetailPage() {
             cofounders: data.cofounders || '',
             key_team_members: data.key_team_members || '',
             advisors: data.advisors || '',
+            team_background: data.team_background || '',
+            previous_grants: data.previous_grants || '',
+            // Impact & Objectives
+            project_objectives: data.project_objectives || '',
+            expected_impact: data.expected_impact || '',
+            sdg_alignment: data.sdg_alignment || '',
+            environmental_impact: data.environmental_impact || '',
+            social_impact: data.social_impact || '',
+            // Implementation
+            timeline_milestones: data.timeline_milestones || '',
+            risk_assessment: data.risk_assessment || '',
+            key_activities: data.key_activities || '',
+            // Market
+            market_size_tam: data.market_size_tam || '',
+            market_size_sam: data.market_size_sam || '',
+            market_size_som: data.market_size_som || '',
+            competitors_list: data.competitors_list || '',
+            go_to_market_strategy: data.go_to_market_strategy || '',
+            // Financial
+            use_of_funds: data.use_of_funds || '',
+            revenue_projections: data.revenue_projections || '',
+            runway_months: data.runway_months?.toString() || '',
+            // Technical
+            trl_level: data.trl_level || '',
+            rd_activities: data.rd_activities || '',
+            patents_publications: data.patents_publications || '',
+            // References
+            previous_customers: data.previous_customers || '',
+            letters_of_support: data.letters_of_support || '',
         })
         setLoading(false)
     }
@@ -347,6 +471,35 @@ export default function ProjectDetailPage() {
                     cofounders: formData.cofounders || null,
                     key_team_members: formData.key_team_members || null,
                     advisors: formData.advisors || null,
+                    team_background: formData.team_background || null,
+                    previous_grants: formData.previous_grants || null,
+                    // Impact & Objectives
+                    project_objectives: formData.project_objectives || null,
+                    expected_impact: formData.expected_impact || null,
+                    sdg_alignment: formData.sdg_alignment || null,
+                    environmental_impact: formData.environmental_impact || null,
+                    social_impact: formData.social_impact || null,
+                    // Implementation
+                    timeline_milestones: formData.timeline_milestones || null,
+                    risk_assessment: formData.risk_assessment || null,
+                    key_activities: formData.key_activities || null,
+                    // Market
+                    market_size_tam: formData.market_size_tam || null,
+                    market_size_sam: formData.market_size_sam || null,
+                    market_size_som: formData.market_size_som || null,
+                    competitors_list: formData.competitors_list || null,
+                    go_to_market_strategy: formData.go_to_market_strategy || null,
+                    // Financial
+                    use_of_funds: formData.use_of_funds || null,
+                    revenue_projections: formData.revenue_projections || null,
+                    runway_months: formData.runway_months ? parseInt(formData.runway_months) : null,
+                    // Technical
+                    trl_level: formData.trl_level || null,
+                    rd_activities: formData.rd_activities || null,
+                    patents_publications: formData.patents_publications || null,
+                    // References
+                    previous_customers: formData.previous_customers || null,
+                    letters_of_support: formData.letters_of_support || null,
                     updated_at: new Date().toISOString(),
                 })
                 .eq('id', projectId)
@@ -429,6 +582,35 @@ export default function ProjectDetailPage() {
             cofounders: project.cofounders || '',
             key_team_members: project.key_team_members || '',
             advisors: project.advisors || '',
+            team_background: project.team_background || '',
+            previous_grants: project.previous_grants || '',
+            // Impact & Objectives
+            project_objectives: project.project_objectives || '',
+            expected_impact: project.expected_impact || '',
+            sdg_alignment: project.sdg_alignment || '',
+            environmental_impact: project.environmental_impact || '',
+            social_impact: project.social_impact || '',
+            // Implementation
+            timeline_milestones: project.timeline_milestones || '',
+            risk_assessment: project.risk_assessment || '',
+            key_activities: project.key_activities || '',
+            // Market
+            market_size_tam: project.market_size_tam || '',
+            market_size_sam: project.market_size_sam || '',
+            market_size_som: project.market_size_som || '',
+            competitors_list: project.competitors_list || '',
+            go_to_market_strategy: project.go_to_market_strategy || '',
+            // Financial
+            use_of_funds: project.use_of_funds || '',
+            revenue_projections: project.revenue_projections || '',
+            runway_months: project.runway_months?.toString() || '',
+            // Technical
+            trl_level: project.trl_level || '',
+            rd_activities: project.rd_activities || '',
+            patents_publications: project.patents_publications || '',
+            // References
+            previous_customers: project.previous_customers || '',
+            letters_of_support: project.letters_of_support || '',
         })
     }
 
@@ -1028,6 +1210,305 @@ export default function ProjectDetailPage() {
                                         rows={2}
                                         className="bg-slate-800 border-slate-700 text-white"
                                         placeholder={tNew('advisorsPlaceholder')}
+                                    />
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="team_background" className="text-slate-200">{tNew('teamBackground')}</Label>
+                                    <Textarea
+                                        id="team_background"
+                                        value={formData.team_background}
+                                        onChange={(e) => setFormData({ ...formData, team_background: e.target.value })}
+                                        rows={2}
+                                        className="bg-slate-800 border-slate-700 text-white"
+                                        placeholder={tNew('teamBackgroundPlaceholder')}
+                                    />
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="previous_grants" className="text-slate-200">{tNew('previousGrants')}</Label>
+                                    <Textarea
+                                        id="previous_grants"
+                                        value={formData.previous_grants}
+                                        onChange={(e) => setFormData({ ...formData, previous_grants: e.target.value })}
+                                        rows={2}
+                                        className="bg-slate-800 border-slate-700 text-white"
+                                        placeholder={tNew('previousGrantsPlaceholder')}
+                                    />
+                                </div>
+                            </CollapsibleSection>
+
+                            {/* Impact & Objectives Section */}
+                            <CollapsibleSection title={tNew('sections.impactObjectives')} icon={Lightbulb}>
+                                <div className="space-y-2">
+                                    <Label htmlFor="project_objectives" className="text-slate-200">{tNew('projectObjectives')}</Label>
+                                    <Textarea
+                                        id="project_objectives"
+                                        value={formData.project_objectives}
+                                        onChange={(e) => setFormData({ ...formData, project_objectives: e.target.value })}
+                                        rows={3}
+                                        className="bg-slate-800 border-slate-700 text-white"
+                                        placeholder={tNew('projectObjectivesPlaceholder')}
+                                    />
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="expected_impact" className="text-slate-200">{tNew('expectedImpact')}</Label>
+                                    <Textarea
+                                        id="expected_impact"
+                                        value={formData.expected_impact}
+                                        onChange={(e) => setFormData({ ...formData, expected_impact: e.target.value })}
+                                        rows={3}
+                                        className="bg-slate-800 border-slate-700 text-white"
+                                        placeholder={tNew('expectedImpactPlaceholder')}
+                                    />
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="sdg_alignment" className="text-slate-200">{tNew('sdgAlignment')}</Label>
+                                    <select
+                                        id="sdg_alignment"
+                                        value={formData.sdg_alignment}
+                                        onChange={(e) => setFormData({ ...formData, sdg_alignment: e.target.value })}
+                                        className="w-full px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 text-white"
+                                    >
+                                        <option value="">{tNew('selectSdg')}</option>
+                                        {SDG_OPTIONS.map((sdg) => (
+                                            <option key={sdg} value={sdg}>{tNew(`sdgs.${sdg}`)}</option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                <div className="grid gap-4 md:grid-cols-2">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="environmental_impact" className="text-slate-200">{tNew('environmentalImpact')}</Label>
+                                        <Textarea
+                                            id="environmental_impact"
+                                            value={formData.environmental_impact}
+                                            onChange={(e) => setFormData({ ...formData, environmental_impact: e.target.value })}
+                                            rows={2}
+                                            className="bg-slate-800 border-slate-700 text-white"
+                                            placeholder={tNew('environmentalImpactPlaceholder')}
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="social_impact" className="text-slate-200">{tNew('socialImpact')}</Label>
+                                        <Textarea
+                                            id="social_impact"
+                                            value={formData.social_impact}
+                                            onChange={(e) => setFormData({ ...formData, social_impact: e.target.value })}
+                                            rows={2}
+                                            className="bg-slate-800 border-slate-700 text-white"
+                                            placeholder={tNew('socialImpactPlaceholder')}
+                                        />
+                                    </div>
+                                </div>
+                            </CollapsibleSection>
+
+                            {/* Implementation Section */}
+                            <CollapsibleSection title={tNew('sections.implementation')} icon={Rocket}>
+                                <div className="space-y-2">
+                                    <Label htmlFor="timeline_milestones" className="text-slate-200">{tNew('timelineMilestones')}</Label>
+                                    <Textarea
+                                        id="timeline_milestones"
+                                        value={formData.timeline_milestones}
+                                        onChange={(e) => setFormData({ ...formData, timeline_milestones: e.target.value })}
+                                        rows={3}
+                                        className="bg-slate-800 border-slate-700 text-white"
+                                        placeholder={tNew('timelineMilestonesPlaceholder')}
+                                    />
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="key_activities" className="text-slate-200">{tNew('keyActivities')}</Label>
+                                    <Textarea
+                                        id="key_activities"
+                                        value={formData.key_activities}
+                                        onChange={(e) => setFormData({ ...formData, key_activities: e.target.value })}
+                                        rows={3}
+                                        className="bg-slate-800 border-slate-700 text-white"
+                                        placeholder={tNew('keyActivitiesPlaceholder')}
+                                    />
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="risk_assessment" className="text-slate-200">{tNew('riskAssessment')}</Label>
+                                    <Textarea
+                                        id="risk_assessment"
+                                        value={formData.risk_assessment}
+                                        onChange={(e) => setFormData({ ...formData, risk_assessment: e.target.value })}
+                                        rows={3}
+                                        className="bg-slate-800 border-slate-700 text-white"
+                                        placeholder={tNew('riskAssessmentPlaceholder')}
+                                    />
+                                </div>
+                            </CollapsibleSection>
+
+                            {/* Market Section */}
+                            <CollapsibleSection title={tNew('sections.marketInfo')} icon={BarChart3}>
+                                <div className="grid gap-4 md:grid-cols-3">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="market_size_tam" className="text-slate-200">{tNew('marketSizeTam')}</Label>
+                                        <Input
+                                            id="market_size_tam"
+                                            value={formData.market_size_tam}
+                                            onChange={(e) => setFormData({ ...formData, market_size_tam: e.target.value })}
+                                            className="bg-slate-800 border-slate-700 text-white"
+                                            placeholder="$X billion"
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="market_size_sam" className="text-slate-200">{tNew('marketSizeSam')}</Label>
+                                        <Input
+                                            id="market_size_sam"
+                                            value={formData.market_size_sam}
+                                            onChange={(e) => setFormData({ ...formData, market_size_sam: e.target.value })}
+                                            className="bg-slate-800 border-slate-700 text-white"
+                                            placeholder="$X million"
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="market_size_som" className="text-slate-200">{tNew('marketSizeSom')}</Label>
+                                        <Input
+                                            id="market_size_som"
+                                            value={formData.market_size_som}
+                                            onChange={(e) => setFormData({ ...formData, market_size_som: e.target.value })}
+                                            className="bg-slate-800 border-slate-700 text-white"
+                                            placeholder="$X million"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="competitors_list" className="text-slate-200">{tNew('competitorsList')}</Label>
+                                    <Textarea
+                                        id="competitors_list"
+                                        value={formData.competitors_list}
+                                        onChange={(e) => setFormData({ ...formData, competitors_list: e.target.value })}
+                                        rows={2}
+                                        className="bg-slate-800 border-slate-700 text-white"
+                                        placeholder={tNew('competitorsListPlaceholder')}
+                                    />
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="go_to_market_strategy" className="text-slate-200">{tNew('goToMarketStrategy')}</Label>
+                                    <Textarea
+                                        id="go_to_market_strategy"
+                                        value={formData.go_to_market_strategy}
+                                        onChange={(e) => setFormData({ ...formData, go_to_market_strategy: e.target.value })}
+                                        rows={3}
+                                        className="bg-slate-800 border-slate-700 text-white"
+                                        placeholder={tNew('goToMarketStrategyPlaceholder')}
+                                    />
+                                </div>
+                            </CollapsibleSection>
+
+                            {/* Extended Financial Section */}
+                            <CollapsibleSection title={tNew('sections.financialPlanning')} icon={FileText}>
+                                <div className="space-y-2">
+                                    <Label htmlFor="use_of_funds" className="text-slate-200">{tNew('useOfFunds')}</Label>
+                                    <Textarea
+                                        id="use_of_funds"
+                                        value={formData.use_of_funds}
+                                        onChange={(e) => setFormData({ ...formData, use_of_funds: e.target.value })}
+                                        rows={3}
+                                        className="bg-slate-800 border-slate-700 text-white"
+                                        placeholder={tNew('useOfFundsPlaceholder')}
+                                    />
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="revenue_projections" className="text-slate-200">{tNew('revenueProjections')}</Label>
+                                    <Textarea
+                                        id="revenue_projections"
+                                        value={formData.revenue_projections}
+                                        onChange={(e) => setFormData({ ...formData, revenue_projections: e.target.value })}
+                                        rows={2}
+                                        className="bg-slate-800 border-slate-700 text-white"
+                                        placeholder={tNew('revenueProjectionsPlaceholder')}
+                                    />
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="runway_months" className="text-slate-200">{tNew('runwayMonths')}</Label>
+                                    <Input
+                                        id="runway_months"
+                                        type="number"
+                                        min="0"
+                                        value={formData.runway_months}
+                                        onChange={(e) => setFormData({ ...formData, runway_months: e.target.value })}
+                                        className="bg-slate-800 border-slate-700 text-white"
+                                        placeholder={tNew('runwayMonthsPlaceholder')}
+                                    />
+                                </div>
+                            </CollapsibleSection>
+
+                            {/* Technical/R&D Section */}
+                            <CollapsibleSection title={tNew('sections.rdTechnical')} icon={Award}>
+                                <div className="space-y-2">
+                                    <Label htmlFor="trl_level" className="text-slate-200">{tNew('trlLevel')}</Label>
+                                    <select
+                                        id="trl_level"
+                                        value={formData.trl_level}
+                                        onChange={(e) => setFormData({ ...formData, trl_level: e.target.value })}
+                                        className="w-full px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 text-white"
+                                    >
+                                        <option value="">{tNew('selectTrl')}</option>
+                                        {TRL_LEVELS.map((level) => (
+                                            <option key={level} value={level}>{tNew(`trlLevels.${level}`)}</option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="rd_activities" className="text-slate-200">{tNew('rdActivities')}</Label>
+                                    <Textarea
+                                        id="rd_activities"
+                                        value={formData.rd_activities}
+                                        onChange={(e) => setFormData({ ...formData, rd_activities: e.target.value })}
+                                        rows={3}
+                                        className="bg-slate-800 border-slate-700 text-white"
+                                        placeholder={tNew('rdActivitiesPlaceholder')}
+                                    />
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="patents_publications" className="text-slate-200">{tNew('patentsPublications')}</Label>
+                                    <Textarea
+                                        id="patents_publications"
+                                        value={formData.patents_publications}
+                                        onChange={(e) => setFormData({ ...formData, patents_publications: e.target.value })}
+                                        rows={2}
+                                        className="bg-slate-800 border-slate-700 text-white"
+                                        placeholder={tNew('patentsPublicationsPlaceholder')}
+                                    />
+                                </div>
+                            </CollapsibleSection>
+
+                            {/* References Section */}
+                            <CollapsibleSection title={tNew('sections.references')} icon={FileText}>
+                                <div className="space-y-2">
+                                    <Label htmlFor="previous_customers" className="text-slate-200">{tNew('previousCustomers')}</Label>
+                                    <Textarea
+                                        id="previous_customers"
+                                        value={formData.previous_customers}
+                                        onChange={(e) => setFormData({ ...formData, previous_customers: e.target.value })}
+                                        rows={2}
+                                        className="bg-slate-800 border-slate-700 text-white"
+                                        placeholder={tNew('previousCustomersPlaceholder')}
+                                    />
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="letters_of_support" className="text-slate-200">{tNew('lettersOfSupport')}</Label>
+                                    <Textarea
+                                        id="letters_of_support"
+                                        value={formData.letters_of_support}
+                                        onChange={(e) => setFormData({ ...formData, letters_of_support: e.target.value })}
+                                        rows={2}
+                                        className="bg-slate-800 border-slate-700 text-white"
+                                        placeholder={tNew('lettersOfSupportPlaceholder')}
                                     />
                                 </div>
                             </CollapsibleSection>
