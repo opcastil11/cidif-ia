@@ -75,6 +75,13 @@ export default async function BackofficePage() {
                 currentUserEmail={user?.email || null}
             />
 
+            {/* Version Badge - Test Deploy 2026-01-03 */}
+            <div className="flex justify-end">
+                <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-md">
+                    v1.0.3-test
+                </span>
+            </div>
+
             {/* Sections */}
             <div className="grid gap-6 md:grid-cols-2">
                 {sections.map((section) => (
