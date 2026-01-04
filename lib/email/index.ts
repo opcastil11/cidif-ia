@@ -45,7 +45,7 @@ export async function sendEmail(options: SendEmailOptions): Promise<{ id: string
       subject: options.subject,
       html: options.html,
       text: options.text,
-      reply_to: options.replyTo || EMAIL_REPLY_TO,
+      replyTo: options.replyTo || EMAIL_REPLY_TO,
       tags: options.tags,
     })
 
@@ -63,4 +63,3 @@ export async function sendEmail(options: SendEmailOptions): Promise<{ id: string
 }
 
 export * from './templates'
-export * from './service'
