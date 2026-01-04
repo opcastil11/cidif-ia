@@ -1,12 +1,13 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Bot, Save, Loader2, MessageSquare, Send, X, Upload, FileText, Check } from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 
 interface Message {
   role: 'user' | 'assistant'
@@ -21,6 +22,8 @@ interface ProjectAgentTrainerProps {
 
 export function ProjectAgentTrainer({ projectId, initialContext = '', fundId }: ProjectAgentTrainerProps) {
   const t = useTranslations('agentTrainer')
+  const router = useRouter()
+  const locale = useLocale()
   const [context, setContext] = useState(initialContext)
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
@@ -42,6 +45,15 @@ export function ProjectAgentTrainer({ projectId, initialContext = '', fundId }: 
     scrollToBottom()
   }, [messages])
 
+  const handleAuthError = (response: Response) => {
+    if (response.status === 401) {
+      console.log('[AgentTrainer] Authentication required, redirecting to login')
+      router.push(`/${locale}/login`)
+      return true
+    }
+    return false
+  }
+
   const handleSaveContext = async () => {
     setSaving(true)
     setSaved(false)
@@ -51,6 +63,8 @@ export function ProjectAgentTrainer({ projectId, initialContext = '', fundId }: 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ projectId, agentContext: context }),
       })
+
+      if (handleAuthError(response)) return
 
       if (response.ok) {
         setSaved(true)
@@ -77,6 +91,8 @@ export function ProjectAgentTrainer({ projectId, initialContext = '', fundId }: 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: userMessage, projectId, fundId }),
       })
+
+      if (handleAuthError(response)) return
 
       const data = await response.json()
 
@@ -132,6 +148,8 @@ export function ProjectAgentTrainer({ projectId, initialContext = '', fundId }: 
         method: 'POST',
         body: formData,
       })
+
+      if (handleAuthError(response)) return
 
       const data = await response.json()
 

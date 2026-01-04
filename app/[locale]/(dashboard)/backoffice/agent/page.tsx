@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { createClient } from '@/lib/supabase/client'
 import { Bot, Save, Upload, FileText, Loader2 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 interface FundContext {
     id: string
@@ -15,6 +16,7 @@ interface FundContext {
 }
 
 export default function AgentPage() {
+    const t = useTranslations('backoffice.agent')
     const [funds, setFunds] = useState<FundContext[]>([])
     const [selectedFund, setSelectedFund] = useState<string>('')
     const [context, setContext] = useState('')
@@ -76,10 +78,10 @@ export default function AgentPage() {
                 f.id === selectedFund ? { ...f, context } : f
             ))
 
-            alert('Contexto guardado exitosamente')
+            alert(t('savedSuccess'))
         } catch (error) {
             console.error('Error saving context:', error)
-            alert('Error al guardar')
+            alert(t('saveError'))
         } finally {
             setSaving(false)
         }
@@ -107,8 +109,8 @@ export default function AgentPage() {
     return (
         <div className="space-y-6">
             <div>
-                <h2 className="text-xl font-heading font-semibold text-foreground">Gestión de Agentes IA</h2>
-                <p className="text-muted-foreground">Configura el contexto de IA para cada fondo</p>
+                <h2 className="text-xl font-heading font-semibold text-foreground">{t('title')}</h2>
+                <p className="text-muted-foreground">{t('subtitle')}</p>
             </div>
 
             <div className="grid gap-6 lg:grid-cols-3">
@@ -117,7 +119,7 @@ export default function AgentPage() {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <Bot className="h-5 w-5" />
-                            Fondos
+                            {t('funds')}
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -143,7 +145,7 @@ export default function AgentPage() {
 
                             {funds.length === 0 && (
                                 <p className="text-center text-muted-foreground py-4">
-                                    No hay fondos. Crea un fondo primero.
+                                    {t('noFunds')}
                                 </p>
                             )}
                         </div>
@@ -153,12 +155,12 @@ export default function AgentPage() {
                 {/* Context Editor */}
                 <Card className="bg-card border-border lg:col-span-2">
                     <CardHeader className="flex flex-row items-center justify-between">
-                        <CardTitle>Contexto del Agente</CardTitle>
+                        <CardTitle>{t('agentContext')}</CardTitle>
                         <div className="flex gap-2">
                             <Button variant="outline" size="sm" asChild>
                                 <label className="cursor-pointer">
                                     <Upload className="h-4 w-4 mr-2" />
-                                    Subir .md
+                                    {t('uploadMd')}
                                     <input
                                         type="file"
                                         accept=".md,.txt"
@@ -178,7 +180,7 @@ export default function AgentPage() {
                                 ) : (
                                     <Save className="h-4 w-4 mr-2" />
                                 )}
-                                Guardar
+                                {t('save')}
                             </Button>
                         </div>
                     </CardHeader>
@@ -187,37 +189,36 @@ export default function AgentPage() {
                             <div className="space-y-4">
                                 <div className="space-y-2">
                                     <Label>
-                                        Contexto Markdown para el Agente IA
+                                        {t('contextLabel')}
                                     </Label>
                                     <Textarea
                                         value={context}
                                         onChange={(e) => setContext(e.target.value)}
-                                        placeholder={`# Contexto del Fondo
+                                        placeholder={`# Fund Context
 
-## Descripción
-Describe el fondo y sus requisitos...
+## Description
+Describe the fund and its requirements...
 
-## Criterios de Evaluación
-- Criterio 1
-- Criterio 2
+## Evaluation Criteria
+- Criterion 1
+- Criterion 2
 
-## Formato de Respuestas
-Indica cómo debe responder el agente...
+## Response Format
+Indicate how the agent should respond...
 
-## Ejemplos
-Proporciona ejemplos de buenas respuestas...`}
+## Examples
+Provide examples of good responses...`}
                                         className="min-h-[400px] font-mono text-sm"
                                     />
                                 </div>
                                 <p className="text-sm text-muted-foreground">
-                                    Este contexto será usado por el agente IA para asistir a los usuarios
-                                    en sus postulaciones a este fondo.
+                                    {t('contextHelp')}
                                 </p>
                             </div>
                         ) : (
                             <div className="flex flex-col items-center justify-center h-64 text-muted-foreground">
                                 <Bot className="h-12 w-12 mb-4" />
-                                <p>Selecciona un fondo para editar su contexto</p>
+                                <p>{t('selectFund')}</p>
                             </div>
                         )}
                     </CardContent>
