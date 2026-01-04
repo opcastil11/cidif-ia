@@ -117,7 +117,7 @@ export default async function DashboardPage() {
                         {t('welcome')}
                     </p>
                     <Badge variant="outline" className="mt-2 text-xs">
-                        v1.0.3 - Deploy Test
+                        v1.0.4 - Deploy Test
                     </Badge>
                 </div>
                 <Button asChild className="bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20">
