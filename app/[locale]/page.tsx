@@ -259,37 +259,74 @@ export default function Home() {
 
             <main>
                 {/* Hero Section */}
-                <section className="relative py-20 sm:py-28 lg:py-36">
-                    <div className="mx-auto max-w-7xl px-6">
+                <section className="relative py-20 sm:py-28 lg:py-36 overflow-hidden">
+                    {/* Decorative elements */}
+                    <div className="absolute inset-0 pointer-events-none">
+                        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
+                        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+                    </div>
+
+                    <div className="mx-auto max-w-7xl px-6 relative">
                         <div className="text-center max-w-4xl mx-auto">
-                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8">
-                                <FlaskConical className="h-4 w-4 text-primary" />
+                            {/* Animated badge */}
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8 hover:bg-primary/15 transition-colors cursor-default group">
+                                <FlaskConical className="h-4 w-4 text-primary group-hover:scale-110 transition-transform" />
                                 <span className="text-sm font-medium text-primary">{t('home.hero.badge')}</span>
+                                <span className="flex h-2 w-2 relative">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary/60 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                                </span>
                             </div>
 
-                            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-tight">
+                            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-foreground leading-[1.1]">
                                 {t('home.hero.title')}
-                                <span className="block text-gradient mt-2">
-                                    {t('home.hero.titleHighlight')}
+                                <br className="hidden sm:block" />
+                                <span className="sm:hidden"> </span>
+                                <span className="relative">
+                                    <span className="bg-gradient-to-r from-primary via-teal-500 to-cyan-500 bg-clip-text text-transparent animate-gradient">
+                                        {t('home.hero.titleHighlight')}
+                                    </span>
+                                    {/* Underline decoration */}
+                                    <svg className="absolute -bottom-2 left-0 w-full h-3 text-primary/30" viewBox="0 0 200 8" preserveAspectRatio="none">
+                                        <path d="M0 7 Q50 0 100 7 Q150 14 200 7" stroke="currentColor" strokeWidth="2" fill="none" className="animate-pulse" />
+                                    </svg>
                                 </span>
                             </h1>
 
-                            <p className="mt-8 text-lg sm:text-xl leading-relaxed text-muted-foreground max-w-3xl mx-auto">
+                            <p className="mt-10 text-lg sm:text-xl leading-relaxed text-muted-foreground max-w-3xl mx-auto">
                                 {t('home.hero.description')}
                             </p>
 
-                            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-                                <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8 h-14 shadow-xl shadow-primary/20 hover-lift">
+                            <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
+                                <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8 h-14 shadow-xl shadow-primary/25 hover-lift group">
                                     <Link href="/login">
                                         {t('home.hero.cta')}
-                                        <ArrowRight className="ml-2 h-5 w-5" />
+                                        <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                                     </Link>
                                 </Button>
-                                <Button asChild size="lg" variant="outline" className="text-lg px-8 h-14 border-2">
+                                <Button asChild size="lg" variant="outline" className="text-lg px-8 h-14 border-2 hover:bg-muted/50">
                                     <a href="#services">
                                         {t('home.hero.ctaSecondary')}
                                     </a>
                                 </Button>
+                            </div>
+
+                            {/* Trust indicators */}
+                            <div className="mt-16 flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
+                                <div className="flex items-center gap-2">
+                                    <Shield className="h-4 w-4 text-primary" />
+                                    <span>85% Tasa de Éxito</span>
+                                </div>
+                                <div className="h-4 w-px bg-border hidden sm:block" />
+                                <div className="flex items-center gap-2">
+                                    <Zap className="h-4 w-4 text-primary" />
+                                    <span>+5 años experiencia</span>
+                                </div>
+                                <div className="h-4 w-px bg-border hidden sm:block" />
+                                <div className="flex items-center gap-2">
+                                    <Globe className="h-4 w-4 text-primary" />
+                                    <span>CORFO • ANID • FIA</span>
+                                </div>
                             </div>
                         </div>
                     </div>
