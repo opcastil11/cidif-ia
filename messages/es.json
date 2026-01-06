@@ -40,30 +40,30 @@
     },
     "services": {
       "title": "Nuestros Servicios",
-      "subtitle": "Soluciones integrales para impulsar tu innovación y conseguir financiamiento.",
+      "subtitle": "Transformamos tus ideas en proyectos financiados. Acompañamiento experto en cada etapa.",
       "formulation": {
         "title": "Formulación de Proyectos I+D+i",
-        "description": "Más de 5 años de experiencia en postulación a fondos públicos y privados. Redacción de formularios, planes de trabajo y presupuestos alineados a requisitos CORFO, ANID y FIA."
+        "description": "+5 años de trayectoria con 85% de aprobación en fondos CORFO, ANID y FIA. Convertimos tu idea en una postulación ganadora con formularios técnicos impecables y presupuestos estratégicos."
       },
       "execution": {
         "title": "Ejecución de Proyectos",
-        "description": "Desarrollo tecnológico con unidad de software dedicada. Acreditados como Entidad Colaboradora CORFO. Metodología ágil con equipo de 5+ desarrolladores y consultoría en propiedad intelectual."
+        "description": "Llevamos tu proyecto del papel a la realidad. Somos Entidad Colaboradora CORFO con un Software Lab dedicado, metodología ágil y consultoría en propiedad intelectual incluida."
       },
       "rdLaw": {
         "title": "Asesoría Ley I+D",
-        "description": "Implementamos consultoría Ley 20.241 para incentivos tributarios en I+D. Ahorro de hasta 52,55% del costo del proyecto. Informes técnicos y planillas financieras formato CORFO."
+        "description": "Recupera hasta el 52,55% de tu inversión en innovación. Te guiamos en la Ley 20.241 con informes técnicos certificados y planillas financieras en formato oficial CORFO."
       },
       "innovation": {
         "title": "Gestión de la Innovación",
-        "description": "Implementación de sistemas y metodologías de innovación. Soluciones tecnológicas, gestión de portafolio de proyectos, protección de propiedad intelectual e identificación de fondos."
+        "description": "Sistematiza tu innovación para escalar. Diseñamos tu portafolio de proyectos, protegemos tu propiedad intelectual y mapeamos las mejores oportunidades de financiamiento."
       },
       "capital": {
         "title": "Acompañamiento Capital de Riesgo",
-        "description": "Guiamos startups hacia capital de riesgo nacional e internacional. Validación comercial/tecnológica, desarrollo de pitch, búsqueda de financiamiento y asesoría legal/IP."
+        "description": "Conectamos tu startup con inversionistas. Preparamos tu pitch, validamos tu modelo de negocio y te abrimos puertas al capital de riesgo nacional e internacional."
       },
       "ai": {
         "title": "Asistencia con IA",
-        "description": "Plataforma potenciada por IA para optimizar tus postulaciones y mejorar tu tasa de éxito con asistente Claude integrado."
+        "description": "Potencia tus postulaciones con inteligencia artificial. Nuestro asistente Claude analiza tu proyecto y te ayuda a redactar propuestas más competitivas."
       }
     },
     "research": {

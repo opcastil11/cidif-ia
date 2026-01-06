@@ -40,30 +40,30 @@
     },
     "services": {
       "title": "Our Services",
-      "subtitle": "Comprehensive solutions to drive your innovation and secure funding.",
+      "subtitle": "We turn your ideas into funded projects. Expert guidance at every stage.",
       "formulation": {
         "title": "R&D&I Project Formulation",
-        "description": "Over 5 years of experience in public and private fund applications. Form writing, work plans and budgets aligned with CORFO, ANID and FIA requirements."
+        "description": "5+ years track record with 85% approval rate for CORFO, ANID, and FIA funds. We transform your idea into a winning application with flawless technical forms and strategic budgets."
       },
       "execution": {
         "title": "Project Execution",
-        "description": "Technological development with dedicated software unit. CORFO-accredited Collaborative Entity. Agile methodology with 5+ developers and IP consulting."
+        "description": "We take your project from paper to reality. As a CORFO-accredited Collaborative Entity, we offer a dedicated Software Lab, agile methodology, and integrated IP consulting."
       },
       "rdLaw": {
         "title": "R&D Law Advisory",
-        "description": "We implement Law 20.241 consulting for R&D tax incentives. Savings up to 52.55% of project cost. Technical reports and CORFO-format financial spreadsheets."
+        "description": "Recover up to 52.55% of your innovation investment. We guide you through Law 20.241 with certified technical reports and CORFO-format official financial spreadsheets."
       },
       "innovation": {
         "title": "Innovation Management",
-        "description": "Implementation of innovation systems and methodologies. Technology solutions, project portfolio management, IP protection and funding opportunity identification."
+        "description": "Systematize your innovation to scale. We design your project portfolio, protect your intellectual property, and map the best funding opportunities."
       },
       "capital": {
         "title": "Venture Capital Support",
-        "description": "We guide startups toward national and international venture capital. Commercial/technical validation, pitch development, funding search and legal/IP advisory."
+        "description": "We connect your startup with investors. We prepare your pitch, validate your business model, and open doors to national and international venture capital."
       },
       "ai": {
         "title": "AI Assistance",
-        "description": "AI-powered platform to optimize your applications and improve your success rate with integrated Claude assistant."
+        "description": "Supercharge your applications with artificial intelligence. Our Claude assistant analyzes your project and helps you write more competitive proposals."
       }
     },
     "research": {
