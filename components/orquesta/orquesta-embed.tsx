@@ -12,17 +12,13 @@ const OrquestaEmbedComponent = dynamic(
   }
 );
 
+// Hardcoded token - no need to rely on Vercel env vars
+const EMBED_TOKEN = 'oek_vSvcRnxhvUesF5XHJ3m5xZeDbuJgYvsQZZwCC6xWQPQ';
+
 export function OrquestaEmbedWrapper() {
-  const token = process.env.NEXT_PUBLIC_ORQUESTA_EMBED_TOKEN;
-
-  // Don't render if no token configured
-  if (!token) {
-    return null;
-  }
-
   return (
     <OrquestaEmbedComponent
-      token={token}
+      token={EMBED_TOKEN}
       position="bottom-right"
       theme="auto"
     />
