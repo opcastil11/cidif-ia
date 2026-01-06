@@ -236,7 +236,7 @@ export default function Home() {
                             <span className="font-heading font-bold text-xl tracking-tight">CIDIF<span className="text-primary">.TECH</span></span>
                             <span className="text-[10px] text-muted-foreground -mt-1">{t('home.header.subtitle')}</span>
                         </div>
-                        <span className="hidden sm:inline-flex ml-2 px-2 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-medium">v1.0.7</span>
+                        <span className="hidden sm:inline-flex ml-2 px-2 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-medium">v1.0.8</span>
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
