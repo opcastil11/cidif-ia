@@ -21,12 +21,16 @@ async function proxyRequest(request: NextRequest, path: string[], method: string
   console.log(`[Orquesta Proxy] Incoming headers:`, JSON.stringify(incomingHeaders, null, 2));
 
   try {
-    // Forward all relevant headers from the original request
+    // Build headers for the outgoing request
+    // Create a new Headers object to ensure proper handling
+    const outgoingHeaders = new Headers();
+    outgoingHeaders.set('Content-Type', 'application/json');
+
     // Always inject the embed token for authentication
-    const headers: HeadersInit = {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${EMBED_TOKEN}`,
-    };
+    // This is the critical auth header for Orquesta API
+    outgoingHeaders.set('Authorization', `Bearer ${EMBED_TOKEN}`);
+
+    console.log(`[Orquesta Proxy] Set Authorization header: Bearer ${EMBED_TOKEN.substring(0, 20)}...`);
 
     // List of headers to forward - include more potential auth headers
     const headersToForward = [
@@ -40,7 +44,7 @@ async function proxyRequest(request: NextRequest, path: string[], method: string
     for (const headerName of headersToForward) {
       const headerValue = request.headers.get(headerName);
       if (headerValue) {
-        headers[headerName] = headerValue;
+        outgoingHeaders.set(headerName, headerValue);
         console.log(`[Orquesta Proxy] Forwarding header ${headerName}: ${headerValue.substring(0, 50)}...`);
       }
     }
@@ -48,15 +52,15 @@ async function proxyRequest(request: NextRequest, path: string[], method: string
     // Also forward authorization if client sends one (override our default)
     const clientAuth = request.headers.get('authorization');
     if (clientAuth) {
-      headers['Authorization'] = clientAuth;
-      console.log(`[Orquesta Proxy] Using client-provided Authorization header`);
+      outgoingHeaders.set('Authorization', clientAuth);
+      console.log(`[Orquesta Proxy] Using client-provided Authorization header instead`);
     } else {
       console.log(`[Orquesta Proxy] Using server-side embed token for auth`);
     }
 
     const fetchOptions: RequestInit = {
       method,
-      headers,
+      headers: outgoingHeaders,
     };
 
     // Add body for methods that support it
@@ -71,12 +75,21 @@ async function proxyRequest(request: NextRequest, path: string[], method: string
       }
     }
 
+    // Log outgoing request details
+    const headersObj: Record<string, string> = {};
+    outgoingHeaders.forEach((value, key) => {
+      headersObj[key] = key.toLowerCase() === 'authorization' ? `${value.substring(0, 30)}...` : value;
+    });
+    console.log(`[Orquesta Proxy] Outgoing headers:`, JSON.stringify(headersObj, null, 2));
+    console.log(`[Orquesta Proxy] Fetching: ${targetUrl}`);
+
     const response = await fetch(targetUrl, fetchOptions);
 
     // Get response as text first to handle empty responses
     const responseText = await response.text();
 
     console.log(`[Orquesta Proxy] Response status: ${response.status}`);
+    console.log(`[Orquesta Proxy] Response body: ${responseText.substring(0, 200)}`);
 
     // Return appropriate response
     if (responseText) {
