@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const ORQUESTA_BASE_URL = 'https://orquesta.live/api/embed';
 
+// Hardcoded token for server-side auth with Orquesta
+const EMBED_TOKEN = 'oek_z5AV0KV1PvXJWnB3oPuHzNpLkelGaNOPH69ZdW_0bdA';
+
 // Generic proxy handler for all Orquesta embed API endpoints
 async function proxyRequest(request: NextRequest, path: string[], method: string) {
   const endpoint = path.join('/');
@@ -9,17 +12,46 @@ async function proxyRequest(request: NextRequest, path: string[], method: string
   const queryString = url.search;
   const targetUrl = `${ORQUESTA_BASE_URL}/${endpoint}${queryString}`;
 
+  // Log incoming request headers for debugging
+  const incomingHeaders: Record<string, string> = {};
+  request.headers.forEach((value, key) => {
+    incomingHeaders[key] = value;
+  });
   console.log(`[Orquesta Proxy] ${method} ${targetUrl}`);
+  console.log(`[Orquesta Proxy] Incoming headers:`, JSON.stringify(incomingHeaders, null, 2));
 
   try {
+    // Forward all relevant headers from the original request
+    // Always inject the embed token for authentication
     const headers: HeadersInit = {
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${EMBED_TOKEN}`,
     };
 
-    // Forward authorization header if present
-    const authHeader = request.headers.get('authorization');
-    if (authHeader) {
-      headers['Authorization'] = authHeader;
+    // List of headers to forward - include more potential auth headers
+    const headersToForward = [
+      'x-orquesta-api-key',
+      'x-embed-token',
+      'x-api-key',
+      'cookie',
+      'x-client-info',
+    ];
+
+    for (const headerName of headersToForward) {
+      const headerValue = request.headers.get(headerName);
+      if (headerValue) {
+        headers[headerName] = headerValue;
+        console.log(`[Orquesta Proxy] Forwarding header ${headerName}: ${headerValue.substring(0, 50)}...`);
+      }
+    }
+
+    // Also forward authorization if client sends one (override our default)
+    const clientAuth = request.headers.get('authorization');
+    if (clientAuth) {
+      headers['Authorization'] = clientAuth;
+      console.log(`[Orquesta Proxy] Using client-provided Authorization header`);
+    } else {
+      console.log(`[Orquesta Proxy] Using server-side embed token for auth`);
     }
 
     const fetchOptions: RequestInit = {
