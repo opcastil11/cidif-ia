@@ -13,7 +13,7 @@ const OrquestaEmbedComponent = dynamic(
 );
 
 // Hardcoded token - no need to rely on Vercel env vars
-const EMBED_TOKEN = 'oek_vSvcRnxhvUesF5XHJ3m5xZeDbuJgYvsQZZwCC6xWQPQ';
+const EMBED_TOKEN = 'oek_z5AV0KV1PvXJWnB3oPuHzNpLkelGaNOPH69ZdW_0bdA';
 
 // Use our own API as proxy to avoid CORS issues with orquesta.live
 const API_URL = typeof window !== 'undefined'
