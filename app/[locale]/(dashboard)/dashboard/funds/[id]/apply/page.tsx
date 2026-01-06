@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -65,8 +65,10 @@ interface ApplicationSection {
 export default function ApplyFundPage() {
     const params = useParams()
     const router = useRouter()
+    const searchParams = useSearchParams()
     const t = useTranslations('applyFund')
     const fundId = params.id as string
+    const preSelectedProjectId = searchParams.get('project')
 
     const [loading, setLoading] = useState(true)
     const [saving, setSaving] = useState(false)
@@ -115,6 +117,11 @@ export default function ApplyFundPage() {
             .order('created_at', { ascending: false })
 
         setProjects(projectsData || [])
+
+        // Pre-select project if provided via query param (from Quick Apply)
+        if (preSelectedProjectId && projectsData?.some(p => p.id === preSelectedProjectId)) {
+            setSelectedProject(preSelectedProjectId)
+        }
 
         // Check if there's an existing application for this fund
         const { data: existingApp } = await supabase

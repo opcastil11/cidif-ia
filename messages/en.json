@@ -379,6 +379,7 @@
     "title": "Projects",
     "subtitle": "Manage your projects and companies",
     "newProject": "New Project",
+    "quickApply": "Apply",
     "empty": {
       "title": "No projects yet",
       "description": "Create your first project to start applying for funds.",

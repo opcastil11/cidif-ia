@@ -6,9 +6,14 @@ import { Landmark, Calendar, DollarSign, ExternalLink } from 'lucide-react'
 import { Link } from '@/i18n/routing'
 import { getTranslations } from 'next-intl/server'
 
-export default async function FundsPage() {
+interface FundsPageProps {
+    searchParams: Promise<{ project?: string }>
+}
+
+export default async function FundsPage({ searchParams }: FundsPageProps) {
     const supabase = await createClient()
     const t = await getTranslations('funds')
+    const { project: preSelectedProject } = await searchParams
 
     const { data: funds } = await supabase
         .from('funds')
@@ -56,7 +61,7 @@ export default async function FundsPage() {
                                 )}
                                 <div className="flex gap-2">
                                     <Button asChild className="flex-1 bg-purple-600 hover:bg-purple-700">
-                                        <Link href={`/dashboard/funds/${fund.id}/apply`}>
+                                        <Link href={preSelectedProject ? `/dashboard/funds/${fund.id}/apply?project=${preSelectedProject}` : `/dashboard/funds/${fund.id}/apply`}>
                                             {t('applyNow')}
                                         </Link>
                                     </Button>

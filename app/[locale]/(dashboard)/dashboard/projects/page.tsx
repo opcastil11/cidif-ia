@@ -1,7 +1,7 @@
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Plus, FolderKanban, Users, Calendar, DollarSign } from 'lucide-react'
+import { Plus, FolderKanban, Users, Calendar, DollarSign, Rocket } from 'lucide-react'
 import { Link } from '@/i18n/routing'
 import { getTranslations } from 'next-intl/server'
 import { createClient } from '@/lib/supabase/server'
@@ -36,12 +36,12 @@ export default async function ProjectsPage() {
             {projects && projects.length > 0 ? (
                 <div className="grid gap-4 md:grid-cols-2">
                     {projects.map((project) => (
-                        <Link key={project.id} href={`/dashboard/projects/${project.id}`}>
-                            <Card className="bg-slate-900 border-slate-800 hover:border-purple-500/50 transition-colors cursor-pointer h-full">
-                                <CardContent className="p-6">
+                        <Card key={project.id} className="bg-slate-900 border-slate-800 hover:border-purple-500/50 transition-colors h-full">
+                            <CardContent className="p-6">
+                                <Link href={`/dashboard/projects/${project.id}`} className="block">
                                     <div className="flex items-start justify-between mb-4">
                                         <div>
-                                            <h3 className="text-lg font-semibold text-white">{project.name}</h3>
+                                            <h3 className="text-lg font-semibold text-white hover:text-purple-400 transition-colors">{project.name}</h3>
                                             {project.industry && (
                                                 <Badge variant="secondary" className="mt-1 bg-slate-800 text-slate-300">
                                                     {project.industry}
@@ -59,6 +59,8 @@ export default async function ProjectsPage() {
                                             {project.description}
                                         </p>
                                     )}
+                                </Link>
+                                <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-800">
                                     <div className="flex items-center gap-4 text-sm text-slate-500">
                                         {project.team_size && (
                                             <div className="flex items-center gap-1">
@@ -79,9 +81,15 @@ export default async function ProjectsPage() {
                                             </div>
                                         )}
                                     </div>
-                                </CardContent>
-                            </Card>
-                        </Link>
+                                    <Button asChild size="sm" className="bg-purple-600 hover:bg-purple-700">
+                                        <Link href={`/dashboard/funds?project=${project.id}`}>
+                                            <Rocket className="mr-2 h-4 w-4" />
+                                            {t('quickApply')}
+                                        </Link>
+                                    </Button>
+                                </div>
+                            </CardContent>
+                        </Card>
                     ))}
                 </div>
             ) : (

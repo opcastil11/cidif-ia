@@ -379,6 +379,7 @@
     "title": "Proyectos",
     "subtitle": "Gestiona tus proyectos y empresas",
     "newProject": "Nuevo Proyecto",
+    "quickApply": "Postular",
     "empty": {
       "title": "Sin proyectos aún",
       "description": "Crea tu primer proyecto para comenzar a postular a fondos.",
