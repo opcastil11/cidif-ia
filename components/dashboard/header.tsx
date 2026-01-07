@@ -24,9 +24,10 @@ interface HeaderProps {
         avatar_url?: string
         email: string
     } | null
+    onMenuClick?: () => void
 }
 
-export function Header({ user, profile }: HeaderProps) {
+export function Header({ user, profile, onMenuClick }: HeaderProps) {
     const router = useRouter()
     const supabase = createClient()
     const t = useTranslations('common')
@@ -49,7 +50,9 @@ export function Header({ user, profile }: HeaderProps) {
             <button
                 type="button"
                 className="lg:hidden -m-2.5 p-2.5 text-slate-400 hover:text-white"
+                onClick={onMenuClick}
             >
+                <span className="sr-only">Open sidebar</span>
                 <Menu className="h-6 w-6" aria-hidden="true" />
             </button>
 

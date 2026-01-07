@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { Sidebar } from '@/components/dashboard/sidebar'
-import { Header } from '@/components/dashboard/header'
+import { DashboardShell } from '@/components/dashboard/dashboard-shell'
 import { Toaster } from '@/components/ui/sonner'
 
 export default async function DashboardLayout({
@@ -27,10 +27,9 @@ export default async function DashboardLayout({
         <div className="min-h-screen bg-slate-950">
             <Sidebar userEmail={user.email} />
             <div className="lg:pl-72">
-                <Header user={user} profile={profile} />
-                <main className="py-6 px-4 sm:px-6 lg:px-8">
+                <DashboardShell user={user} profile={profile}>
                     {children}
-                </main>
+                </DashboardShell>
             </div>
             <Toaster />
         </div>
