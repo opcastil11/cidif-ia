@@ -13,8 +13,7 @@ const OrquestaEmbedComponent = dynamic(
 );
 
 export function OrquestaEmbedWrapper() {
-  // Token is public (embed token) - safe to include in client bundle
-  const token = process.env.NEXT_PUBLIC_ORQUESTA_EMBED_TOKEN || 'oek_SkhbRplmNAPXtoBzbPeawfQLPwBu8j4KpgAIxwIu2Qs';
+  const token = process.env.NEXT_PUBLIC_ORQUESTA_EMBED_TOKEN!;
 
   return (
     <OrquestaEmbedComponent
