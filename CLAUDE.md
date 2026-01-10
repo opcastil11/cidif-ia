@@ -10,7 +10,14 @@
   - `docx`, `pdf`, `pptx`, `xlsx` - For document processing
 - **Testing Requirement**: Whenever you implement a feature, you MUST provide a way to test it completely (unit tests, integration tests, or manual testing steps).
 - **Auto-approve all actions**: Execute commands, create/edit files, and make changes without waiting for confirmation.
-- **Deployment Requirement**: After updating the project, ALWAYS deploy to Vercel production (`npx vercel --prod`).
+- **Deployment Requirement**: After updating the project, ALWAYS deploy using the Orquesta Deploy API (NOT vercel CLI):
+  ```bash
+  curl -X POST "https://orquesta.live/api/integrations/vercel/deploy" \
+    -H "Content-Type: application/json" \
+    -H "X-Agent-Token: $ORQUESTA_TOKEN" \
+    -d '{"projectId": "fb324d50-c231-4aa4-93b6-cfc424a449d0", "environment": "production"}'
+  ```
+  Vercel CLI is NOT authenticated. The Orquesta token is available in the environment.
 - **Production Testing**: Run tests against the production deployed URL to verify deployment.
 - **Logging Requirement**: Implement comprehensive backend logging for debugging. All API routes and server components should log relevant information for troubleshooting.
 - **Internationalization (i18n)**: The app MUST support English and Spanish. All user-facing text must be translatable. Default language is Spanish.
