@@ -13,8 +13,9 @@ const OrquestaEmbedComponent = dynamic(
 );
 
 export function OrquestaEmbedWrapper() {
-  // Token hardcoded since it's a public embed token (NEXT_PUBLIC_*)
-  const token = process.env.NEXT_PUBLIC_ORQUESTA_EMBED_TOKEN || 'oek_4c4ZGiRfDyAwOmOiLYoIKzpHGqrMDy44m7iDyesa8EM';
+  // IMPORTANT: Using hardcoded token because Vercel env var may have old revoked token
+  // To use env var again, update NEXT_PUBLIC_ORQUESTA_EMBED_TOKEN in Vercel dashboard first
+  const token = 'oek_4c4ZGiRfDyAwOmOiLYoIKzpHGqrMDy44m7iDyesa8EM';
 
   return (
     <OrquestaEmbedComponent
