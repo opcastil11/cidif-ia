@@ -24,7 +24,13 @@
     "agent:current": "node scripts/linear-sync.js current",
     "agent:states": "node scripts/linear-sync.js states",
     "agent:loop": "./scripts/agent-loop.sh loop",
-    "agent:once": "./scripts/agent-loop.sh once"
+    "agent:once": "./scripts/agent-loop.sh once",
+    "orquesta:sync": "node scripts/orquesta-agent.js sync",
+    "orquesta:once": "node scripts/orquesta-agent.js once",
+    "orquesta:loop": "node scripts/orquesta-agent.js loop",
+    "orquesta:stats": "node scripts/orquesta-agent.js stats",
+    "orquesta:current": "node scripts/orquesta-agent.js current",
+    "claude:exec": "node scripts/claude-cli.js"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.11",

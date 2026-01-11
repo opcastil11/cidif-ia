@@ -123,16 +123,33 @@ $title
 $description
 
 ## Instructions
-1. Implement the requested feature or fix as described above
-2. Follow the project's coding standards (see CLAUDE.md)
-3. Write tests if applicable
-4. Commit changes with a meaningful message referencing $identifier
-5. Deploy to production using: npx vercel --prod
-6. Verify the deployment works correctly
+You are working on the CIDIF.TECH project. Follow these steps:
 
-When you have completed all tasks, respond with: TICKET_COMPLETE
+1. **Read CLAUDE.md** for project guidelines and requirements
+2. **Implement** the requested feature or fix as described above
+3. **Add i18n translations** for any user-facing text (ES + EN)
+4. **Write tests** if applicable
+5. **Build and verify** the code compiles: \`npm run build\`
+6. **Commit changes** with a meaningful message referencing $identifier:
+   \`git add . && git commit -m "feat: description ($identifier)"\`
+7. **Push to git**: \`git push origin main\`
+8. **Deploy using Orquesta API** (NOT vercel CLI):
+   \`\`\`bash
+   curl -X POST "https://orquesta.live/api/integrations/vercel/deploy" \\
+     -H "Content-Type: application/json" \\
+     -H "X-Agent-Token: \$ORQUESTA_TOKEN" \\
+     -d '{"projectId": "fb324d50-c231-4aa4-93b6-cfc424a449d0", "environment": "production"}'
+   \`\`\`
 
-If you encounter a blocker that requires human intervention, respond with: TICKET_BLOCKED: <reason>
+## Completion Signals
+- When ALL tasks are complete, output: **TICKET_COMPLETE**
+- If blocked and need human help, output: **TICKET_BLOCKED: <reason>**
+
+## Important Reminders
+- NEVER use vercel CLI - it's not authenticated
+- Always use the Orquesta Deploy API for deployments
+- Ensure i18n translations exist for all user-facing text
+- Run \`npm run build\` to verify no errors before committing
 EOF
 }
 
@@ -147,13 +164,23 @@ run_claude() {
     local prompt_file="$AGENT_DIR/current-prompt.md"
     echo "$prompt" > "$prompt_file"
 
-    # Run Claude Code with the prompt
-    # Using --print for non-interactive mode if available, otherwise pipe
-    if claude --help 2>&1 | grep -q "print"; then
-        claude --print < "$prompt_file" 2>&1 | tee -a "$LOG_FILE"
+    # Check if we should use the new CLI method
+    if [ "${USE_NEW_CLI:-true}" = "true" ]; then
+        # Use the new Claude CLI with JSON output
+        log "Using Claude CLI with stream-json output..."
+        claude -p "$prompt" \
+            --output-format stream-json \
+            --max-turns "${MAX_TURNS:-30}" \
+            --allowedTools "Bash,Read,Write,Edit,Glob,Grep,Task,WebFetch,TodoWrite" \
+            --dangerously-skip-permissions 2>&1 | tee -a "$LOG_FILE"
     else
-        # Alternative: run in dangerously-skip-permissions for full autonomy
-        echo "$prompt" | claude --dangerously-skip-permissions 2>&1 | tee -a "$LOG_FILE"
+        # Legacy: Using --print for non-interactive mode if available, otherwise pipe
+        if claude --help 2>&1 | grep -q "print"; then
+            claude --print < "$prompt_file" 2>&1 | tee -a "$LOG_FILE"
+        else
+            # Alternative: run in dangerously-skip-permissions for full autonomy
+            echo "$prompt" | claude --dangerously-skip-permissions 2>&1 | tee -a "$LOG_FILE"
+        fi
     fi
 
     local exit_code=$?
