@@ -13,7 +13,8 @@ const OrquestaEmbedComponent = dynamic(
 );
 
 export function OrquestaEmbedWrapper() {
-  const token = process.env.NEXT_PUBLIC_ORQUESTA_EMBED_TOKEN!;
+  // Token hardcoded since it's a public embed token (NEXT_PUBLIC_*)
+  const token = process.env.NEXT_PUBLIC_ORQUESTA_EMBED_TOKEN || 'oek_vSvcRnxhvUesF5XHJ3m5xZeDbuJgYvsQZZwCC6xWQPQ';
 
   return (
     <OrquestaEmbedComponent
