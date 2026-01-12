@@ -10,8 +10,9 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { createClient } from '@/lib/supabase/client'
 import { Link } from '@/i18n/routing'
-import { ArrowLeft, Save, Loader2, FolderKanban, CheckCircle2, Circle, DollarSign, Calendar, Building2, HelpCircle } from 'lucide-react'
+import { ArrowLeft, Save, Loader2, FolderKanban, CheckCircle2, Circle, DollarSign, Calendar, Building2, HelpCircle, Sparkles, Wand2, AlertCircle } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { Alert, AlertDescription } from '@/components/ui/alert'
 
 interface FundSection {
     key: string
@@ -44,6 +45,9 @@ interface Project {
     name: string
     industry: string
     stage: string
+    metadata?: {
+        agent_context?: string
+    }
 }
 
 interface Application {
@@ -80,6 +84,10 @@ export default function ApplyFundPage() {
     const [amountRequested, setAmountRequested] = useState('')
     const [error, setError] = useState<string | null>(null)
     const [step, setStep] = useState<'select-project' | 'fill-application'>('select-project')
+    const [aiFillingAll, setAiFillingAll] = useState(false)
+    const [aiFillingSection, setAiFillingSection] = useState<string | null>(null)
+    const [hasTrainedAI, setHasTrainedAI] = useState(false)
+    const [aiError, setAiError] = useState<string | null>(null)
 
     useEffect(() => {
         loadData()
@@ -112,7 +120,7 @@ export default function ApplyFundPage() {
         // Fetch user's projects
         const { data: projectsData } = await supabase
             .from('projects')
-            .select('id, name, industry, stage')
+            .select('id, name, industry, stage, metadata')
             .eq('user_id', user.id)
             .order('created_at', { ascending: false })
 
@@ -321,6 +329,98 @@ export default function ApplyFundPage() {
             setError(err instanceof Error ? err.message : 'Error submitting application')
         } finally {
             setSaving(false)
+        }
+    }
+
+    // Check if selected project has trained AI context
+    useEffect(() => {
+        if (selectedProject) {
+            const project = projects.find(p => p.id === selectedProject)
+            setHasTrainedAI(!!project?.metadata?.agent_context)
+        }
+    }, [selectedProject, projects])
+
+    // AI Pre-fill all sections
+    const handleAIPrefillAll = async () => {
+        if (!selectedProject || !fundId) return
+
+        setAiFillingAll(true)
+        setAiError(null)
+
+        try {
+            const response = await fetch('/api/agent/prefill', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    projectId: selectedProject,
+                    fundId,
+                    mode: 'all'
+                })
+            })
+
+            const data = await response.json()
+
+            if (!response.ok) {
+                if (data.error === 'no_training') {
+                    setAiError(t('ai.noTrainingError'))
+                } else {
+                    setAiError(data.message || t('ai.genericError'))
+                }
+                return
+            }
+
+            // Apply the AI-generated responses
+            setSectionResponses(prev => ({ ...prev, ...data.responses }))
+        } catch (err) {
+            console.error('Error with AI prefill:', err)
+            setAiError(t('ai.genericError'))
+        } finally {
+            setAiFillingAll(false)
+        }
+    }
+
+    // AI Fill single section
+    const handleAIFillSection = async (sectionKey: string) => {
+        if (!selectedProject || !fundId) return
+
+        setAiFillingSection(sectionKey)
+        setAiError(null)
+
+        try {
+            const response = await fetch('/api/agent/prefill', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    projectId: selectedProject,
+                    fundId,
+                    sectionKey,
+                    mode: 'single'
+                })
+            })
+
+            const data = await response.json()
+
+            if (!response.ok) {
+                if (data.error === 'no_training') {
+                    setAiError(t('ai.noTrainingError'))
+                } else {
+                    setAiError(data.message || t('ai.genericError'))
+                }
+                return
+            }
+
+            // Apply the AI-generated response for this section
+            if (data.responses && data.responses[sectionKey]) {
+                setSectionResponses(prev => ({
+                    ...prev,
+                    [sectionKey]: data.responses[sectionKey]
+                }))
+            }
+        } catch (err) {
+            console.error('Error with AI fill section:', err)
+            setAiError(t('ai.genericError'))
+        } finally {
+            setAiFillingSection(null)
         }
     }
 
@@ -600,6 +700,72 @@ export default function ApplyFundPage() {
             {/* Step 2: Fill Application */}
             {step === 'fill-application' && (
                 <>
+                    {/* AI Error Alert */}
+                    {aiError && (
+                        <Alert variant="destructive" className="bg-red-500/10 border-red-500/30">
+                            <AlertCircle className="h-4 w-4" />
+                            <AlertDescription className="text-red-200">
+                                {aiError}
+                                {!hasTrainedAI && (
+                                    <Link href={`/dashboard/projects/${selectedProject}`} className="ml-2 underline text-purple-300 hover:text-purple-200">
+                                        {t('ai.trainAgentLink')}
+                                    </Link>
+                                )}
+                            </AlertDescription>
+                        </Alert>
+                    )}
+
+                    {/* AI Pre-fill Card */}
+                    {sections.length > 0 && (
+                        <Card className="bg-gradient-to-r from-purple-900/40 to-indigo-900/40 border-purple-500/30">
+                            <CardHeader>
+                                <CardTitle className="text-white flex items-center gap-2">
+                                    <Sparkles className="h-5 w-5 text-purple-400" />
+                                    {t('ai.title')}
+                                </CardTitle>
+                                <CardDescription className="text-slate-300">
+                                    {hasTrainedAI
+                                        ? t('ai.description')
+                                        : t('ai.noTrainingDescription')
+                                    }
+                                </CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="flex flex-col sm:flex-row gap-3">
+                                    <Button
+                                        onClick={handleAIPrefillAll}
+                                        disabled={aiFillingAll || !hasTrainedAI}
+                                        className="bg-purple-600 hover:bg-purple-700 disabled:bg-purple-600/50"
+                                    >
+                                        {aiFillingAll ? (
+                                            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                                        ) : (
+                                            <Sparkles className="h-4 w-4 mr-2" />
+                                        )}
+                                        {aiFillingAll ? t('ai.filling') : t('ai.prefillAll')}
+                                    </Button>
+                                    {!hasTrainedAI && (
+                                        <Button
+                                            asChild
+                                            variant="outline"
+                                            className="border-purple-500/50 text-purple-300 hover:bg-purple-500/10"
+                                        >
+                                            <Link href={`/dashboard/projects/${selectedProject}`}>
+                                                <Wand2 className="h-4 w-4 mr-2" />
+                                                {t('ai.trainAgent')}
+                                            </Link>
+                                        </Button>
+                                    )}
+                                </div>
+                                {hasTrainedAI && (
+                                    <p className="text-xs text-slate-400 mt-3">
+                                        {t('ai.trainedHint')}
+                                    </p>
+                                )}
+                            </CardContent>
+                        </Card>
+                    )}
+
                     {/* Amount Requested */}
                     <Card className="bg-slate-900 border-slate-800">
                         <CardHeader>
@@ -632,28 +798,54 @@ export default function ApplyFundPage() {
 
                     {/* Dynamic Sections */}
                     {sections.length > 0 ? (
-                        sections.map((section, index) => (
-                            <Card key={section.key} className="bg-slate-900 border-slate-800">
-                                <CardHeader>
-                                    <CardTitle className="text-white flex items-center gap-2">
-                                        <span className="flex items-center justify-center w-6 h-6 rounded-full bg-purple-500/20 text-purple-300 text-sm">
-                                            {index + 1}
-                                        </span>
-                                        {section.name}
-                                        {section.required && <span className="text-red-400">*</span>}
-                                    </CardTitle>
-                                    {section.helpText && (
-                                        <CardDescription className="text-slate-400 flex items-start gap-2">
-                                            <HelpCircle className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                                            {section.helpText}
-                                        </CardDescription>
-                                    )}
-                                </CardHeader>
-                                <CardContent>
-                                    {renderSectionInput(section)}
-                                </CardContent>
-                            </Card>
-                        ))
+                        sections.map((section, index) => {
+                            const canUseAI = hasTrainedAI && section.type !== 'file' && section.type !== 'link'
+                            const isFillingThisSection = aiFillingSection === section.key
+
+                            return (
+                                <Card key={section.key} className="bg-slate-900 border-slate-800">
+                                    <CardHeader>
+                                        <div className="flex items-start justify-between">
+                                            <div className="flex-1">
+                                                <CardTitle className="text-white flex items-center gap-2">
+                                                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-purple-500/20 text-purple-300 text-sm">
+                                                        {index + 1}
+                                                    </span>
+                                                    {section.name}
+                                                    {section.required && <span className="text-red-400">*</span>}
+                                                </CardTitle>
+                                                {section.helpText && (
+                                                    <CardDescription className="text-slate-400 flex items-start gap-2 mt-1">
+                                                        <HelpCircle className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                                                        {section.helpText}
+                                                    </CardDescription>
+                                                )}
+                                            </div>
+                                            {canUseAI && (
+                                                <Button
+                                                    type="button"
+                                                    variant="ghost"
+                                                    size="sm"
+                                                    onClick={() => handleAIFillSection(section.key)}
+                                                    disabled={isFillingThisSection || aiFillingAll}
+                                                    className="text-purple-400 hover:text-purple-300 hover:bg-purple-500/10"
+                                                >
+                                                    {isFillingThisSection ? (
+                                                        <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                                                    ) : (
+                                                        <Wand2 className="h-4 w-4 mr-1" />
+                                                    )}
+                                                    {isFillingThisSection ? t('ai.fillingSection') : t('ai.fillWithAI')}
+                                                </Button>
+                                            )}
+                                        </div>
+                                    </CardHeader>
+                                    <CardContent>
+                                        {renderSectionInput(section)}
+                                    </CardContent>
+                                </Card>
+                            )
+                        })
                     ) : (
                         /* Fallback generic description field if no sections configured */
                         <Card className="bg-slate-900 border-slate-800">

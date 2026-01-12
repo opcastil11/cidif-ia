@@ -692,6 +692,20 @@
       "selectOption": "Selecciona una opción",
       "fileUrlPlaceholder": "URL del archivo (Google Drive, Dropbox, etc.)",
       "fileHelp": "Sube tu archivo a un servicio de nube y pega el enlace aquí"
+    },
+    "ai": {
+      "title": "Auto-llenado con IA",
+      "description": "Tu proyecto tiene contexto de entrenamiento. Usa la IA para llenar automáticamente las secciones de la postulación basándose en la información de tu proyecto.",
+      "noTrainingDescription": "Entrena el agente de IA con información de tu proyecto para desbloquear el auto-llenado automático.",
+      "prefillAll": "Llenar Todo con IA",
+      "filling": "Generando respuestas...",
+      "fillWithAI": "Llenar con IA",
+      "fillingSection": "Llenando...",
+      "trainAgent": "Entrenar Agente IA",
+      "trainAgentLink": "Entrenar agente",
+      "trainedHint": "La IA generará respuestas basadas en el contexto de tu proyecto. Puedes editar las respuestas después.",
+      "noTrainingError": "El proyecto no tiene contexto de entrenamiento. Por favor, entrena el agente IA primero.",
+      "genericError": "Error al generar respuestas con IA. Por favor intenta de nuevo."
     }
   },
   "backoffice": {

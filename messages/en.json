@@ -692,6 +692,20 @@
       "selectOption": "Select an option",
       "fileUrlPlaceholder": "File URL (Google Drive, Dropbox, etc.)",
       "fileHelp": "Upload your file to a cloud service and paste the link here"
+    },
+    "ai": {
+      "title": "AI Auto-fill",
+      "description": "Your project has training context. Use AI to automatically fill the application sections based on your project information.",
+      "noTrainingDescription": "Train the AI agent with your project information to unlock automatic auto-fill.",
+      "prefillAll": "Fill All with AI",
+      "filling": "Generating responses...",
+      "fillWithAI": "Fill with AI",
+      "fillingSection": "Filling...",
+      "trainAgent": "Train AI Agent",
+      "trainAgentLink": "Train agent",
+      "trainedHint": "AI will generate responses based on your project context. You can edit the responses afterwards.",
+      "noTrainingError": "The project has no training context. Please train the AI agent first.",
+      "genericError": "Error generating AI responses. Please try again."
     }
   },
   "backoffice": {
