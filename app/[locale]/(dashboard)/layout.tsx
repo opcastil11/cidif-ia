@@ -24,7 +24,7 @@ export default async function DashboardLayout({
         .single()
 
     return (
-        <div className="min-h-screen bg-slate-950">
+        <div className="dark min-h-screen bg-background">
             <Sidebar userEmail={user.email} />
             <div className="lg:pl-72">
                 <DashboardShell user={user} profile={profile}>
