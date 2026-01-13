@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
-import Anthropic from '@anthropic-ai/sdk'
+import OpenAI from 'openai'
 import { createClient } from '@/lib/supabase/server'
 
-// Initialize Anthropic lazily to avoid build errors when env var is not set
-function getAnthropic() {
-  if (!process.env.ANTHROPIC_API_KEY) {
-    throw new Error('ANTHROPIC_API_KEY is not configured')
+// Initialize OpenAI lazily to avoid build errors when env var is not set
+function getOpenAI() {
+  if (!process.env.OPENAI_API_KEY) {
+    throw new Error('OPENAI_API_KEY is not configured')
   }
-  return new Anthropic({
-    apiKey: process.env.ANTHROPIC_API_KEY,
+  return new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
   })
 }
 
@@ -47,12 +47,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Missing project description' }, { status: 400 })
     }
 
-    // Initialize Anthropic after auth check
-    let anthropic: Anthropic
+    // Initialize OpenAI after auth check
+    let openai: OpenAI
     try {
-      anthropic = getAnthropic()
+      openai = getOpenAI()
     } catch {
-      console.error('[Create Project AI] Anthropic not configured')
+      console.error('[Create Project AI] OpenAI not configured')
       return NextResponse.json({ error: 'AI service not configured' }, { status: 503 })
     }
 
@@ -117,18 +117,19 @@ Guidelines:
 - All text content should be in ${language === 'es' ? 'Spanish' : 'English'}
 - The response must be valid JSON only, no additional text or markdown`
 
-    console.log('[Create Project AI] Calling Anthropic API')
+    console.log('[Create Project AI] Calling OpenAI API')
 
-    const message = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-4o',
       max_tokens: 2000,
       messages: [
+        { role: 'system', content: systemPrompt },
         { role: 'user', content: `Generate a complete project profile based on this description:\n\n${description}` },
       ],
-      system: systemPrompt,
+      response_format: { type: 'json_object' },
     })
 
-    const responseText = message.content[0].type === 'text' ? message.content[0].text : ''
+    const responseText = completion.choices[0]?.message?.content || ''
 
     console.log('[Create Project AI] Response received, parsing JSON')
 
