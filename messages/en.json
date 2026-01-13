@@ -822,6 +822,10 @@
     "newFund": {
       "title": "New Fund",
       "subtitle": "Create a new application template",
+      "tabs": {
+        "manual": "Create Manually",
+        "html": "Import from HTML"
+      },
       "fundInfo": "Fund Information",
       "fundName": "Fund Name",
       "organization": "Organization",
@@ -865,6 +869,30 @@
         "PE": "Peru",
         "US": "USA",
         "EU": "Europe"
+      }
+    },
+    "htmlImport": {
+      "title": "Import from HTML",
+      "description": "Paste the HTML code from the fund page and AI will automatically detect the form questions and fields.",
+      "inputLabel": "HTML Code",
+      "inputPlaceholder": "Paste the HTML from the fund page here...",
+      "inputHelp": "Copy the HTML from the fund form page. You can use browser developer tools (F12 > Elements) to copy the HTML.",
+      "emptyHtml": "Please enter the HTML code",
+      "parseError": "Error parsing HTML. Please try again.",
+      "parseButton": "Analyze with AI",
+      "parsing": "Analyzing...",
+      "parseSuccess": "Detected {count} form fields",
+      "previewLabel": "Preview of detected sections",
+      "moreOptions": "more options",
+      "cancelButton": "Cancel",
+      "importButton": "Import Sections",
+      "fieldTypes": {
+        "text": "Short Text",
+        "textarea": "Long Text",
+        "select": "Single Select",
+        "multiselect": "Multi Select",
+        "link": "Link",
+        "file": "File"
       }
     },
     "agent": {

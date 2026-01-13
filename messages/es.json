@@ -822,6 +822,10 @@
     "newFund": {
       "title": "Nuevo Fondo",
       "subtitle": "Crear un nuevo template de postulación",
+      "tabs": {
+        "manual": "Crear Manualmente",
+        "html": "Importar desde HTML"
+      },
       "fundInfo": "Información del Fondo",
       "fundName": "Nombre del Fondo",
       "organization": "Organización",
@@ -865,6 +869,30 @@
         "PE": "Perú",
         "US": "USA",
         "EU": "Europa"
+      }
+    },
+    "htmlImport": {
+      "title": "Importar desde HTML",
+      "description": "Pega el código HTML de la página del fondo y la IA detectará automáticamente las preguntas y campos del formulario.",
+      "inputLabel": "Código HTML",
+      "inputPlaceholder": "Pega aquí el HTML de la página del fondo...",
+      "inputHelp": "Copia el HTML desde la página del formulario del fondo. Puedes usar las herramientas de desarrollador del navegador (F12 > Elementos) para copiar el HTML.",
+      "emptyHtml": "Por favor ingresa el código HTML",
+      "parseError": "Error al analizar el HTML. Por favor intenta de nuevo.",
+      "parseButton": "Analizar con IA",
+      "parsing": "Analizando...",
+      "parseSuccess": "Se detectaron {count} campos del formulario",
+      "previewLabel": "Vista previa de secciones detectadas",
+      "moreOptions": "opciones más",
+      "cancelButton": "Cancelar",
+      "importButton": "Importar Secciones",
+      "fieldTypes": {
+        "text": "Texto Corto",
+        "textarea": "Texto Largo",
+        "select": "Selección Única",
+        "multiselect": "Selección Múltiple",
+        "link": "Enlace",
+        "file": "Archivo"
       }
     },
     "agent": {

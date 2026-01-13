@@ -7,8 +7,12 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { createClient } from '@/lib/supabase/client'
-import { Save, Plus, Trash2, GripVertical } from 'lucide-react'
+import { Save, Plus, Trash2, GripVertical, FileCode2, Edit3 } from 'lucide-react'
+import { HtmlFundImporter } from '@/components/backoffice/html-fund-importer'
+import { useTranslations } from 'next-intl'
+import { useLocale } from 'next-intl'
 
 interface Section {
     id: string
@@ -20,9 +24,28 @@ interface Section {
     helpText?: string
 }
 
+interface ParsedSection {
+    key: string
+    name: string
+    type: 'text' | 'textarea' | 'select' | 'multiselect' | 'link' | 'file'
+    options?: string[]
+    required: boolean
+    helpText?: string
+}
+
+interface ParsedFund {
+    name?: string
+    organization?: string
+    description?: string
+    sections: ParsedSection[]
+}
+
 export default function NewFundPage() {
     const router = useRouter()
+    const t = useTranslations('backoffice.newFund')
+    const locale = useLocale()
     const [loading, setLoading] = useState(false)
+    const [activeTab, setActiveTab] = useState<'manual' | 'html'>('manual')
     const [formData, setFormData] = useState({
         name: '',
         organization: '',
@@ -36,6 +59,36 @@ export default function NewFundPage() {
         description: '',
     })
     const [sections, setSections] = useState<Section[]>([])
+
+    // Handle import from HTML parser
+    const handleHtmlImport = (fund: ParsedFund) => {
+        // Update form data with detected fund info
+        if (fund.name) {
+            setFormData(prev => ({ ...prev, name: fund.name || prev.name }))
+        }
+        if (fund.organization) {
+            setFormData(prev => ({ ...prev, organization: fund.organization || prev.organization }))
+        }
+        if (fund.description) {
+            setFormData(prev => ({ ...prev, description: fund.description || prev.description }))
+        }
+
+        // Add sections with IDs
+        const newSections: Section[] = fund.sections.map((section) => ({
+            id: crypto.randomUUID(),
+            key: section.key,
+            name: section.name,
+            type: section.type,
+            options: section.options || [],
+            required: section.required,
+            helpText: section.helpText || '',
+        }))
+
+        setSections(prev => [...prev, ...newSections])
+
+        // Switch to manual tab to show the imported sections
+        setActiveTab('manual')
+    }
 
     const addSection = () => {
         setSections([
@@ -93,11 +146,28 @@ export default function NewFundPage() {
     return (
         <div className="space-y-6 max-w-4xl">
             <div>
-                <h2 className="text-xl font-heading font-semibold text-foreground">Nuevo Fondo</h2>
-                <p className="text-muted-foreground">Crear un nuevo template de postulación</p>
+                <h2 className="text-xl font-heading font-semibold text-foreground">{t('title')}</h2>
+                <p className="text-muted-foreground">{t('subtitle')}</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'manual' | 'html')} className="space-y-4">
+                <TabsList className="grid w-full grid-cols-2">
+                    <TabsTrigger value="manual" className="flex items-center gap-2">
+                        <Edit3 className="h-4 w-4" />
+                        {t('tabs.manual')}
+                    </TabsTrigger>
+                    <TabsTrigger value="html" className="flex items-center gap-2">
+                        <FileCode2 className="h-4 w-4" />
+                        {t('tabs.html')}
+                    </TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="html">
+                    <HtmlFundImporter onImport={handleHtmlImport} language={locale} />
+                </TabsContent>
+
+                <TabsContent value="manual">
+                    <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Basic Info */}
                 <Card className="bg-card border-border">
                     <CardHeader>
@@ -319,14 +389,16 @@ export default function NewFundPage() {
                 {/* Submit */}
                 <div className="flex justify-end gap-4">
                     <Button type="button" variant="outline" onClick={() => router.back()}>
-                        Cancelar
+                        {t('cancel')}
                     </Button>
                     <Button type="submit" disabled={loading} className="bg-primary hover:bg-primary/90">
                         <Save className="h-4 w-4 mr-2" />
-                        {loading ? 'Guardando...' : 'Guardar Fondo'}
+                        {loading ? t('saving') : t('save')}
                     </Button>
                 </div>
-            </form>
+                    </form>
+                </TabsContent>
+            </Tabs>
         </div>
     )
 }
