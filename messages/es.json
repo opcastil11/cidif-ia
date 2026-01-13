@@ -380,6 +380,7 @@
   "sidebar": {
     "dashboard": "Panel",
     "projects": "Proyectos",
+    "evaluations": "Evaluaciones",
     "applications": "Postulaciones",
     "fundsCatalog": "Catálogo de Fondos",
     "meetings": "Reuniones"
@@ -1282,6 +1283,65 @@
       "recover": "Recuperar Borrador",
       "discard": "Descartar",
       "startFresh": "Empezar de Nuevo"
+    }
+  },
+  "evaluation": {
+    "title": "Evaluación de Proyectos",
+    "subtitle": "Obtén una evaluación completa de tu proyecto con feedback y puntuación impulsados por IA",
+    "loading": "Cargando...",
+    "empty": {
+      "title": "Sin proyectos para evaluar",
+      "description": "Crea un proyecto primero para poder evaluarlo y obtener feedback con IA."
+    },
+    "selectProject": {
+      "title": "Evaluar Proyecto",
+      "description": "Selecciona un proyecto para recibir una evaluación completa con puntuación y recomendaciones.",
+      "projectLabel": "Proyecto",
+      "projectPlaceholder": "Selecciona un proyecto",
+      "fundLabel": "Fondo (opcional)",
+      "fundPlaceholder": "Evaluar para un fondo específico",
+      "noFund": "Evaluación general (sin fondo)"
+    },
+    "evaluating": "Evaluando proyecto...",
+    "evaluateButton": "Evaluar con IA",
+    "reEvaluate": "Evaluar Nuevamente",
+    "overallScore": {
+      "title": "Puntuación General"
+    },
+    "levels": {
+      "excellent": "Excelente",
+      "good": "Bueno",
+      "fair": "Regular",
+      "poor": "Deficiente",
+      "critical": "Crítico"
+    },
+    "dimensions": {
+      "problem": "Problema",
+      "solution": "Solución",
+      "market": "Mercado",
+      "team": "Equipo",
+      "financials": "Finanzas",
+      "innovation": "Innovación",
+      "impact": "Impacto",
+      "execution": "Ejecución"
+    },
+    "feedback": {
+      "strengths": "Fortalezas",
+      "weaknesses": "Debilidades",
+      "recommendations": "Recomendaciones"
+    },
+    "detailedFeedback": {
+      "title": "Retroalimentación Detallada"
+    },
+    "fundFit": {
+      "title": "Ajuste con {fundName}"
+    },
+    "success": {
+      "evaluated": "Proyecto evaluado exitosamente"
+    },
+    "errors": {
+      "selectProject": "Por favor selecciona un proyecto",
+      "evaluationFailed": "Error al evaluar el proyecto. Por favor intenta de nuevo."
     }
   },
   "aiProjectCreator": {

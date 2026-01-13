@@ -380,6 +380,7 @@
   "sidebar": {
     "dashboard": "Dashboard",
     "projects": "Projects",
+    "evaluations": "Evaluations",
     "applications": "Applications",
     "fundsCatalog": "Funds Catalog",
     "meetings": "Meetings"
@@ -1283,6 +1284,65 @@
       "recover": "Recover Draft",
       "discard": "Discard",
       "startFresh": "Start Fresh"
+    }
+  },
+  "evaluation": {
+    "title": "Project Evaluation",
+    "subtitle": "Get a comprehensive AI-powered evaluation of your project with feedback and scoring",
+    "loading": "Loading...",
+    "empty": {
+      "title": "No projects to evaluate",
+      "description": "Create a project first to be able to evaluate it and get AI feedback."
+    },
+    "selectProject": {
+      "title": "Evaluate Project",
+      "description": "Select a project to receive a comprehensive evaluation with scoring and recommendations.",
+      "projectLabel": "Project",
+      "projectPlaceholder": "Select a project",
+      "fundLabel": "Fund (optional)",
+      "fundPlaceholder": "Evaluate for a specific fund",
+      "noFund": "General evaluation (no fund)"
+    },
+    "evaluating": "Evaluating project...",
+    "evaluateButton": "Evaluate with AI",
+    "reEvaluate": "Evaluate Again",
+    "overallScore": {
+      "title": "Overall Score"
+    },
+    "levels": {
+      "excellent": "Excellent",
+      "good": "Good",
+      "fair": "Fair",
+      "poor": "Poor",
+      "critical": "Critical"
+    },
+    "dimensions": {
+      "problem": "Problem",
+      "solution": "Solution",
+      "market": "Market",
+      "team": "Team",
+      "financials": "Financials",
+      "innovation": "Innovation",
+      "impact": "Impact",
+      "execution": "Execution"
+    },
+    "feedback": {
+      "strengths": "Strengths",
+      "weaknesses": "Weaknesses",
+      "recommendations": "Recommendations"
+    },
+    "detailedFeedback": {
+      "title": "Detailed Feedback"
+    },
+    "fundFit": {
+      "title": "Fit with {fundName}"
+    },
+    "success": {
+      "evaluated": "Project evaluated successfully"
+    },
+    "errors": {
+      "selectProject": "Please select a project",
+      "evaluationFailed": "Failed to evaluate project. Please try again."
     }
   },
   "aiProjectCreator": {

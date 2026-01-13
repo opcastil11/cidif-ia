@@ -13,6 +13,7 @@ import {
     Settings,
     Shield,
     Users,
+    ClipboardCheck,
 } from 'lucide-react'
 
 // Admin emails that can access backoffice
@@ -31,6 +32,7 @@ export function Sidebar({ userEmail }: SidebarProps) {
     const navigation = [
         { name: t('dashboard'), href: '/dashboard', icon: LayoutDashboard },
         { name: t('projects'), href: '/dashboard/projects', icon: FolderKanban },
+        { name: t('evaluations'), href: '/dashboard/evaluations', icon: ClipboardCheck },
         { name: t('applications'), href: '/dashboard/applications', icon: FileText },
         { name: t('fundsCatalog'), href: '/dashboard/funds', icon: Landmark },
         { name: t('meetings'), href: '/dashboard/meetings', icon: Users },
