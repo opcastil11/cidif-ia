@@ -388,11 +388,13 @@
     "title": "Projects",
     "subtitle": "Manage your projects and companies",
     "newProject": "New Project",
+    "createWithAI": "Create with AI",
     "quickApply": "Apply",
     "empty": {
       "title": "No projects yet",
       "description": "Create your first project to start applying for funds.",
-      "action": "Create Project"
+      "action": "Create Project",
+      "or": "or"
     }
   },
   "projectDetail": {
@@ -1282,5 +1284,39 @@
       "discard": "Discard",
       "startFresh": "Start Fresh"
     }
+  },
+  "aiProjectCreator": {
+    "title": "Create Project with AI",
+    "subtitle": "Describe your idea and AI will generate a complete project profile",
+    "backToProjects": "Back to Projects",
+    "applyingFor": "Applying for: {fundName}",
+    "steps": {
+      "describe": "Describe Idea",
+      "review": "Review & Edit"
+    },
+    "describeTitle": "Tell us about your project",
+    "describeSubtitle": "Describe your idea, the problem it solves, and your vision. The more details you provide, the better the result.",
+    "descriptionLabel": "Project Description",
+    "descriptionPlaceholder": "Describe your project, startup, or business idea. Include the problem you're solving, your solution, target market, business model, and any relevant information like team, traction, or technology used...",
+    "descriptionHelp": "Include details about the problem, solution, target market, and business model for better results.",
+    "examplesTitle": "Example ideas:",
+    "examples": {
+      "label1": "Health App",
+      "example1": "I'm developing a telemedicine mobile app for rural areas that enables video medical consultations, prescription management, and chronic patient monitoring. We use AI for initial triage and have partnerships with local health centers.",
+      "label2": "Agritech",
+      "example2": "IoT platform for precision agriculture using sensors and machine learning to optimize irrigation and fertilization in vineyards. We already have 3 pilot customers and are looking for funds to scale.",
+      "label3": "Fintech",
+      "example3": "Alternative credit scoring solution for SMEs without banking history, using transactional data and digital behavior. Our ML model has 85% accuracy in risk prediction."
+    },
+    "generating": "Generating project...",
+    "generate": "Generate with AI",
+    "generateError": "Error generating project. Please try again.",
+    "saveError": "Error saving project. Please try again.",
+    "back": "Back",
+    "createProject": "Create Project",
+    "regenerate": "Generate Again",
+    "problemSolution": "Problem & Solution",
+    "marketBusiness": "Market & Business",
+    "impactTech": "Impact & Technology"
   }
 }

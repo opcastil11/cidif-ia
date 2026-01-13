@@ -388,11 +388,13 @@
     "title": "Proyectos",
     "subtitle": "Gestiona tus proyectos y empresas",
     "newProject": "Nuevo Proyecto",
+    "createWithAI": "Crear con IA",
     "quickApply": "Postular",
     "empty": {
       "title": "Sin proyectos aún",
       "description": "Crea tu primer proyecto para comenzar a postular a fondos.",
-      "action": "Crear Proyecto"
+      "action": "Crear Proyecto",
+      "or": "o"
     }
   },
   "projectDetail": {
@@ -1281,5 +1283,39 @@
       "discard": "Descartar",
       "startFresh": "Empezar de Nuevo"
     }
+  },
+  "aiProjectCreator": {
+    "title": "Crear Proyecto con IA",
+    "subtitle": "Describe tu idea y la IA generará un perfil de proyecto completo",
+    "backToProjects": "Volver a Proyectos",
+    "applyingFor": "Postulando a: {fundName}",
+    "steps": {
+      "describe": "Describir Idea",
+      "review": "Revisar y Editar"
+    },
+    "describeTitle": "Cuéntanos sobre tu proyecto",
+    "describeSubtitle": "Describe tu idea, el problema que resuelve y tu visión. Mientras más detalles proporciones, mejor será el resultado.",
+    "descriptionLabel": "Descripción del Proyecto",
+    "descriptionPlaceholder": "Describe tu proyecto, startup o idea de negocio. Incluye el problema que resuelves, tu solución, mercado objetivo, modelo de negocio, y cualquier información relevante como equipo, tracción o tecnología utilizada...",
+    "descriptionHelp": "Incluye detalles sobre el problema, la solución, el mercado objetivo y el modelo de negocio para mejores resultados.",
+    "examplesTitle": "Ejemplos de ideas:",
+    "examples": {
+      "label1": "App de Salud",
+      "example1": "Estoy desarrollando una aplicación móvil de telemedicina para zonas rurales de Chile que permite consultas médicas por video, gestión de recetas y seguimiento de pacientes crónicos. Usamos IA para triaje inicial y tenemos alianzas con centros de salud locales.",
+      "label2": "Agritech",
+      "example2": "Plataforma IoT para agricultura de precisión que usa sensores y machine learning para optimizar el riego y fertilización en viñedos. Ya tenemos 3 clientes piloto en el Valle del Maipo y estamos buscando fondos para escalar.",
+      "label3": "Fintech",
+      "example3": "Solución de scoring crediticio alternativo para PyMEs sin historial bancario, utilizando datos transaccionales y comportamiento digital. Nuestro modelo de ML tiene 85% de precisión en predicción de riesgo."
+    },
+    "generating": "Generando proyecto...",
+    "generate": "Generar con IA",
+    "generateError": "Error al generar el proyecto. Por favor intenta de nuevo.",
+    "saveError": "Error al guardar el proyecto. Por favor intenta de nuevo.",
+    "back": "Volver",
+    "createProject": "Crear Proyecto",
+    "regenerate": "Generar Nuevamente",
+    "problemSolution": "Problema y Solución",
+    "marketBusiness": "Mercado y Negocio",
+    "impactTech": "Impacto y Tecnología"
   }
 }

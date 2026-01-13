@@ -1,7 +1,7 @@
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Plus, FolderKanban, Users, Calendar, DollarSign, Rocket } from 'lucide-react'
+import { Plus, FolderKanban, Users, Calendar, DollarSign, Rocket, Sparkles } from 'lucide-react'
 import { Link } from '@/i18n/routing'
 import { getTranslations } from 'next-intl/server'
 import { createClient } from '@/lib/supabase/server'
@@ -25,12 +25,20 @@ export default async function ProjectsPage() {
                     <h1 className="text-3xl font-bold text-white">{t('title')}</h1>
                     <p className="text-slate-400 mt-1">{t('subtitle')}</p>
                 </div>
-                <Button asChild className="bg-purple-600 hover:bg-purple-700">
-                    <Link href="/dashboard/projects/new">
-                        <Plus className="mr-2 h-4 w-4" />
-                        {t('newProject')}
-                    </Link>
-                </Button>
+                <div className="flex items-center gap-2">
+                    <Button asChild variant="outline" className="border-purple-500/50 text-purple-400 hover:bg-purple-500/10">
+                        <Link href="/dashboard/projects/create-with-ai">
+                            <Sparkles className="mr-2 h-4 w-4" />
+                            {t('createWithAI')}
+                        </Link>
+                    </Button>
+                    <Button asChild className="bg-purple-600 hover:bg-purple-700">
+                        <Link href="/dashboard/projects/new">
+                            <Plus className="mr-2 h-4 w-4" />
+                            {t('newProject')}
+                        </Link>
+                    </Button>
+                </div>
             </div>
 
             {projects && projects.length > 0 ? (
@@ -99,15 +107,24 @@ export default async function ProjectsPage() {
                             <FolderKanban className="h-8 w-8 text-slate-500" />
                         </div>
                         <CardTitle className="text-white mb-2">{t('empty.title')}</CardTitle>
-                        <p className="text-slate-400 text-center max-w-sm mb-4">
+                        <p className="text-slate-400 text-center max-w-sm mb-6">
                             {t('empty.description')}
                         </p>
-                        <Button asChild variant="outline" className="border-slate-700 text-slate-300">
-                            <Link href="/dashboard/projects/new">
-                                <Plus className="mr-2 h-4 w-4" />
-                                {t('empty.action')}
-                            </Link>
-                        </Button>
+                        <div className="flex flex-col sm:flex-row items-center gap-3">
+                            <Button asChild className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
+                                <Link href="/dashboard/projects/create-with-ai">
+                                    <Sparkles className="mr-2 h-4 w-4" />
+                                    {t('createWithAI')}
+                                </Link>
+                            </Button>
+                            <span className="text-slate-500 text-sm">{t('empty.or')}</span>
+                            <Button asChild variant="outline" className="border-slate-700 text-slate-300">
+                                <Link href="/dashboard/projects/new">
+                                    <Plus className="mr-2 h-4 w-4" />
+                                    {t('empty.action')}
+                                </Link>
+                            </Button>
+                        </div>
                     </CardContent>
                 </Card>
             )}
