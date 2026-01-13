@@ -90,7 +90,7 @@ export function EvaluationClientContent({ projects, funds }: EvaluationClientCon
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     projectId: selectedProject,
-                    fundId: selectedFund || undefined,
+                    fundId: selectedFund && selectedFund !== 'none' ? selectedFund : undefined,
                     language: locale,
                 }),
             })
@@ -262,7 +262,7 @@ export function EvaluationClientContent({ projects, funds }: EvaluationClientCon
                                     <SelectValue placeholder={t('selectProject.fundPlaceholder')} />
                                 </SelectTrigger>
                                 <SelectContent className="bg-slate-800 border-slate-700">
-                                    <SelectItem value="" className="text-slate-400 hover:bg-slate-700">
+                                    <SelectItem value="none" className="text-slate-400 hover:bg-slate-700">
                                         {t('selectProject.noFund')}
                                     </SelectItem>
                                     {funds.map((fund) => (
