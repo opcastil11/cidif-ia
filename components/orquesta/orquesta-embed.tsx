@@ -21,6 +21,9 @@ export function OrquestaEmbedWrapper() {
     <OrquestaEmbedComponent
       token={token}
       position="bottom-right"
+      captureConsole={true}
+      captureNetwork={true}
+      enableGlobalRightClick={true}
     />
   );
 }
