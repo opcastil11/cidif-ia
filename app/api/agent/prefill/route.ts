@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
 
     if (!user) {
       console.log('[Agent Prefill] Unauthorized request')
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return NextResponse.json({ error: 'Unauthorized', message: 'Debes iniciar sesión para usar esta función' }, { status: 401 })
     }
 
     const { projectId, fundId, sectionKey, mode = 'single' } = await request.json()
@@ -39,12 +39,12 @@ export async function POST(request: NextRequest) {
       openai = getOpenAI()
     } catch {
       console.error('[Agent Prefill] OpenAI not configured')
-      return NextResponse.json({ error: 'AI service not configured' }, { status: 503 })
+      return NextResponse.json({ error: 'AI service not configured', message: 'El servicio de IA no está configurado. Contacta al administrador.' }, { status: 503 })
     }
 
     if (!projectId || !fundId) {
       console.log('[Agent Prefill] Missing required fields:', { projectId: !!projectId, fundId: !!fundId })
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
+      return NextResponse.json({ error: 'Missing required fields', message: 'Faltan campos requeridos. Selecciona un proyecto y un fondo.' }, { status: 400 })
     }
 
     console.log('[Agent Prefill] Request from user:', user.id, 'mode:', mode)
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
 
     if (projectError || !project) {
       console.log('[Agent Prefill] Project not found:', projectId)
-      return NextResponse.json({ error: 'Project not found' }, { status: 404 })
+      return NextResponse.json({ error: 'Project not found', message: 'No se encontró el proyecto. Verifica que existe y tienes acceso.' }, { status: 404 })
     }
 
     // Check if project has trained context
@@ -81,12 +81,12 @@ export async function POST(request: NextRequest) {
 
     if (fundError || !fund) {
       console.log('[Agent Prefill] Fund not found:', fundId)
-      return NextResponse.json({ error: 'Fund not found' }, { status: 404 })
+      return NextResponse.json({ error: 'Fund not found', message: 'No se encontró el fondo de financiamiento.' }, { status: 404 })
     }
 
     const sections: FundSection[] = fund.requirements?.sections || []
     if (sections.length === 0) {
-      return NextResponse.json({ error: 'Fund has no sections to fill' }, { status: 400 })
+      return NextResponse.json({ error: 'Fund has no sections to fill', message: 'Este fondo no tiene secciones para llenar automáticamente.' }, { status: 400 })
     }
 
     // Build comprehensive context
@@ -122,7 +122,7 @@ ${fund.agent_context ? `\n## Directrices Específicas del Fondo\n${fund.agent_co
       : sections.filter(s => s.key === sectionKey)
 
     if (sectionsToFill.length === 0) {
-      return NextResponse.json({ error: 'Section not found' }, { status: 400 })
+      return NextResponse.json({ error: 'Section not found', message: 'No se encontró la sección especificada.' }, { status: 400 })
     }
 
     // Build the prompt for generating responses
@@ -185,7 +185,7 @@ Recuerda: Responde SOLO con el objeto JSON.`
       responses = JSON.parse(responseText)
     } catch {
       console.error('[Agent Prefill] Failed to parse JSON response:', responseText)
-      return NextResponse.json({ error: 'Failed to parse AI response' }, { status: 500 })
+      return NextResponse.json({ error: 'Failed to parse AI response', message: 'Error al procesar la respuesta de la IA. Intenta nuevamente.' }, { status: 500 })
     }
 
     console.log('[Agent Prefill] Successfully generated responses for', Object.keys(responses).length, 'sections')
@@ -198,8 +198,9 @@ Recuerda: Responde SOLO con el objeto JSON.`
     })
   } catch (error) {
     console.error('[Agent Prefill] Error:', error)
+    const errorMessage = error instanceof Error ? error.message : 'Error desconocido'
     return NextResponse.json(
-      { error: 'Failed to process request' },
+      { error: 'Failed to process request', message: `Error al procesar la solicitud: ${errorMessage}` },
       { status: 500 }
     )
   }
