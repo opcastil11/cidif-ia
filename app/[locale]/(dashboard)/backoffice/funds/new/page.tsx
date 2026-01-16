@@ -11,6 +11,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { createClient } from '@/lib/supabase/client'
 import { Save, Plus, Trash2, GripVertical, FileCode2, Edit3, FileText } from 'lucide-react'
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from '@/components/ui/dialog'
 import { HtmlFundImporter } from '@/components/backoffice/html-fund-importer'
 import { useTranslations } from 'next-intl'
 import { useLocale } from 'next-intl'
@@ -72,6 +80,7 @@ export default function NewFundPage() {
     ])
     const [sections, setSections] = useState<Section[]>([])
     const [expandedPages, setExpandedPages] = useState<string[]>([])
+    const [pageHtmlImportOpen, setPageHtmlImportOpen] = useState<string | null>(null)
 
     // Handle import from HTML parser
     const handleHtmlImport = (fund: ParsedFund) => {
@@ -117,6 +126,24 @@ export default function NewFundPage() {
 
         // Switch to manual tab to show the imported sections
         setActiveTab('manual')
+    }
+
+    const handlePageHtmlImport = (pageId: string) => (fund: ParsedFund) => {
+        // Add imported sections directly to the specified page
+        const newSections: Section[] = fund.sections.map((section) => ({
+            id: crypto.randomUUID(),
+            key: section.key,
+            name: section.name,
+            type: section.type,
+            options: section.options || [],
+            required: section.required,
+            helpText: section.helpText || '',
+            pageId: pageId,
+        }))
+
+        setSections(prev => [...prev, ...newSections])
+        setExpandedPages(prev => prev.includes(pageId) ? prev : [...prev, pageId])
+        setPageHtmlImportOpen(null)
     }
 
     const addPage = () => {
@@ -419,6 +446,28 @@ export default function NewFundPage() {
                                                     <div className="flex items-center justify-between">
                                                         <span className="text-sm font-medium text-muted-foreground">{t('formSections')}</span>
                                                         <div className="flex gap-2">
+                                                            <Dialog open={pageHtmlImportOpen === page.id} onOpenChange={(open) => setPageHtmlImportOpen(open ? page.id : null)}>
+                                                                <DialogTrigger asChild>
+                                                                    <Button type="button" variant="outline" size="sm">
+                                                                        <FileCode2 className="h-4 w-4 mr-2" />
+                                                                        {t('importFromHtml')}
+                                                                    </Button>
+                                                                </DialogTrigger>
+                                                                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                                                                    <DialogHeader>
+                                                                        <DialogTitle>{t('importFromHtml')}</DialogTitle>
+                                                                        <DialogDescription>
+                                                                            {t('importFromHtmlDescriptionForPage', { pageName: page.name || `${t('page')} ${pageIndex + 1}` })}
+                                                                        </DialogDescription>
+                                                                    </DialogHeader>
+                                                                    <HtmlFundImporter
+                                                                        onImport={handlePageHtmlImport(page.id)}
+                                                                        language={locale}
+                                                                        targetPageId={page.id}
+                                                                        targetPageName={page.name || `${t('page')} ${pageIndex + 1}`}
+                                                                    />
+                                                                </DialogContent>
+                                                            </Dialog>
                                                             <Button
                                                                 type="button"
                                                                 onClick={() => addSection(page.id)}

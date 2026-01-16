@@ -837,7 +837,8 @@
         "file": "Archivo"
       },
       "importFromHtml": "Importar desde HTML",
-      "importFromHtmlDescription": "Importa campos adicionales desde el HTML del formulario oficial del fondo. Las nuevas secciones se agregarán a las existentes."
+      "importFromHtmlDescription": "Importa campos adicionales desde el HTML del formulario oficial del fondo. Las nuevas secciones se agregarán a las existentes.",
+      "importFromHtmlDescriptionForPage": "Importa campos desde HTML y agrégalos a la página \"{pageName}\"."
     },
     "newFund": {
       "title": "Nuevo Fondo",
@@ -899,6 +900,8 @@
         "link": "Enlace (Video/Doc)",
         "file": "Archivo"
       },
+      "importFromHtml": "Importar desde HTML",
+      "importFromHtmlDescriptionForPage": "Importa campos desde HTML y agrégalos a la página \"{pageName}\".",
       "countries": {
         "CL": "Chile",
         "MX": "México",
@@ -912,6 +915,7 @@
     "htmlImport": {
       "title": "Importar desde HTML",
       "description": "Pega el código HTML de la página del fondo y la IA detectará automáticamente las preguntas y campos del formulario.",
+      "descriptionForPage": "Pega el código HTML del formulario del fondo. Los campos detectados se agregarán a la página \"{pageName}\".",
       "inputLabel": "Código HTML",
       "inputPlaceholder": "Pega aquí el HTML de la página del fondo...",
       "inputHelp": "Copia el HTML desde la página del formulario del fondo. Puedes usar las herramientas de desarrollador del navegador (F12 > Elementos) para copiar el HTML.",

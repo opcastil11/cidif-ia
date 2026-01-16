@@ -837,7 +837,8 @@
         "file": "File"
       },
       "importFromHtml": "Import from HTML",
-      "importFromHtmlDescription": "Import additional fields from the official fund form HTML. New sections will be added to existing ones."
+      "importFromHtmlDescription": "Import additional fields from the official fund form HTML. New sections will be added to existing ones.",
+      "importFromHtmlDescriptionForPage": "Import fields from HTML and add them to the \"{pageName}\" page."
     },
     "newFund": {
       "title": "New Fund",
@@ -899,6 +900,8 @@
         "link": "Link (Video/Doc)",
         "file": "File"
       },
+      "importFromHtml": "Import from HTML",
+      "importFromHtmlDescriptionForPage": "Import fields from HTML and add them to the \"{pageName}\" page.",
       "countries": {
         "CL": "Chile",
         "MX": "Mexico",
@@ -912,6 +915,7 @@
     "htmlImport": {
       "title": "Import from HTML",
       "description": "Paste the HTML code from the fund page and AI will automatically detect the form questions and fields.",
+      "descriptionForPage": "Paste the HTML code from the fund form. Detected fields will be added to the \"{pageName}\" page.",
       "inputLabel": "HTML Code",
       "inputPlaceholder": "Paste the HTML from the fund page here...",
       "inputHelp": "Copy the HTML from the fund form page. You can use browser developer tools (F12 > Elements) to copy the HTML.",

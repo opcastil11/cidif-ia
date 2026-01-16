@@ -28,9 +28,11 @@ interface ParsedFund {
 interface HtmlFundImporterProps {
   onImport: (fund: ParsedFund) => void
   language?: string
+  targetPageId?: string
+  targetPageName?: string
 }
 
-export function HtmlFundImporter({ onImport, language = 'es' }: HtmlFundImporterProps) {
+export function HtmlFundImporter({ onImport, language = 'es', targetPageId, targetPageName }: HtmlFundImporterProps) {
   const t = useTranslations('backoffice.htmlImport')
   const [html, setHtml] = useState('')
   const [loading, setLoading] = useState(false)
@@ -111,7 +113,9 @@ export function HtmlFundImporter({ onImport, language = 'es' }: HtmlFundImporter
           <FileCode2 className="h-5 w-5" />
           {t('title')}
         </CardTitle>
-        <CardDescription>{t('description')}</CardDescription>
+        <CardDescription>
+          {targetPageName ? t('descriptionForPage', { pageName: targetPageName }) : t('description')}
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {!preview ? (

@@ -83,6 +83,7 @@ export default function EditFundPage() {
 
     const [loading, setLoading] = useState(true)
     const [htmlImportOpen, setHtmlImportOpen] = useState(false)
+    const [pageHtmlImportOpen, setPageHtmlImportOpen] = useState<string | null>(null)
     const [saving, setSaving] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const [fund, setFund] = useState<Fund | null>(null)
@@ -236,6 +237,24 @@ export default function EditFundPage() {
         setSections(prev => [...prev, ...newSections])
         setExpandedPages(prev => [...prev, targetPageId])
         setHtmlImportOpen(false)
+    }
+
+    const handlePageHtmlImport = (pageId: string) => (fund: ParsedFund) => {
+        // Add imported sections directly to the specified page
+        const newSections: Section[] = fund.sections.map((section) => ({
+            id: crypto.randomUUID(),
+            key: section.key,
+            name: section.name,
+            type: section.type,
+            options: section.options || [],
+            required: section.required,
+            helpText: section.helpText || '',
+            pageId: pageId,
+        }))
+
+        setSections(prev => [...prev, ...newSections])
+        setExpandedPages(prev => prev.includes(pageId) ? prev : [...prev, pageId])
+        setPageHtmlImportOpen(null)
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -577,6 +596,28 @@ export default function EditFundPage() {
                                                     <div className="flex items-center justify-between">
                                                         <span className="text-sm font-medium text-muted-foreground">{t('formSections')}</span>
                                                         <div className="flex gap-2">
+                                                            <Dialog open={pageHtmlImportOpen === page.id} onOpenChange={(open) => setPageHtmlImportOpen(open ? page.id : null)}>
+                                                                <DialogTrigger asChild>
+                                                                    <Button type="button" variant="outline" size="sm">
+                                                                        <FileCode2 className="h-4 w-4 mr-2" />
+                                                                        {t('importFromHtml')}
+                                                                    </Button>
+                                                                </DialogTrigger>
+                                                                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                                                                    <DialogHeader>
+                                                                        <DialogTitle>{t('importFromHtml')}</DialogTitle>
+                                                                        <DialogDescription>
+                                                                            {t('importFromHtmlDescriptionForPage', { pageName: page.name || `${t('page')} ${pageIndex + 1}` })}
+                                                                        </DialogDescription>
+                                                                    </DialogHeader>
+                                                                    <HtmlFundImporter
+                                                                        onImport={handlePageHtmlImport(page.id)}
+                                                                        language={locale}
+                                                                        targetPageId={page.id}
+                                                                        targetPageName={page.name || `${t('page')} ${pageIndex + 1}`}
+                                                                    />
+                                                                </DialogContent>
+                                                            </Dialog>
                                                             <Button
                                                                 type="button"
                                                                 onClick={() => addSection(page.id)}
