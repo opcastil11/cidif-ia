@@ -817,7 +817,9 @@
         "multiselect": "Selección Múltiple",
         "link": "Enlace (Video/Doc)",
         "file": "Archivo"
-      }
+      },
+      "importFromHtml": "Importar desde HTML",
+      "importFromHtmlDescription": "Importa campos adicionales desde el HTML del formulario oficial del fondo. Las nuevas secciones se agregarán a las existentes."
     },
     "newFund": {
       "title": "Nuevo Fondo",

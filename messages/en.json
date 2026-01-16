@@ -817,7 +817,9 @@
         "multiselect": "Multi Select",
         "link": "Link (Video/Doc)",
         "file": "File"
-      }
+      },
+      "importFromHtml": "Import from HTML",
+      "importFromHtmlDescription": "Import additional fields from the official fund form HTML. New sections will be added to existing ones."
     },
     "newFund": {
       "title": "New Fund",

@@ -8,10 +8,20 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Badge } from '@/components/ui/badge'
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from '@/components/ui/dialog'
 import { createClient } from '@/lib/supabase/client'
 import { Link } from '@/i18n/routing'
-import { ArrowLeft, Save, Plus, Trash2, GripVertical, Loader2, Eye, EyeOff } from 'lucide-react'
+import { ArrowLeft, Save, Plus, Trash2, GripVertical, Loader2, Eye, EyeOff, FileCode2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { useLocale } from 'next-intl'
+import { HtmlFundImporter } from '@/components/backoffice/html-fund-importer'
 
 interface Section {
     id: string
@@ -39,13 +49,31 @@ interface Fund {
     requirements: { sections?: Section[]; agent_context?: string } | null
 }
 
+interface ParsedSection {
+    key: string
+    name: string
+    type: 'text' | 'textarea' | 'select' | 'multiselect' | 'link' | 'file'
+    options?: string[]
+    required: boolean
+    helpText?: string
+}
+
+interface ParsedFund {
+    name?: string
+    organization?: string
+    description?: string
+    sections: ParsedSection[]
+}
+
 export default function EditFundPage() {
     const params = useParams()
     const router = useRouter()
     const t = useTranslations('backoffice.editFund')
+    const locale = useLocale()
     const fundId = params.id as string
 
     const [loading, setLoading] = useState(true)
+    const [htmlImportOpen, setHtmlImportOpen] = useState(false)
     const [saving, setSaving] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const [fund, setFund] = useState<Fund | null>(null)
@@ -126,6 +154,22 @@ export default function EditFundPage() {
 
     const removeSection = (id: string) => {
         setSections(sections.filter(s => s.id !== id))
+    }
+
+    const handleHtmlImport = (fund: ParsedFund) => {
+        // Add imported sections to existing ones (not replace)
+        const newSections: Section[] = fund.sections.map((section) => ({
+            id: crypto.randomUUID(),
+            key: section.key,
+            name: section.name,
+            type: section.type,
+            options: section.options || [],
+            required: section.required,
+            helpText: section.helpText || '',
+        }))
+
+        setSections(prev => [...prev, ...newSections])
+        setHtmlImportOpen(false)
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -378,10 +422,29 @@ export default function EditFundPage() {
                 <Card className="bg-card border-border">
                     <CardHeader className="flex flex-row items-center justify-between">
                         <CardTitle>{t('formSections')}</CardTitle>
-                        <Button type="button" onClick={addSection} variant="outline" size="sm">
-                            <Plus className="h-4 w-4 mr-2" />
-                            {t('addSection')}
-                        </Button>
+                        <div className="flex items-center gap-2">
+                            <Dialog open={htmlImportOpen} onOpenChange={setHtmlImportOpen}>
+                                <DialogTrigger asChild>
+                                    <Button type="button" variant="outline" size="sm">
+                                        <FileCode2 className="h-4 w-4 mr-2" />
+                                        {t('importFromHtml')}
+                                    </Button>
+                                </DialogTrigger>
+                                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                                    <DialogHeader>
+                                        <DialogTitle>{t('importFromHtml')}</DialogTitle>
+                                        <DialogDescription>
+                                            {t('importFromHtmlDescription')}
+                                        </DialogDescription>
+                                    </DialogHeader>
+                                    <HtmlFundImporter onImport={handleHtmlImport} language={locale} />
+                                </DialogContent>
+                            </Dialog>
+                            <Button type="button" onClick={addSection} variant="outline" size="sm">
+                                <Plus className="h-4 w-4 mr-2" />
+                                {t('addSection')}
+                            </Button>
+                        </div>
                     </CardHeader>
                     <CardContent className="space-y-4">
                         {sections.length === 0 ? (
