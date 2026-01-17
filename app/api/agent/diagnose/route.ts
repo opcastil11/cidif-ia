@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 
-export async function GET(request: NextRequest) {
+// This endpoint is public for diagnostics - it only shows if env vars exist, not their values
+export const dynamic = 'force-dynamic'
+
+export async function GET() {
   const diagnostics: Record<string, unknown> = {
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV,
@@ -41,7 +44,7 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  // Check auth
+  // Check auth (optional, may fail if not authenticated)
   try {
     const supabase = await createClient()
     const { data: { user }, error } = await supabase.auth.getUser()
