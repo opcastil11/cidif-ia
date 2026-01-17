@@ -88,6 +88,8 @@ export default function ApplyFundPage() {
     const [aiFillingSection, setAiFillingSection] = useState<string | null>(null)
     const [hasTrainedAI, setHasTrainedAI] = useState(false)
     const [aiError, setAiError] = useState<string | null>(null)
+    const [skippedFields, setSkippedFields] = useState<{ key: string; name: string; reason: string }[]>([])
+    const [aiSuccessMessage, setAiSuccessMessage] = useState<string | null>(null)
 
     useEffect(() => {
         loadData()
@@ -346,6 +348,8 @@ export default function ApplyFundPage() {
 
         setAiFillingAll(true)
         setAiError(null)
+        setSkippedFields([])
+        setAiSuccessMessage(null)
 
         try {
             const response = await fetch('/api/agent/prefill', {
@@ -371,6 +375,16 @@ export default function ApplyFundPage() {
 
             // Apply the AI-generated responses
             setSectionResponses(prev => ({ ...prev, ...data.responses }))
+
+            // Handle skipped fields
+            if (data.skippedFields && data.skippedFields.length > 0) {
+                setSkippedFields(data.skippedFields)
+            }
+
+            // Show success message with filled count
+            if (data.filledCount !== undefined) {
+                setAiSuccessMessage(t('ai.filledFieldsCount', { filled: data.filledCount, total: data.sectionsCount }))
+            }
         } catch (err) {
             console.error('Error with AI prefill:', err)
             setAiError(t('ai.genericError'))
@@ -385,6 +399,7 @@ export default function ApplyFundPage() {
 
         setAiFillingSection(sectionKey)
         setAiError(null)
+        setAiSuccessMessage(null)
 
         try {
             const response = await fetch('/api/agent/prefill', {
@@ -406,6 +421,14 @@ export default function ApplyFundPage() {
                 } else {
                     setAiError(data.message || t('ai.genericError'))
                 }
+                return
+            }
+
+            // Check if this field was skipped
+            if (data.skippedFields && data.skippedFields.length > 0) {
+                const skipped = data.skippedFields[0]
+                // Show message that this field couldn't be filled
+                setAiError(t('ai.fieldNotFilled', { fieldName: skipped.name }))
                 return
             }
 
@@ -711,6 +734,38 @@ export default function ApplyFundPage() {
                                         {t('ai.trainAgentLink')}
                                     </Link>
                                 )}
+                            </AlertDescription>
+                        </Alert>
+                    )}
+
+                    {/* AI Success Message with Skipped Fields */}
+                    {aiSuccessMessage && (
+                        <Alert className="bg-green-500/10 border-green-500/30">
+                            <CheckCircle2 className="h-4 w-4 text-green-400" />
+                            <AlertDescription className="text-green-200">
+                                {aiSuccessMessage}
+                            </AlertDescription>
+                        </Alert>
+                    )}
+
+                    {/* Skipped Fields Warning */}
+                    {skippedFields.length > 0 && (
+                        <Alert className="bg-amber-500/10 border-amber-500/30">
+                            <AlertCircle className="h-4 w-4 text-amber-400" />
+                            <AlertDescription className="text-amber-200">
+                                <p className="font-medium mb-2">{t('ai.skippedFieldsTitle')}</p>
+                                <ul className="list-disc list-inside space-y-1 text-sm">
+                                    {skippedFields.map((field) => (
+                                        <li key={field.key}>
+                                            <span className="font-medium">{field.name}</span>
+                                            {' - '}
+                                            {field.reason === 'no_data'
+                                                ? t('ai.skippedReasonNoData')
+                                                : t('ai.skippedReasonManual')
+                                            }
+                                        </li>
+                                    ))}
+                                </ul>
                             </AlertDescription>
                         </Alert>
                     )}

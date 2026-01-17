@@ -708,7 +708,12 @@
       "trainAgentLink": "Entrenar agente",
       "trainedHint": "La IA generará respuestas basadas en el contexto de tu proyecto. Puedes editar las respuestas después.",
       "noTrainingError": "El proyecto no tiene contexto de entrenamiento. Por favor, entrena el agente IA primero.",
-      "genericError": "Error al generar respuestas con IA. Por favor intenta de nuevo."
+      "genericError": "Error al generar respuestas con IA. Por favor intenta de nuevo.",
+      "filledFieldsCount": "Se llenaron {filled} de {total} campos automáticamente.",
+      "fieldNotFilled": "No se pudo llenar el campo \"{fieldName}\". Esta información no está disponible en el contexto del proyecto. Por favor, complétalo manualmente.",
+      "skippedFieldsTitle": "Algunos campos requieren información manual:",
+      "skippedReasonNoData": "Esta información no está en el contexto del proyecto",
+      "skippedReasonManual": "Este tipo de campo requiere ingreso manual"
     }
   },
   "backoffice": {

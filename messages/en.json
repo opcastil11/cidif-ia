@@ -708,7 +708,12 @@
       "trainAgentLink": "Train agent",
       "trainedHint": "AI will generate responses based on your project context. You can edit the responses afterwards.",
       "noTrainingError": "The project has no training context. Please train the AI agent first.",
-      "genericError": "Error generating AI responses. Please try again."
+      "genericError": "Error generating AI responses. Please try again.",
+      "filledFieldsCount": "Automatically filled {filled} of {total} fields.",
+      "fieldNotFilled": "Could not fill the field \"{fieldName}\". This information is not available in the project context. Please complete it manually.",
+      "skippedFieldsTitle": "Some fields require manual input:",
+      "skippedReasonNoData": "This information is not in the project context",
+      "skippedReasonManual": "This field type requires manual entry"
     }
   },
   "backoffice": {

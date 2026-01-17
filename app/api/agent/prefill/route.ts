@@ -149,12 +149,14 @@ ${fundContext}
 6. Para campos tipo "link" o "file", devuelve una cadena vacía ""
 7. Responde en español
 8. NO inventes información que no esté en el contexto del proyecto
+9. Si un campo requiere información específica que NO está en el contexto (como RUT, números de identificación fiscal, fechas específicas, montos exactos, nombres de personas específicas, direcciones, etc.), devuelve "__MISSING__" como valor para ese campo
 
 ## Formato de Respuesta
 Devuelve un objeto JSON con las claves correspondientes a cada sección y sus valores. Ejemplo:
 {
   "project_description": "Descripción del proyecto...",
-  "team_experience": "El equipo tiene..."
+  "team_experience": "El equipo tiene...",
+  "tax_id": "__MISSING__"
 }
 
 IMPORTANTE: Responde SOLO con el JSON, sin explicaciones adicionales ni bloques de código.`
@@ -163,7 +165,9 @@ IMPORTANTE: Responde SOLO con el JSON, sin explicaciones adicionales ni bloques 
 
 ${sectionsDescription}
 
-Recuerda: Responde SOLO con el objeto JSON.`
+Recuerda:
+- Responde SOLO con el objeto JSON
+- Usa "__MISSING__" para campos que requieren información específica que no está disponible en el contexto`
 
     console.log('[Agent Prefill] Calling OpenAI for', sectionsToFill.length, 'sections')
 
@@ -180,21 +184,51 @@ Recuerda: Responde SOLO con el objeto JSON.`
 
     const responseText = completion.choices[0]?.message?.content || '{}'
 
-    let responses: Record<string, string>
+    let rawResponses: Record<string, string>
     try {
-      responses = JSON.parse(responseText)
+      rawResponses = JSON.parse(responseText)
     } catch {
       console.error('[Agent Prefill] Failed to parse JSON response:', responseText)
       return NextResponse.json({ error: 'Failed to parse AI response', message: 'Error al procesar la respuesta de la IA. Intenta nuevamente.' }, { status: 500 })
     }
 
-    console.log('[Agent Prefill] Successfully generated responses for', Object.keys(responses).length, 'sections')
+    // Process responses to identify missing fields
+    const responses: Record<string, string> = {}
+    const skippedFields: { key: string; name: string; reason: string }[] = []
+
+    for (const section of sectionsToFill) {
+      const value = rawResponses[section.key]
+
+      if (value === '__MISSING__' || value === undefined || value === null) {
+        // Field couldn't be filled
+        skippedFields.push({
+          key: section.key,
+          name: section.name,
+          reason: 'no_data'
+        })
+        responses[section.key] = '' // Clear the field, don't put __MISSING__ in the form
+      } else if (section.type === 'link' || section.type === 'file') {
+        // These fields can't be filled by AI
+        skippedFields.push({
+          key: section.key,
+          name: section.name,
+          reason: 'manual_required'
+        })
+        responses[section.key] = value
+      } else {
+        responses[section.key] = value
+      }
+    }
+
+    console.log('[Agent Prefill] Successfully generated responses for', Object.keys(responses).length, 'sections, skipped', skippedFields.length, 'fields')
 
     return NextResponse.json({
       success: true,
       responses,
+      skippedFields,
       mode,
-      sectionsCount: sectionsToFill.length
+      sectionsCount: sectionsToFill.length,
+      filledCount: sectionsToFill.length - skippedFields.length
     })
   } catch (error) {
     console.error('[Agent Prefill] Error:', error)
