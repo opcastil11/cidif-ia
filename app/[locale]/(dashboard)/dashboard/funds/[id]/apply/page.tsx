@@ -395,13 +395,20 @@ export default function ApplyFundPage() {
 
     // AI Fill single section
     const handleAIFillSection = async (sectionKey: string) => {
-        if (!selectedProject || !fundId) return
+        console.log('[AI Fill Section] Starting for sectionKey:', sectionKey)
+        console.log('[AI Fill Section] selectedProject:', selectedProject, 'fundId:', fundId)
+
+        if (!selectedProject || !fundId) {
+            console.log('[AI Fill Section] Missing projectId or fundId, aborting')
+            return
+        }
 
         setAiFillingSection(sectionKey)
         setAiError(null)
         setAiSuccessMessage(null)
 
         try {
+            console.log('[AI Fill Section] Making API request...')
             const response = await fetch('/api/agent/prefill', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -414,8 +421,10 @@ export default function ApplyFundPage() {
             })
 
             const data = await response.json()
+            console.log('[AI Fill Section] API response:', { status: response.status, ok: response.ok, data })
 
             if (!response.ok) {
+                console.log('[AI Fill Section] Response not OK:', data.error, data.message)
                 if (data.error === 'no_training') {
                     setAiError(t('ai.noTrainingError'))
                 } else {
@@ -427,6 +436,7 @@ export default function ApplyFundPage() {
             // Check if this field was skipped
             if (data.skippedFields && data.skippedFields.length > 0) {
                 const skipped = data.skippedFields[0]
+                console.log('[AI Fill Section] Field was skipped:', skipped)
                 // Show message that this field couldn't be filled
                 setAiError(t('ai.fieldNotFilled', { fieldName: skipped.name }))
                 return
@@ -434,15 +444,19 @@ export default function ApplyFundPage() {
 
             // Apply the AI-generated response for this section
             if (data.responses && data.responses[sectionKey]) {
+                console.log('[AI Fill Section] Applying response for', sectionKey, ':', data.responses[sectionKey].substring(0, 100))
                 setSectionResponses(prev => ({
                     ...prev,
                     [sectionKey]: data.responses[sectionKey]
                 }))
+            } else {
+                console.log('[AI Fill Section] No response found for sectionKey:', sectionKey, 'Available keys:', Object.keys(data.responses || {}))
             }
         } catch (err) {
-            console.error('Error with AI fill section:', err)
+            console.error('[AI Fill Section] Error:', err)
             setAiError(t('ai.genericError'))
         } finally {
+            console.log('[AI Fill Section] Finished, clearing loading state')
             setAiFillingSection(null)
         }
     }

@@ -117,11 +117,17 @@ ${fund.agent_context ? `\n## Directrices Específicas del Fondo\n${fund.agent_co
 `
 
     // Determine which sections to fill
+    console.log('[Agent Prefill] Mode:', mode, 'Requested sectionKey:', sectionKey)
+    console.log('[Agent Prefill] Available section keys:', sections.map(s => s.key))
+
     const sectionsToFill = mode === 'all'
       ? sections
       : sections.filter(s => s.key === sectionKey)
 
+    console.log('[Agent Prefill] Sections to fill:', sectionsToFill.map(s => ({ key: s.key, name: s.name })))
+
     if (sectionsToFill.length === 0) {
+      console.log('[Agent Prefill] No sections matched! Requested:', sectionKey, 'Available:', sections.map(s => s.key))
       return NextResponse.json({ error: 'Section not found', message: 'No se encontró la sección especificada.' }, { status: 400 })
     }
 
