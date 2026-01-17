@@ -537,7 +537,7 @@ export default function ApplyFundPage() {
     const sections = fund.requirements?.sections || []
 
     return (
-        <div className="space-y-6 max-w-3xl">
+        <div className="space-y-6">
             {/* Header */}
             <div className="flex items-center gap-4">
                 <Button asChild variant="ghost" size="icon" className="text-slate-400 hover:text-white">
