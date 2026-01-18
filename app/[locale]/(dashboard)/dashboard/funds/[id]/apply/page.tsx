@@ -88,6 +88,7 @@ export default function ApplyFundPage() {
     const [aiFillingSection, setAiFillingSection] = useState<string | null>(null)
     const [hasTrainedAI, setHasTrainedAI] = useState(false)
     const [aiError, setAiError] = useState<string | null>(null)
+    const [aiWarning, setAiWarning] = useState<string | null>(null)
     const [skippedFields, setSkippedFields] = useState<{ key: string; name: string; reason: string }[]>([])
     const [aiSuccessMessage, setAiSuccessMessage] = useState<string | null>(null)
     const [showTrainingRequired, setShowTrainingRequired] = useState(false)
@@ -349,6 +350,7 @@ export default function ApplyFundPage() {
 
         setAiFillingAll(true)
         setAiError(null)
+        setAiWarning(null)
         setSkippedFields([])
         setAiSuccessMessage(null)
         setShowTrainingRequired(false)
@@ -408,6 +410,7 @@ export default function ApplyFundPage() {
 
         setAiFillingSection(sectionKey)
         setAiError(null)
+        setAiWarning(null)
         setAiSuccessMessage(null)
         setShowTrainingRequired(false)
 
@@ -442,8 +445,8 @@ export default function ApplyFundPage() {
             if (data.skippedFields && data.skippedFields.length > 0) {
                 const skipped = data.skippedFields[0]
                 console.log('[AI Fill Section] Field was skipped:', skipped)
-                // Show message that this field couldn't be filled
-                setAiError(t('ai.fieldNotFilled', { fieldName: skipped.name }))
+                // Show warning message that this field couldn't be filled (not error - it's informational)
+                setAiWarning(t('ai.fieldNotFilled', { fieldName: skipped.name }))
                 return
             }
 
@@ -753,6 +756,16 @@ export default function ApplyFundPage() {
                                         {t('ai.trainAgentLink')}
                                     </Link>
                                 )}
+                            </AlertDescription>
+                        </Alert>
+                    )}
+
+                    {/* AI Warning Alert - for skipped fields (not errors, just informational) */}
+                    {aiWarning && (
+                        <Alert className="bg-amber-500/10 border-amber-500/30">
+                            <AlertCircle className="h-4 w-4 text-amber-400" />
+                            <AlertDescription className="text-amber-200">
+                                {aiWarning}
                             </AlertDescription>
                         </Alert>
                     )}
