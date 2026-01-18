@@ -621,6 +621,25 @@
     "subtitle": "Explora fondos disponibles e inicia tu postulación",
     "applyNow": "Postular Ahora",
     "deadline": "Fecha límite",
+    "closed": "Cerrado",
+    "closingSoon": "Cierra pronto",
+    "expired": "Vencido",
+    "viewDetails": "Ver detalles",
+    "daysRemaining": {
+      "one": "1 día restante",
+      "other": "{count} días restantes"
+    },
+    "estimatedTime": {
+      "minutes": "~{count} min",
+      "hours": "~{count} hrs"
+    },
+    "fields": "{count} campos",
+    "types": {
+      "grant": "Subsidio",
+      "loan": "Préstamo",
+      "equity": "Capital",
+      "mixed": "Mixto"
+    },
     "empty": {
       "title": "No hay fondos disponibles",
       "description": "Vuelve pronto para nuevas oportunidades de financiamiento."

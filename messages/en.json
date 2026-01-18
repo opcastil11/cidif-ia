@@ -621,6 +621,25 @@
     "subtitle": "Browse available funds and start your application",
     "applyNow": "Apply Now",
     "deadline": "Deadline",
+    "closed": "Closed",
+    "closingSoon": "Closing soon",
+    "expired": "Expired",
+    "viewDetails": "View details",
+    "daysRemaining": {
+      "one": "1 day left",
+      "other": "{count} days left"
+    },
+    "estimatedTime": {
+      "minutes": "~{count} min",
+      "hours": "~{count} hrs"
+    },
+    "fields": "{count} fields",
+    "types": {
+      "grant": "Grant",
+      "loan": "Loan",
+      "equity": "Equity",
+      "mixed": "Mixed"
+    },
     "empty": {
       "title": "No funds available",
       "description": "Check back soon for new funding opportunities."
