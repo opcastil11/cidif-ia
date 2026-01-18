@@ -65,10 +65,14 @@ export async function POST(request: NextRequest) {
     // Check if project has trained context
     const agentContext = project.metadata?.agent_context
     if (!agentContext) {
-      console.log('[Agent Prefill] Project has no trained context')
+      console.log('[Agent Prefill] Project has no trained context for project:', project.name, '(', projectId, ')')
       return NextResponse.json({
         error: 'no_training',
-        message: 'El proyecto no tiene contexto de entrenamiento. Por favor, entrena el agente primero.'
+        code: 'AI_NOT_TRAINED',
+        projectId: projectId,
+        projectName: project.name,
+        message: 'El proyecto no tiene contexto de entrenamiento. Por favor, entrena el agente primero.',
+        userAction: 'train_agent'
       }, { status: 400 })
     }
 

@@ -90,6 +90,7 @@ export default function ApplyFundPage() {
     const [aiError, setAiError] = useState<string | null>(null)
     const [skippedFields, setSkippedFields] = useState<{ key: string; name: string; reason: string }[]>([])
     const [aiSuccessMessage, setAiSuccessMessage] = useState<string | null>(null)
+    const [showTrainingRequired, setShowTrainingRequired] = useState(false)
 
     useEffect(() => {
         loadData()
@@ -350,6 +351,7 @@ export default function ApplyFundPage() {
         setAiError(null)
         setSkippedFields([])
         setAiSuccessMessage(null)
+        setShowTrainingRequired(false)
 
         try {
             const response = await fetch('/api/agent/prefill', {
@@ -365,8 +367,9 @@ export default function ApplyFundPage() {
             const data = await response.json()
 
             if (!response.ok) {
-                if (data.error === 'no_training') {
-                    setAiError(t('ai.noTrainingError'))
+                if (data.error === 'no_training' || data.code === 'AI_NOT_TRAINED') {
+                    setShowTrainingRequired(true)
+                    setAiError(null) // Don't show the error alert, we'll show the training required card instead
                 } else {
                     setAiError(data.message || t('ai.genericError'))
                 }
@@ -406,6 +409,7 @@ export default function ApplyFundPage() {
         setAiFillingSection(sectionKey)
         setAiError(null)
         setAiSuccessMessage(null)
+        setShowTrainingRequired(false)
 
         try {
             console.log('[AI Fill Section] Making API request...')
@@ -425,8 +429,9 @@ export default function ApplyFundPage() {
 
             if (!response.ok) {
                 console.log('[AI Fill Section] Response not OK:', data.error, data.message)
-                if (data.error === 'no_training') {
-                    setAiError(t('ai.noTrainingError'))
+                if (data.error === 'no_training' || data.code === 'AI_NOT_TRAINED') {
+                    setShowTrainingRequired(true)
+                    setAiError(null) // Don't show the error alert, we'll show the training required card instead
                 } else {
                     setAiError(data.message || t('ai.genericError'))
                 }
@@ -782,6 +787,49 @@ export default function ApplyFundPage() {
                                 </ul>
                             </AlertDescription>
                         </Alert>
+                    )}
+
+                    {/* Training Required Card - Shown when AI prefill fails due to no training */}
+                    {showTrainingRequired && (
+                        <Card className="bg-gradient-to-r from-amber-900/40 to-orange-900/40 border-amber-500/30">
+                            <CardHeader>
+                                <CardTitle className="text-white flex items-center gap-2">
+                                    <AlertCircle className="h-5 w-5 text-amber-400" />
+                                    {t('ai.trainingRequiredTitle')}
+                                </CardTitle>
+                                <CardDescription className="text-slate-300">
+                                    {t('ai.trainingRequiredDescription')}
+                                </CardDescription>
+                            </CardHeader>
+                            <CardContent className="space-y-4">
+                                <div className="bg-slate-800/50 rounded-lg p-4 space-y-3">
+                                    <p className="text-sm text-slate-300">{t('ai.trainingRequiredSteps')}</p>
+                                    <ol className="list-decimal list-inside text-sm text-slate-400 space-y-2">
+                                        <li>{t('ai.trainingStep1')}</li>
+                                        <li>{t('ai.trainingStep2')}</li>
+                                        <li>{t('ai.trainingStep3')}</li>
+                                    </ol>
+                                </div>
+                                <div className="flex flex-col sm:flex-row gap-3">
+                                    <Button
+                                        asChild
+                                        className="bg-amber-600 hover:bg-amber-700"
+                                    >
+                                        <Link href={`/dashboard/projects/${selectedProject}`}>
+                                            <Wand2 className="h-4 w-4 mr-2" />
+                                            {t('ai.goToTraining')}
+                                        </Link>
+                                    </Button>
+                                    <Button
+                                        variant="outline"
+                                        onClick={() => setShowTrainingRequired(false)}
+                                        className="border-slate-600 text-slate-300 hover:bg-slate-800"
+                                    >
+                                        {t('ai.continueManually')}
+                                    </Button>
+                                </div>
+                            </CardContent>
+                        </Card>
                     )}
 
                     {/* AI Pre-fill Card */}

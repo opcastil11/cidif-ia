@@ -713,7 +713,15 @@
       "fieldNotFilled": "No se pudo llenar el campo \"{fieldName}\". Esta información no está disponible en el contexto del proyecto. Por favor, complétalo manualmente.",
       "skippedFieldsTitle": "Algunos campos requieren información manual:",
       "skippedReasonNoData": "Esta información no está en el contexto del proyecto",
-      "skippedReasonManual": "Este tipo de campo requiere ingreso manual"
+      "skippedReasonManual": "Este tipo de campo requiere ingreso manual",
+      "trainingRequiredTitle": "Entrenamiento de IA Requerido",
+      "trainingRequiredDescription": "Para usar el auto-llenado con IA, primero necesitas entrenar a tu asistente de IA con información sobre tu proyecto. Esto solo toma unos minutos.",
+      "trainingRequiredSteps": "Sigue estos pasos para activar el auto-llenado:",
+      "trainingStep1": "Ve a la página de tu proyecto",
+      "trainingStep2": "Haz clic en \"Entrenar Agente IA\" y responde las preguntas sobre tu proyecto",
+      "trainingStep3": "Regresa aquí y usa el botón \"Llenar Todo con IA\"",
+      "goToTraining": "Ir a Entrenar IA",
+      "continueManually": "Continuar sin IA"
     }
   },
   "backoffice": {

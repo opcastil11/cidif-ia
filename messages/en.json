@@ -713,7 +713,15 @@
       "fieldNotFilled": "Could not fill the field \"{fieldName}\". This information is not available in the project context. Please complete it manually.",
       "skippedFieldsTitle": "Some fields require manual input:",
       "skippedReasonNoData": "This information is not in the project context",
-      "skippedReasonManual": "This field type requires manual entry"
+      "skippedReasonManual": "This field type requires manual entry",
+      "trainingRequiredTitle": "AI Training Required",
+      "trainingRequiredDescription": "To use AI auto-fill, you first need to train your AI assistant with information about your project. This only takes a few minutes.",
+      "trainingRequiredSteps": "Follow these steps to activate auto-fill:",
+      "trainingStep1": "Go to your project page",
+      "trainingStep2": "Click \"Train AI Agent\" and answer questions about your project",
+      "trainingStep3": "Come back here and use the \"Fill All with AI\" button",
+      "goToTraining": "Go to AI Training",
+      "continueManually": "Continue without AI"
     }
   },
   "backoffice": {
