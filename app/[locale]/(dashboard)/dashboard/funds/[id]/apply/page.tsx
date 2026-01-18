@@ -90,6 +90,7 @@ export default function ApplyFundPage() {
     const [aiError, setAiError] = useState<string | null>(null)
     const [aiWarning, setAiWarning] = useState<string | null>(null)
     const [skippedFields, setSkippedFields] = useState<{ key: string; name: string; reason: string }[]>([])
+    const [fieldWarnings, setFieldWarnings] = useState<Record<string, string>>({})
     const [aiSuccessMessage, setAiSuccessMessage] = useState<string | null>(null)
     const [showTrainingRequired, setShowTrainingRequired] = useState(false)
 
@@ -413,6 +414,12 @@ export default function ApplyFundPage() {
         setAiWarning(null)
         setAiSuccessMessage(null)
         setShowTrainingRequired(false)
+        // Clear any previous warning for this field
+        setFieldWarnings(prev => {
+            const updated = { ...prev }
+            delete updated[sectionKey]
+            return updated
+        })
 
         try {
             console.log('[AI Fill Section] Making API request...')
@@ -445,8 +452,11 @@ export default function ApplyFundPage() {
             if (data.skippedFields && data.skippedFields.length > 0) {
                 const skipped = data.skippedFields[0]
                 console.log('[AI Fill Section] Field was skipped:', skipped)
-                // Show warning message that this field couldn't be filled (not error - it's informational)
-                setAiWarning(t('ai.fieldNotFilled', { fieldName: skipped.name }))
+                // Show warning message directly on the field that couldn't be filled
+                setFieldWarnings(prev => ({
+                    ...prev,
+                    [sectionKey]: t('ai.fieldNotFilledInline')
+                }))
                 return
             }
 
@@ -473,6 +483,14 @@ export default function ApplyFundPage() {
         const value = sectionResponses[section.key] || ''
         const onChange = (newValue: string) => {
             setSectionResponses({ ...sectionResponses, [section.key]: newValue })
+            // Clear field warning when user starts typing
+            if (fieldWarnings[section.key]) {
+                setFieldWarnings(prev => {
+                    const updated = { ...prev }
+                    delete updated[section.key]
+                    return updated
+                })
+            }
         }
 
         switch (section.type) {
@@ -970,8 +988,16 @@ export default function ApplyFundPage() {
                                             )}
                                         </div>
                                     </CardHeader>
-                                    <CardContent>
+                                    <CardContent className="space-y-2">
                                         {renderSectionInput(section)}
+                                        {fieldWarnings[section.key] && (
+                                            <div className="flex items-start gap-2 p-3 rounded-lg bg-amber-500/10 border border-amber-500/30">
+                                                <AlertCircle className="h-4 w-4 text-amber-400 mt-0.5 flex-shrink-0" />
+                                                <p className="text-sm text-amber-200">
+                                                    {fieldWarnings[section.key]}
+                                                </p>
+                                            </div>
+                                        )}
                                     </CardContent>
                                 </Card>
                             )

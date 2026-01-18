@@ -711,6 +711,7 @@
       "genericError": "Error generating AI responses. Please try again.",
       "filledFieldsCount": "Automatically filled {filled} of {total} fields.",
       "fieldNotFilled": "Could not fill the field \"{fieldName}\". This information is not available in the project context. Please complete it manually.",
+      "fieldNotFilledInline": "Could not fill this field automatically. The information is not available in the project context. Please complete it manually.",
       "skippedFieldsTitle": "Some fields require manual input:",
       "skippedReasonNoData": "This information is not in the project context",
       "skippedReasonManual": "This field type requires manual entry",

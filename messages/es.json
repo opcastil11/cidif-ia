@@ -711,6 +711,7 @@
       "genericError": "Error al generar respuestas con IA. Por favor intenta de nuevo.",
       "filledFieldsCount": "Se llenaron {filled} de {total} campos automáticamente.",
       "fieldNotFilled": "No se pudo llenar el campo \"{fieldName}\". Esta información no está disponible en el contexto del proyecto. Por favor, complétalo manualmente.",
+      "fieldNotFilledInline": "No se pudo llenar este campo automáticamente. La información no está disponible en el contexto del proyecto. Por favor, complétalo manualmente.",
       "skippedFieldsTitle": "Algunos campos requieren información manual:",
       "skippedReasonNoData": "Esta información no está en el contexto del proyecto",
       "skippedReasonManual": "Este tipo de campo requiere ingreso manual",
