@@ -5,10 +5,17 @@ let _stripe: Stripe | null = null
 
 export function getStripe(): Stripe {
     if (!_stripe) {
-        if (!process.env.STRIPE_SECRET_KEY) {
+        const secretKey = process.env.STRIPE_SECRET_KEY
+        if (!secretKey) {
             throw new Error('STRIPE_SECRET_KEY is not set')
         }
-        _stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+
+        // Log key info for debugging (never log full key)
+        const keyPrefix = secretKey.substring(0, 12)
+        const keyLength = secretKey.length
+        console.log(`[Stripe] Initializing with key: ${keyPrefix}... (length: ${keyLength})`)
+
+        _stripe = new Stripe(secretKey, {
             apiVersion: '2025-12-15.clover',
             typescript: true,
         })
