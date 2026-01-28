@@ -89,23 +89,38 @@ export default function BillingPage() {
 
     setCheckoutLoading(planId)
     try {
+      // Get current locale from URL
+      const pathLocale = window.location.pathname.split('/')[1]
+      const locale = ['en', 'es'].includes(pathLocale) ? pathLocale : 'es'
+
       const response = await fetch('/api/stripe/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           planId,
-          successUrl: `${window.location.origin}/dashboard/billing?success=true`,
-          cancelUrl: `${window.location.origin}/dashboard/billing?cancelled=true`,
+          locale,
+          successUrl: `${window.location.origin}/${locale}/dashboard/billing?success=true`,
+          cancelUrl: `${window.location.origin}/${locale}/dashboard/billing?cancelled=true`,
         }),
       })
 
       const data = await response.json()
 
+      if (!response.ok) {
+        console.error('Checkout error:', data)
+        alert(data.error || 'Error creating checkout session')
+        return
+      }
+
       if (data.url) {
         window.location.href = data.url
+      } else {
+        console.error('No checkout URL returned:', data)
+        alert('Error: No checkout URL returned')
       }
     } catch (error) {
       console.error('Checkout error:', error)
+      alert('Error connecting to payment service')
     } finally {
       setCheckoutLoading(null)
     }
