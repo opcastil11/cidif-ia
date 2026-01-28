@@ -16,13 +16,12 @@ export function getStripe(): Stripe {
     return _stripe
 }
 
-// For backwards compatibility
-export const stripe = {
-    get customers() { return getStripe().customers },
-    get checkout() { return getStripe().checkout },
-    get billingPortal() { return getStripe().billingPortal },
-    get webhooks() { return getStripe().webhooks },
-}
+// For backwards compatibility - use getter to ensure lazy initialization
+export const stripe = new Proxy({} as Stripe, {
+    get(_, prop: keyof Stripe) {
+        return getStripe()[prop]
+    }
+})
 
 // Plan configuration
 export const PLANS = {
