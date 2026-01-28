@@ -680,7 +680,9 @@
     "renewsOn": "Renews on",
     "upgradePrompt": "Unlock more features with a paid plan",
     "upgradeTo": "Upgrade to",
-    "manageSubscription": "Manage subscription"
+    "manageSubscription": "Manage subscription",
+    "checkoutError": "Error processing payment. Please try again.",
+    "portalError": "Error accessing portal. Please try again."
   },
   "applyFund": {
     "title": "Apply for Fund",

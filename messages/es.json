@@ -680,7 +680,9 @@
     "renewsOn": "Se renueva el",
     "upgradePrompt": "Desbloquea más funciones con un plan de pago",
     "upgradeTo": "Actualizar a",
-    "manageSubscription": "Administrar suscripción"
+    "manageSubscription": "Administrar suscripción",
+    "checkoutError": "Error al procesar el pago. Por favor intenta nuevamente.",
+    "portalError": "Error al acceder al portal. Por favor intenta nuevamente."
   },
   "applyFund": {
     "title": "Postular a Fondo",

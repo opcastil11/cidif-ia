@@ -5,7 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { CreditCard, Sparkles, ArrowUpRight, Loader2 } from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
+import { toast } from 'sonner'
 
 interface SubscriptionCardProps {
     currentPlan: string
@@ -16,25 +17,40 @@ interface SubscriptionCardProps {
 export function SubscriptionCard({ currentPlan, status, periodEnd }: SubscriptionCardProps) {
     const [loading, setLoading] = useState<string | null>(null)
     const t = useTranslations('subscription')
+    const locale = useLocale()
 
     const handleSubscribe = async (planId: string) => {
         setLoading(planId)
         try {
+            // Build locale-aware URLs
+            const baseUrl = window.location.origin
+            const localePath = locale === 'es' ? '' : `/${locale}`
+            const successUrl = `${baseUrl}${localePath}/dashboard?subscription=success`
+            const cancelUrl = `${baseUrl}${localePath}/dashboard/profile`
+
             const response = await fetch('/api/stripe/checkout', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     planId,
-                    successUrl: window.location.origin + '/dashboard?subscription=success',
-                    cancelUrl: window.location.origin + '/dashboard/profile',
+                    successUrl,
+                    cancelUrl,
                 }),
             })
             const data = await response.json()
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Checkout failed')
+            }
+
             if (data.url) {
                 window.location.href = data.url
+            } else {
+                throw new Error('No checkout URL received')
             }
         } catch (error) {
             console.error('Checkout error:', error)
+            toast.error(t('checkoutError') || 'Error al procesar el pago. Por favor intenta nuevamente.')
         } finally {
             setLoading(null)
         }
@@ -47,11 +63,19 @@ export function SubscriptionCard({ currentPlan, status, periodEnd }: Subscriptio
                 method: 'POST',
             })
             const data = await response.json()
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Portal access failed')
+            }
+
             if (data.url) {
                 window.location.href = data.url
+            } else {
+                throw new Error('No portal URL received')
             }
         } catch (error) {
             console.error('Portal error:', error)
+            toast.error(t('portalError') || 'Error al acceder al portal. Por favor intenta nuevamente.')
         } finally {
             setLoading(null)
         }
