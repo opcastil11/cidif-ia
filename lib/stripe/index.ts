@@ -16,19 +16,19 @@ export function getStripe(): Stripe {
     return _stripe
 }
 
-// Export stripe instance directly using getter
-// This ensures lazy initialization while maintaining full Stripe functionality
-export const stripe = {
-    get customers() { return getStripe().customers },
-    get checkout() { return getStripe().checkout },
-    get subscriptions() { return getStripe().subscriptions },
-    get invoices() { return getStripe().invoices },
-    get paymentIntents() { return getStripe().paymentIntents },
-    get products() { return getStripe().products },
-    get prices() { return getStripe().prices },
-    get webhooks() { return getStripe().webhooks },
-    get billingPortal() { return getStripe().billingPortal },
-}
+// Export stripe instance using Proxy for full lazy initialization
+// This properly delegates ALL property access to the Stripe instance
+export const stripe = new Proxy({} as Stripe, {
+    get(_, prop: string | symbol) {
+        const instance = getStripe()
+        const value = instance[prop as keyof Stripe]
+        // Bind functions to maintain correct `this` context
+        if (typeof value === 'function') {
+            return value.bind(instance)
+        }
+        return value
+    }
+})
 
 // Plan configuration
 export const PLANS = {
