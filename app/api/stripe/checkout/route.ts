@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { stripe, PLANS, getPriceForCountry } from '@/lib/stripe'
+import { getStripe, PLANS, getPriceForCountry } from '@/lib/stripe'
+import Stripe from 'stripe'
 
 // Helper to get base URL from request
 function getBaseUrl(request: NextRequest): string {
@@ -24,6 +25,19 @@ interface ProfileData {
 
 export async function POST(request: NextRequest) {
     console.log('[Stripe Checkout] Starting checkout request')
+
+    // Get Stripe instance early to catch config errors
+    let stripeInstance: Stripe
+    try {
+        stripeInstance = getStripe()
+        console.log('[Stripe Checkout] Stripe instance created successfully')
+    } catch (stripeConfigError) {
+        console.error('[Stripe Checkout] Failed to initialize Stripe:', stripeConfigError)
+        return NextResponse.json(
+            { error: 'Stripe configuration error', code: 'StripeConfigError' },
+            { status: 500 }
+        )
+    }
 
     try {
         const supabase = await createClient()
@@ -112,7 +126,7 @@ export async function POST(request: NextRequest) {
         if (!customerId) {
             console.log('[Stripe Checkout] Creating new Stripe customer')
             try {
-                const customer = await stripe.customers.create({
+                const customer = await stripeInstance.customers.create({
                     email: user.email,
                     name: profileData?.full_name || undefined,
                     metadata: {
@@ -155,7 +169,7 @@ export async function POST(request: NextRequest) {
         // Create checkout session
         console.log('[Stripe Checkout] Creating checkout session...')
         try {
-            const session = await stripe.checkout.sessions.create({
+            const session = await stripeInstance.checkout.sessions.create({
                 customer: customerId,
                 mode: 'subscription',
                 payment_method_types: ['card'],
@@ -241,14 +255,13 @@ export async function POST(request: NextRequest) {
             {
                 error: userMessage,
                 code: errorCode,
-                // Include debug details in development
-                ...(process.env.NODE_ENV !== 'production' && {
-                    debug: {
-                        message: errorMessage,
-                        type: stripeErrorType,
-                        rawType: stripeRawType
-                    }
-                })
+                // Include debug details - temporarily enabled for production debugging
+                debug: {
+                    message: errorMessage,
+                    type: stripeErrorType,
+                    rawType: stripeRawType,
+                    name: errorName
+                }
             },
             { status: 500 }
         )
