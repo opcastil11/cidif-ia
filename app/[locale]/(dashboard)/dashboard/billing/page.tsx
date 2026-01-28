@@ -108,7 +108,9 @@ export default function BillingPage() {
 
       if (!response.ok) {
         console.error('Checkout error:', data)
-        alert(data.error || 'Error creating checkout session')
+        const errorMsg = data.error || 'Error creating checkout session'
+        const errorCode = data.code ? ` (${data.code})` : ''
+        alert(`${errorMsg}${errorCode}`)
         return
       }
 

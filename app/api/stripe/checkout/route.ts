@@ -134,13 +134,29 @@ export async function POST(request: NextRequest) {
         const errorMessage = error instanceof Error ? error.message : 'Unknown error'
         const errorType = error instanceof Error ? error.name : 'UnknownError'
 
-        console.error(`[Stripe Checkout] Error type: ${errorType}, Message: ${errorMessage}`)
+        // Check for specific Stripe errors
+        const isStripeError = error && typeof error === 'object' && 'type' in error
+        const stripeErrorType = isStripeError ? (error as { type: string }).type : undefined
+        const stripeErrorCode = isStripeError && 'code' in error ? (error as { code: string }).code : undefined
+
+        console.error(`[Stripe Checkout] Error type: ${errorType}, Stripe type: ${stripeErrorType}, Code: ${stripeErrorCode}, Message: ${errorMessage}`)
+
+        // Provide helpful error messages based on error type
+        let userMessage = 'Failed to create checkout session'
+        if (errorMessage.includes('STRIPE_SECRET_KEY')) {
+            userMessage = 'Stripe configuration error. Please contact support.'
+        } else if (stripeErrorType === 'StripeAuthenticationError') {
+            userMessage = 'Stripe authentication failed. Please contact support.'
+        } else if (stripeErrorType === 'StripeInvalidRequestError') {
+            userMessage = 'Invalid request to payment processor.'
+        }
 
         return NextResponse.json(
             {
-                error: 'Failed to create checkout session',
-                details: process.env.NODE_ENV === 'development' ? errorMessage : undefined,
-                type: errorType
+                error: userMessage,
+                code: stripeErrorCode || errorType,
+                // Include details in non-production for debugging
+                ...(process.env.NODE_ENV !== 'production' && { details: errorMessage })
             },
             { status: 500 }
         )
