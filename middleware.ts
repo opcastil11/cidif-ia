@@ -6,7 +6,7 @@ import { routing } from './i18n/routing'
 const intlMiddleware = createMiddleware(routing)
 
 // Public API routes that don't require authentication (use their own auth)
-const publicApiRoutes = ['/api/auth', '/api/stripe/webhook', '/api/admin/migrate', '/api/orquesta', '/api/agent/diagnose']
+const publicApiRoutes = ['/api/auth', '/api/stripe/webhook', '/api/stripe/debug', '/api/admin/migrate', '/api/orquesta', '/api/agent/diagnose']
 
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname
