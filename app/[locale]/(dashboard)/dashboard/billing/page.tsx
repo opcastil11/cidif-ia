@@ -65,19 +65,59 @@ export default function BillingPage() {
   const [refreshing, setRefreshing] = useState(false)
 
   const loadProfile = useCallback(async (showToast = false) => {
-    const supabase = createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+    try {
+      // Use server API to get fresh profile data (bypasses any client caching)
+      const response = await fetch('/api/profile/me', {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        }
+      })
 
-    if (user) {
-      const { data } = await supabase
-        .from('profiles')
-        .select('subscription_tier, subscription_status, stripe_customer_id, stripe_subscription_id, subscription_ends_at, subscription_period_end, country')
-        .eq('id', user.id)
-        .single()
+      if (response.ok) {
+        const data = await response.json()
+        if (data.profile) {
+          setProfile(data.profile)
+          if (showToast) {
+            toast.success(t('dataRefreshed'))
+          }
+        }
+      } else {
+        // Fallback to direct Supabase query
+        const supabase = createClient()
+        const { data: { user } } = await supabase.auth.getUser()
 
-      setProfile(data)
-      if (showToast && data) {
-        toast.success(t('dataRefreshed'))
+        if (user) {
+          const { data } = await supabase
+            .from('profiles')
+            .select('subscription_tier, subscription_status, stripe_customer_id, stripe_subscription_id, subscription_ends_at, subscription_period_end, country')
+            .eq('id', user.id)
+            .single()
+
+          setProfile(data)
+          if (showToast && data) {
+            toast.success(t('dataRefreshed'))
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error loading profile:', error)
+      // Fallback to direct Supabase query
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+
+      if (user) {
+        const { data } = await supabase
+          .from('profiles')
+          .select('subscription_tier, subscription_status, stripe_customer_id, stripe_subscription_id, subscription_ends_at, subscription_period_end, country')
+          .eq('id', user.id)
+          .single()
+
+        setProfile(data)
+        if (showToast && data) {
+          toast.success(t('dataRefreshed'))
+        }
       }
     }
     setLoading(false)
