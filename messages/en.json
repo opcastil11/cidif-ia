@@ -1108,7 +1108,10 @@
     "regionalDiscount": "Regional discount applied",
     "needHelp": "Need help?",
     "contactSupport": "Contact us for billing questions or plan features.",
-    "contactUs": "Contact Us"
+    "contactUs": "Contact Us",
+    "dataRefreshed": "Data refreshed",
+    "subscriptionSuccess": "Subscription activated successfully!",
+    "subscriptionCancelled": "Payment cancelled"
   },
   "meetings": {
     "title": "Book a Meeting",

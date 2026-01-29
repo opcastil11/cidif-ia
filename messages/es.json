@@ -1108,7 +1108,10 @@
     "regionalDiscount": "Descuento regional aplicado",
     "needHelp": "¿Necesitas ayuda?",
     "contactSupport": "Contáctanos para preguntas sobre facturación o funciones del plan.",
-    "contactUs": "Contáctanos"
+    "contactUs": "Contáctanos",
+    "dataRefreshed": "Datos actualizados",
+    "subscriptionSuccess": "¡Suscripción activada exitosamente!",
+    "subscriptionCancelled": "Pago cancelado"
   },
   "meetings": {
     "title": "Agendar Reunión",

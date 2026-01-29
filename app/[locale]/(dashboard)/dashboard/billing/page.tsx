@@ -1,13 +1,15 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { createClient } from '@/lib/supabase/client'
 import { useTranslations } from 'next-intl'
-import { Check, Loader2, CreditCard, Crown, Zap, Sparkles } from 'lucide-react'
+import { Check, Loader2, CreditCard, Crown, Zap, Sparkles, RefreshCw } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { toast } from 'sonner'
 
 interface Profile {
   subscription_tier: string
@@ -15,6 +17,7 @@ interface Profile {
   stripe_customer_id: string | null
   stripe_subscription_id: string | null
   subscription_ends_at: string | null
+  subscription_period_end: string | null
   country: string | null
 }
 
@@ -54,29 +57,60 @@ const COUNTRY_PRICING: Record<string, number> = {
 export default function BillingPage() {
   const t = useTranslations('billing')
   const tPricing = useTranslations('home.pricing')
+  const searchParams = useSearchParams()
   const [loading, setLoading] = useState(true)
   const [profile, setProfile] = useState<Profile | null>(null)
   const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null)
   const [portalLoading, setPortalLoading] = useState(false)
+  const [refreshing, setRefreshing] = useState(false)
 
-  useEffect(() => {
-    loadProfile()
-  }, [])
-
-  const loadProfile = async () => {
+  const loadProfile = useCallback(async (showToast = false) => {
     const supabase = createClient()
     const { data: { user } } = await supabase.auth.getUser()
 
     if (user) {
       const { data } = await supabase
         .from('profiles')
-        .select('subscription_tier, subscription_status, stripe_customer_id, stripe_subscription_id, subscription_ends_at, country')
+        .select('subscription_tier, subscription_status, stripe_customer_id, stripe_subscription_id, subscription_ends_at, subscription_period_end, country')
         .eq('id', user.id)
         .single()
 
       setProfile(data)
+      if (showToast && data) {
+        toast.success(t('dataRefreshed'))
+      }
     }
     setLoading(false)
+    setRefreshing(false)
+  }, [t])
+
+  // Handle success/cancelled URL params after returning from Stripe checkout
+  useEffect(() => {
+    const success = searchParams.get('success')
+    const cancelled = searchParams.get('cancelled')
+
+    if (success === 'true') {
+      // Show success toast and reload profile data
+      toast.success(t('subscriptionSuccess'))
+      // Give webhook a moment to process, then reload
+      const timer = setTimeout(() => {
+        loadProfile(false)
+      }, 2000)
+      return () => clearTimeout(timer)
+    }
+
+    if (cancelled === 'true') {
+      toast.info(t('subscriptionCancelled'))
+    }
+  }, [searchParams, loadProfile, t])
+
+  useEffect(() => {
+    loadProfile()
+  }, [loadProfile])
+
+  const handleRefresh = async () => {
+    setRefreshing(true)
+    await loadProfile(true)
   }
 
   const getAdjustedPrice = (basePrice: number) => {
@@ -168,11 +202,20 @@ export default function BillingPage() {
 
       {/* Current Plan Card */}
       <Card className="bg-slate-900 border-slate-800">
-        <CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-white flex items-center gap-2">
             <CreditCard className="h-5 w-5 text-purple-400" />
             {t('currentPlan')}
           </CardTitle>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleRefresh}
+            disabled={refreshing}
+            className="text-slate-400 hover:text-white"
+          >
+            <RefreshCw className={cn("h-4 w-4", refreshing && "animate-spin")} />
+          </Button>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-between">
@@ -197,9 +240,9 @@ export default function BillingPage() {
                   <Badge className="bg-green-500/20 text-green-400 border-green-500/30 mb-2">
                     {t('active')}
                   </Badge>
-                  {profile?.subscription_ends_at && (
+                  {(profile?.subscription_period_end || profile?.subscription_ends_at) && (
                     <p className="text-slate-500 text-sm">
-                      {t('renewsOn')} {new Date(profile.subscription_ends_at).toLocaleDateString()}
+                      {t('renewsOn')} {new Date(profile.subscription_period_end || profile.subscription_ends_at!).toLocaleDateString()}
                     </p>
                   )}
                 </>
