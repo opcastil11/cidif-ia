@@ -61,7 +61,7 @@ export const PLANS = {
         id: 'standard',
         name: 'Standard',
         description: 'Para equipos en crecimiento',
-        price: 50,
+        price: 1,
         priceId: process.env.STRIPE_STANDARD_PRICE_ID || null,
         limits: {
             maxProjects: 5,

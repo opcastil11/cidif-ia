@@ -502,7 +502,7 @@ export default function Home() {
                                     <h3 className="font-heading text-2xl font-bold text-foreground">{t('home.pricing.standard.name')}</h3>
                                     <p className="text-muted-foreground mt-2">{t('home.pricing.standard.description')}</p>
                                     <div className="mt-6">
-                                        <span className="text-4xl font-heading font-bold text-foreground">$50</span>
+                                        <span className="text-4xl font-heading font-bold text-foreground">$1</span>
                                         <span className="text-muted-foreground">/{t('home.pricing.monthly')}</span>
                                     </div>
                                     <Button asChild className="w-full mt-6 bg-primary hover:bg-primary/90">

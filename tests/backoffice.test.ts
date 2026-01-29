@@ -147,18 +147,18 @@ This fund supports innovation projects.
 
             const planPrices = {
                 free: 0,
-                standard: 50,
+                standard: 1,
                 max: 100,
             }
 
             const mrr = (usersByPlan.standard * planPrices.standard) + (usersByPlan.max * planPrices.max)
-            expect(mrr).toBe(450) // 5*50 + 2*100 = 250 + 200 = 450
+            expect(mrr).toBe(205) // 5*1 + 2*100 = 5 + 200 = 205
         })
 
         it('should calculate ARR from MRR', () => {
-            const mrr = 450
+            const mrr = 205
             const arr = mrr * 12
-            expect(arr).toBe(5400)
+            expect(arr).toBe(2460)
         })
 
         it('should count users by plan', () => {

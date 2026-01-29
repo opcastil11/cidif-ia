@@ -39,7 +39,7 @@ const DEFAULT_PLANS: Plan[] = [
     id: 'standard',
     name: 'Standard',
     description: 'Para equipos en crecimiento',
-    price: 50,
+    price: 1,
     features: ['Hasta 5 proyectos', 'Hasta 5 postulaciones activas', 'Asistente IA completo', 'Auto-llenado con IA', 'Investigación con IA', 'Soporte por email'],
     limits: { maxProjects: 5, maxApplications: 5, aiTokensPerMonth: 100000 },
     isActive: true,

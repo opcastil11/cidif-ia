@@ -21,7 +21,7 @@ describe('Billing Feature', () => {
   describe('Plan Configuration', () => {
     const PLANS = {
       free: { id: 'free', name: 'Free', price: 0 },
-      standard: { id: 'standard', name: 'Standard', price: 50 },
+      standard: { id: 'standard', name: 'Standard', price: 1 },
       max: { id: 'max', name: 'Max', price: 100 },
     }
 
@@ -33,8 +33,8 @@ describe('Billing Feature', () => {
       expect(PLANS.free.price).toBe(0)
     })
 
-    it('should have standard plan at $50', () => {
-      expect(PLANS.standard.price).toBe(50)
+    it('should have standard plan at $1', () => {
+      expect(PLANS.standard.price).toBe(1)
     })
 
     it('should have max plan at $100', () => {
@@ -117,7 +117,7 @@ describe('Billing Feature', () => {
       const plan = {
         id: 'standard',
         name: 'Standard',
-        price: 50,
+        price: 1,
         features: ['Feature 1', 'Feature 2'],
         limits: { maxProjects: 5, maxApplications: 5, aiTokensPerMonth: 100000 },
       }

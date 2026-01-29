@@ -28,7 +28,7 @@ const PLANS = [
   {
     id: 'standard',
     icon: Sparkles,
-    price: 50,
+    price: 1,
     popular: true,
   },
   {

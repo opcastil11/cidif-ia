@@ -128,7 +128,7 @@ export function SubscriptionCard({ currentPlan, status, periodEnd }: Subscriptio
                                 ) : (
                                     <Sparkles className="mr-2 h-4 w-4" />
                                 )}
-                                Standard - $50/mes
+                                Standard - $1/mes
                             </Button>
                             <Button
                                 onClick={() => handleSubscribe('max')}

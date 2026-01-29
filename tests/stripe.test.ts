@@ -124,7 +124,7 @@ describe('Stripe SDK Configuration', () => {
             const indexModule = await import('../lib/stripe/index')
             const { standard } = indexModule.PLANS
             expect(standard.id).toBe('standard')
-            expect(standard.price).toBe(50)
+            expect(standard.price).toBe(1)
             expect(standard.limits.maxProjects).toBe(5)
             expect(standard.limits.maxApplications).toBe(5)
         })
