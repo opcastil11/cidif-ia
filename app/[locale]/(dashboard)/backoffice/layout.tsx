@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 
 // Admin emails that can access backoffice
-const ADMIN_EMAILS = ['oscar@forcast.cl', 'oscar@forcast.tech']
+const ADMIN_EMAILS = ['oscar@forcast.cl', 'oscar@forcast.tech', 'opcastil@gmail.com']
 
 export default async function BackofficeLayout({
     children,
