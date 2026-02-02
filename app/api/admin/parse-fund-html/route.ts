@@ -3,7 +3,7 @@ import OpenAI from 'openai'
 import { createClient } from '@/lib/supabase/server'
 
 // Admin emails that can access this endpoint
-const ADMIN_EMAILS = ['oscar@forcast.cl', 'oscar@forcast.tech']
+const ADMIN_EMAILS = ['oscar@forcast.cl', 'oscar@forcast.tech', 'opcastil@gmail.com']
 
 // Initialize OpenAI lazily to avoid build errors when env var is not set
 function getOpenAI() {

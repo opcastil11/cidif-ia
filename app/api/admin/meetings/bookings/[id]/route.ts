@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
 
-const ADMIN_EMAILS = ['oscar@forcast.cl', 'oscar@forcast.tech']
+const ADMIN_EMAILS = ['oscar@forcast.cl', 'oscar@forcast.tech', 'opcastil@gmail.com']
 
 export async function PATCH(
   request: NextRequest,
