@@ -125,7 +125,7 @@ export default function Home() {
 
     const stats = [
         { value: '$50M+', label: t('home.stats.funding') },
-        { value: '500+', label: t('home.stats.projects') },
+        { value: '1000+', label: t('home.stats.projects') },
         { value: '95%', label: t('home.stats.successRate') },
         { value: '20+', label: t('home.stats.countries') },
     ]
